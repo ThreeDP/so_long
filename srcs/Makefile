@@ -9,6 +9,7 @@ L_GREEN			=			\033[0;32m
 L_GREENB		=			\033[1;32m
 ################ CONFIG		##################
 NAME			=			so_long
+HEADERS			=			so_long.h
 SRCS			=			so_long.c
 FLAGS 			= 			-Wall -Werror -Wextra
 MLX				=			-Imlx -lXext -lX11 -lm -lz
@@ -16,8 +17,9 @@ MLX				=			-Imlx -lXext -lX11 -lm -lz
 
 all: $(NAME)
 
-%.o: %.c
+%.o: %.c $(HEADERS)
 	$(CC) -I/usr/include -Imlx -O3 -c $< -o $@
 
 $(NAME): $(SRCS:.c=.o)
 	$(CC) $(SRCS:.c=.o) -Lmlx -lmlx_Linux -L/usr/lib $(MLX) -o $(NAME)
+

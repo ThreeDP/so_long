@@ -2,7 +2,7 @@
 # define SO_LONG_H
 
 # define W_WIDTH 720
-# define w_HEIGHT 420
+# define W_HEIGHT 420
 # define START_X 0
 # define START_Y 0
 
@@ -16,4 +16,4 @@ typedef struct  s_data {
     int     llen;
     int     endian;
 }               t_data;
-
+#endif
