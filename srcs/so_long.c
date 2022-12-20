@@ -32,7 +32,6 @@ void    draw_img(t_data *img, void *mlx, void *mlx_win, char c, const char *mapy
 		{
             if (c == mapy[i])
 			    mlx_put_image_to_window(mlx, mlx_win, img->img, x, y);
-    		sleep(1);
 			x += img->img_w;
             i++;
 		}

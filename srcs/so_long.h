@@ -1,8 +1,8 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# define W_WIDTH 800
-# define W_HEIGHT 640
+# define W_WIDTH 1700
+# define W_HEIGHT 1360
 # define START_X 0
 # define START_Y 0
 
