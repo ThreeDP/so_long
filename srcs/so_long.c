@@ -32,9 +32,9 @@ void    draw_img(t_data *img, void *mlx, void *mlx_win, int x, int y)
 	}
 }
 
-void	create_img(t_data *data, void *mlx)
+void	create_img(t_data *data, void *mlx, char *path)
 {	
-    data->img_path = "./textures/test.xpm";
+    data->img_path = path;
     data->img = mlx_xpm_file_to_image(mlx, data->img_path, &data->img_w, &data->img_h);
 }
 
@@ -47,7 +47,10 @@ int main(void)
     mlx = mlx_init();
     mlx_win = mlx_new_window(mlx, W_WIDTH, W_HEIGHT, "so_long");
     map = ft_lstnew((t_data *) malloc (sizeof(t_data)));
-    create_img(map->content, mlx);
+    create_img(map->content, mlx, "./textures/gree.xpm");
+    draw_img(map->content, mlx, mlx_win, START_X, START_Y);
+    map->content = (t_data *) malloc (sizeof(t_data)));
+    create_img(map->content, mlx, "./textures/test.xpm");
     draw_img(map->content, mlx, mlx_win, START_X, START_Y);
     mlx_loop(mlx);
 }
