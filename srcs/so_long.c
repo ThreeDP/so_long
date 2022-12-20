@@ -15,14 +15,16 @@
 #include "./libft/libft.h"
 #include "so_long.h"
 
-void    draw_img(t_data *img, void *mlx, void *mlx_win, int x, int y)
+void    draw_img(t_data *img, void *mlx, void *mlx_win)
 {
-	int t;
-
-	t = x;
+	int x;
+	int y;
+	
+	x = 0;
+	y = 0;
 	while (420 >= y)
 	{
-		x = t;
+		x = 0;
 		while (720 >= x)
 		{
 			mlx_put_image_to_window(mlx, mlx_win, img->img, x, y);
@@ -47,10 +49,10 @@ int main(void)
     mlx = mlx_init();
     mlx_win = mlx_new_window(mlx, W_WIDTH, W_HEIGHT, "so_long");
     map = ft_lstnew((t_data *) malloc (sizeof(t_data)));
-    create_img(map->content, mlx, "./textures/gree.xpm");
-    draw_img(map->content, mlx, mlx_win, START_X, START_Y);
-    map->content = (t_data *) malloc (sizeof(t_data)));
+    create_img(map->content, mlx, "./textures/green.xpm");
+    draw_img(map->content, mlx, mlx_win);
+    map->content = (t_data *) malloc (sizeof(t_data));
     create_img(map->content, mlx, "./textures/test.xpm");
-    draw_img(map->content, mlx, mlx_win, START_X, START_Y);
+    draw_img(map->content, mlx, mlx_win);
     mlx_loop(mlx);
 }
