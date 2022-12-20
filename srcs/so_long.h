@@ -7,13 +7,10 @@
 # define START_Y 0
 
 typedef struct  s_data {
-    void    *img;
-    char    *img_path;
-    int     img_w;
-    int     img_h;
-    char    *addr;
-    int     bpp;
-    int     llen;
-    int     endian;
+    void	*img;
+    char	*img_path;
+    int		img_w;
+    int		img_h;
 }               t_data;
+
 #endif

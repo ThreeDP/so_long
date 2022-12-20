@@ -12,30 +12,42 @@
 
 #include <mlx.h>
 #include <stdio.h>
+#include "./libft/libft.h"
 #include "so_long.h"
 
-/*
-void    draw_img(t_data *data, int x, int y)
+void    draw_img(t_data *img, void *mlx, void *mlx_win, int x, int y)
 {
+	int t;
 
-}*/
+	t = x;
+	while (420 >= y)
+	{
+		x = t;
+		while (720 >= x)
+		{
+			mlx_put_image_to_window(mlx, mlx_win, img->img, x, y);
+			x += img->img_w;
+		}
+		y += img->img_h;
+	}
+}
+
+void	create_img(t_data *data, void *mlx)
+{	
+    data->img_path = "./textures/test.xpm";
+    data->img = mlx_xpm_file_to_image(mlx, data->img_path, &data->img_w, &data->img_h);
+}
 
 int main(void)
 {
-    void    *mlx;
-    void    *mlx_win;
-    t_data  img;
+    void	*mlx;
+    void	*mlx_win;
+    t_list	*map;
 
     mlx = mlx_init();
     mlx_win = mlx_new_window(mlx, W_WIDTH, W_HEIGHT, "so_long");
-    printf("\nprimeiro\n");
-    img.img_path = "./textures/test.png";
-    printf("segundo\n");
-    img.img = mlx_xpm_file_to_image(mlx, img.img_path, &img.img_w, &img.img_h);
-    printf("terceiro\n");
-    //img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.llen, &img.endian);
-    //draw_img(&img, START_X, START_Y);
-    mlx_put_image_to_window(mlx, mlx_win, img.img, START_X, START_Y);
-    printf("quarto\n");
+    map = ft_lstnew((t_data *) malloc (sizeof(t_data)));
+    create_img(map->content, mlx);
+    draw_img(map->content, mlx, mlx_win, START_X, START_Y);
     mlx_loop(mlx);
 }
