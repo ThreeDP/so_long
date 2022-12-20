@@ -16,21 +16,25 @@
 #include "./libft/libft.h"
 #include "so_long.h"
 
-void    draw_img(t_data *img, void *mlx, void *mlx_win)
+void    draw_img(t_data *img, void *mlx, void *mlx_win, char c, const char *mapy)
 {
 	int x;
 	int y;
+    int i;
 	
 	x = 0;
 	y = 0;
-	while (420 >= y)
+    i = 0;
+	while (640 >= y)
 	{
 		x = 0;
-		while (720 >= x)
+		while (800 >= x)
 		{
-			mlx_put_image_to_window(mlx, mlx_win, img->img, x, y);
-    			sleep(1);
+            if (c == mapy[i])
+			    mlx_put_image_to_window(mlx, mlx_win, img->img, x, y);
+    		sleep(1);
 			x += img->img_w;
+            i++;
 		}
 		y += img->img_h;
 	}
@@ -52,10 +56,11 @@ int main(void)
     mlx = mlx_init();
     mlx_win = mlx_new_window(mlx, W_WIDTH, W_HEIGHT, "so_long");
     map = ft_lstnew((t_data *) malloc (sizeof(t_data)));
-    create_img(map->content, mlx, "./textures/green.xpm");
-    draw_img(map->content, mlx, mlx_win);
+    create_img(map->content, mlx, "./textures/map/p-02.xpm");
+    draw_img(map->content, mlx, mlx_win, '1', MAPY);
     map1 = ft_lstnew((t_data *) malloc (sizeof(t_data)));
-    create_img(map1->content, mlx, "./textures/test.xpm");
-    draw_img(map1->content, mlx, mlx_win);
+    create_img(map1->content, mlx, "./textures/players/t-02.xpm");
+    draw_img(map1->content, mlx, mlx_win, 'p', MAPY);
     mlx_loop(mlx);
 }
+
