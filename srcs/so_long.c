@@ -12,6 +12,7 @@
 
 #include <mlx.h>
 #include <stdio.h>
+#include <unistd.h>
 #include "./libft/libft.h"
 #include "so_long.h"
 
@@ -28,6 +29,7 @@ void    draw_img(t_data *img, void *mlx, void *mlx_win)
 		while (720 >= x)
 		{
 			mlx_put_image_to_window(mlx, mlx_win, img->img, x, y);
+    			sleep(1);
 			x += img->img_w;
 		}
 		y += img->img_h;
@@ -45,14 +47,15 @@ int main(void)
     void	*mlx;
     void	*mlx_win;
     t_list	*map;
+    t_list	*map1;
 
     mlx = mlx_init();
     mlx_win = mlx_new_window(mlx, W_WIDTH, W_HEIGHT, "so_long");
     map = ft_lstnew((t_data *) malloc (sizeof(t_data)));
     create_img(map->content, mlx, "./textures/green.xpm");
     draw_img(map->content, mlx, mlx_win);
-    map->content = (t_data *) malloc (sizeof(t_data));
-    create_img(map->content, mlx, "./textures/test.xpm");
-    draw_img(map->content, mlx, mlx_win);
+    map1 = ft_lstnew((t_data *) malloc (sizeof(t_data)));
+    create_img(map1->content, mlx, "./textures/test.xpm");
+    draw_img(map1->content, mlx, mlx_win);
     mlx_loop(mlx);
 }
