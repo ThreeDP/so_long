@@ -25,10 +25,10 @@ void    draw_img(t_data *img, void *mlx, void *mlx_win, char c, const char *mapy
 	x = 0;
 	y = 0;
     i = 0;
-	while (640 >= y)
+	while (W_HEIGHT >= y)
 	{
 		x = 0;
-		while (800 >= x)
+		while (W_WIDTH >= x)
 		{
             if (c == mapy[i])
 			    mlx_put_image_to_window(mlx, mlx_win, img->img, x, y);
