@@ -16,24 +16,30 @@
 #include "./libft/libft.h"
 #include "so_long.h"
 
-void    draw_img(t_data *img, void *mlx, void *mlx_win, char c, const char *mapy)
+void    draw_img(t_data *img, t_data *img1, void *mlx, void *mlx_win,  const char *mapy)
 {
 	int x;
 	int y;
-    int i;
+	int i;
 	
 	x = 0;
 	y = 0;
-    i = 0;
-	while (W_HEIGHT >= y)
+	i = 0;
+	while (374 >= y)
 	{
 		x = 0;
-		while (W_WIDTH >= x)
+		while (816 >= x)
 		{
-            if (c == mapy[i++])
-			    mlx_put_image_to_window(mlx, mlx_win, img->img, x, y);
+			if ('p' == mapy[i])
+				mlx_put_image_to_window(mlx, mlx_win, img1->img, x, y);
+			if ('1' == mapy[i])
+				mlx_put_image_to_window(mlx, mlx_win, img->img, x, y);	
+			printf("\neixo X:\t%i", x);
+			printf("\teixo Y:\t%i\n", y);
 			x += img->img_w;
+            		i++;
 		}
+		x -= img->img_w;
 		y += img->img_h;
         
 	}
@@ -56,10 +62,9 @@ int main(void)
     mlx_win = mlx_new_window(mlx, W_WIDTH, W_HEIGHT, "so_long");
     map = ft_lstnew((t_data *) malloc (sizeof(t_data)));
     create_img(map->content, mlx, "./textures/map/p-02.xpm");
-    draw_img(map->content, mlx, mlx_win, '1', MAPY);
     map1 = ft_lstnew((t_data *) malloc (sizeof(t_data)));
     create_img(map1->content, mlx, "./textures/players/t-02.xpm");
-    draw_img(map1->content, mlx, mlx_win, 'p', MAPY);
+    draw_img(map->content, map1->content,  mlx, mlx_win, MAPY);
     mlx_loop(mlx);
 }
 
