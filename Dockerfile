@@ -10,9 +10,18 @@ RUN apt-get install clang -y
 RUN apt-get install valgrind -y
 RUN apt-get install python3 -y
 RUN apt-get install python3-venv python3-pip -y
-RUN apt-get install xorg libxext-dev zlib1g-dev libbsd-dev
 RUN python3 -m pip install --upgrade pip setuptools
 RUN python3 -m pip install norminette
+RUN apt-get install xorg libxext-dev zlib1g-dev libbsd-dev -y
+ENV PATH=${PATH}:/usr/bin/env
+ADD /srcs/mlx_linux/ /mlx_linux
+WORKDIR /mlx_linux
+RUN cp mlx.h /usr/local/include/
+RUN mkdir /usr/local/man/man3
+RUN cp man/man3/*.3 /usr/local/man/man3
+RUN make
+RUN mv libmlx_Linux.a /usr/local/lib/
+
 
 WORKDIR /prod
 

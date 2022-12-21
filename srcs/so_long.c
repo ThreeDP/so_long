@@ -30,12 +30,12 @@ void    draw_img(t_data *img, void *mlx, void *mlx_win, char c, const char *mapy
 		x = 0;
 		while (W_WIDTH >= x)
 		{
-            if (c == mapy[i])
+            if (c == mapy[i++])
 			    mlx_put_image_to_window(mlx, mlx_win, img->img, x, y);
 			x += img->img_w;
-            i++;
 		}
 		y += img->img_h;
+        
 	}
 }
 

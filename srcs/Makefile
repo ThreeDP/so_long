@@ -14,16 +14,16 @@ SRCS			=			so_long.c
 LIBS_PATH		=			./libft
 LIBS			=			-L $(LIBS_PATH) -lft
 FLAGS 			= 			-Wall -Werror -Wextra
-MLX			=			-Imlx -lXext -lX11 -lm -lz
+MLX				=			-Imlx_linux -lXext -lX11 -lm -lz
 ################ RULES		##################
 
 all: $(LIBS_PATH) $(NAME)
 
 %.o: %.c $(HEADERS)
-	$(CC) -I/usr/include -Imlx -I $(LIBS_PATH) $(LIBS) -O3 -c $< -o $@
+	$(CC) -I/usr/include -Imlx_linux -I $(LIBS_PATH) $(LIBS) -O3 -c $< -o $@
 
 $(NAME): $(SRCS:.c=.o)
-	$(CC) $(SRCS:.c=.o) -Lmlx -lmlx_Linux -L/usr/lib $(MLX) -I $(LIBS_PATH) $(LIBS) -o $(NAME)
+	$(CC) $(SRCS:.c=.o) -Lmlx_linux -lmlx_Linux -L/usr/lib $(MLX) -I $(LIBS_PATH) $(LIBS) -o $(NAME)
 
 $(LIBS_PATH):
 	$(MAKE) bonus -C $(LIBS_PATH) --no-print-directory
