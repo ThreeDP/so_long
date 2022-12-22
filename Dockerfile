@@ -19,9 +19,16 @@ WORKDIR /mlx_linux
 RUN cp mlx.h /usr/local/include/
 RUN mkdir /usr/local/man/man3
 RUN cp man/man3/*.3 /usr/local/man/man3
-RUN make
 RUN mv libmlx_Linux.a /usr/local/lib/
-
+RUN apt-get install xrdp xfce4 xfce4-goodies -y
+RUN sed -i 's/3389/8000/g' /etc/xrdp/xrdp.ini
+RUN sed -i 's/max_bpp=32/#max_bpp=32\nmax_bpp=128/g' /etc/xrdp/xrdp.ini
+RUN sed -i 's/xserverbpp=24/#xserverbpp=24\nxserverbpp=128/g' /etc/xrdp/xrdp.ini
+RUN echo xfce4-session > ~/.xsession
+RUN sed -i 's/test -x \/etc\/X11\/Xsession && exec \/etc\/X11\/Xsession/#test -x \/etc\/X11\/Xsession && exec \/etc\/X11\/Xsession/g' /etc/xrdp/startwm.sh
+RUN sed -i 's/exec \/bin\/sh \/etc\/X11\/Xsession/#exec \/bin\/sh \/etc\/X11\/Xsession\n#Xfce4\nstartxfce4/g' /etc/xrdp/startwm.sh
+RUN /etc/init.d/xrdp start
+EXPOSE 8000
 
 WORKDIR /prod
 
