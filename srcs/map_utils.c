@@ -65,19 +65,15 @@ t_map   *get_map(int fd)
 
     i = 1;
     col = get_next_line(fd);
-    if (!col)
-        return (NULL);
     map = ft_mapnew(i, col);
     if (!map)
         return (NULL);
     next = map;
     back = NULL;
-    while (1)
+    while (next)
     {
         back = next;
         col = get_next_line(fd);
-        if (!col)
-            break ;
         next = next->next;
         next = ft_mapnew(i++, col);
         next->back = back;
