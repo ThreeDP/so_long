@@ -73,10 +73,10 @@ t_map   *get_map(int fd)
     while (next)
     {
         back = next;
-        next->next = ft_mapnew(i++, get_next_line(fd));
+        next = next->next;
+        next = ft_mapnew(i++, get_next_line(fd));
         if (!next->next)
             break ;
-        next = next->next;
         next->back = back;
     }
     return (map);
