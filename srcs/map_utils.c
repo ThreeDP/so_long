@@ -18,8 +18,6 @@ t_map   *ft_mapnew(int line, char *cols)
 {
     t_map   *map;
 
-    if (!cols)
-        return (NULL);
     map = malloc(sizeof(t_map));
     if (!map)
         return (NULL);
@@ -63,9 +61,13 @@ t_map   *get_map(int fd)
     t_map   *map;
     t_map   *back;
     t_map   *next;
+    char    *col;
 
     i = 1;
-    map = ft_mapnew(i, get_next_line(fd));
+    col = get_next_line(fd);
+    if (!col)
+        return (NULL);
+    map = ft_mapnew(i, col);
     if (!map)
         return (NULL);
     next = map;
@@ -73,10 +75,11 @@ t_map   *get_map(int fd)
     while (next)
     {
         back = next;
-        next = next->next;
-        next = ft_mapnew(i++, get_next_line(fd));
-        if (!next->next)
+        col = get_next_line(fd);
+        if (!col)
             break ;
+        next = next->next;
+        next = ft_mapnew(i++, col);
         next->back = back;
     }
     return (map);
