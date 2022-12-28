@@ -25,7 +25,7 @@ MU_TEST_SUITE(passing_char_0_to_the_is_path_function_should_be_1)
     exp_cols[3]                 = "100011100C01\n";
     exp_cols[4]                 = "100P111000E1\n";
     exp_cols[5]                 = "111111111111";
-    
+
     //ACT
     map = get_map(fd);
 
@@ -34,7 +34,7 @@ MU_TEST_SUITE(passing_char_0_to_the_is_path_function_should_be_1)
     {
         mu_assert(back == map->back, "address is different");
         mu_assert_string_eq(exp_cols[i++], map->cols);
-        back = map->next;
+        back = map;
         map = map->next;
     }
 }
