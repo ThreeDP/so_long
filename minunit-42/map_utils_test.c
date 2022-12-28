@@ -13,6 +13,8 @@ void    clear_map(t_map **map, void (*del)(void *))
     while (next)
     {
         head = head->next;
+        if (next->back)
+            free(next->back);
         if (next->cols)
             del(next->cols);
         if (next)
