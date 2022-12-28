@@ -1,0 +1,12 @@
+name: get map
+on: [push]
+jobs:
+  get-map:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: minunit
+    steps:
+    - uses: actions/checkout@v2
+    - name: get map
+      run: make mu

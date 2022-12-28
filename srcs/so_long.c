@@ -13,33 +13,30 @@
 #include <mlx.h>
 #include <stdio.h>
 #include <unistd.h>
-#include "./libft/libft.h"
+#include "./libft/srcs/libft.h"
 #include "so_long.h"
 
 void    draw_img(t_data *img, t_data *img1, void *mlx, void *mlx_win,  const char *mapy)
 {
-	int x;
-	int y;
 	int i;
+	int	x;
+	int y;
 	
-	x = 0;
-	y = 0;
 	i = 0;
-	while (374 >= y)
+	y = 0;
+	while (mapy[i])
 	{
 		x = 0;
-		while (816 >= x)
+		while (mapy[i] != '\n')
 		{
 			if ('p' == mapy[i])
 				mlx_put_image_to_window(mlx, mlx_win, img1->img, x, y);
 			if ('1' == mapy[i])
 				mlx_put_image_to_window(mlx, mlx_win, img->img, x, y);	
-			printf("\neixo X:\t%i", x);
-			printf("\teixo Y:\t%i\n", y);
 			x += img->img_w;
-            		i++;
+            i++;
 		}
-		x -= img->img_w;
+		i++;
 		y += img->img_h;
         
 	}

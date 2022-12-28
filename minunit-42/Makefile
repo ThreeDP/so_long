@@ -50,3 +50,9 @@ u:	$(HEADERS)
 	@echo	"$(L_YELLOWB)[RUN utils_test.c]$(L_WHITE)"
 	@./utils.o
 
+mu:	$(HEADERS)
+	$(CC) map_utils_test.c $(DIR)map_utils.c $(DIR)/get_next_line/get_next_line.c $(DIR)/get_next_line/get_next_line_utils.c $(FLAGS) -o map_utils.o
+	@echo	"$(L_YELLOWB)[RUN map_utils_test.c]$(L_WHITE)"
+	@./map_utils.o
+
+

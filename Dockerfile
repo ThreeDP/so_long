@@ -1,7 +1,7 @@
 FROM ubuntu:latest
 
 RUN apt-get update -y
-RUN apt-get install -y --no-install-recommends apt-utils
+RUN apt-get install -y
 RUN apt-get install gcc -y
 RUN apt-get install make -y
 RUN apt-get install git -y
@@ -27,8 +27,8 @@ RUN sed -i 's/xserverbpp=24/#xserverbpp=24\nxserverbpp=128/g' /etc/xrdp/xrdp.ini
 RUN echo xfce4-session > ~/.xsession
 RUN sed -i 's/test -x \/etc\/X11\/Xsession && exec \/etc\/X11\/Xsession/#test -x \/etc\/X11\/Xsession && exec \/etc\/X11\/Xsession/g' /etc/xrdp/startwm.sh
 RUN sed -i 's/exec \/bin\/sh \/etc\/X11\/Xsession/#exec \/bin\/sh \/etc\/X11\/Xsession\n#Xfce4\nstartxfce4/g' /etc/xrdp/startwm.sh
-#RUN /etc/init.d/xrdp start
-RUN useradd -m solong && echo "solong:game" | chpasswd && adduser solong sudo
+#CMD ["/etc/init.d/xrdp", "start"]
+RUN useradd -m solong && echo "solong:game" | chpasswd && adduser solong sudo && addgroup solong sudo
 
 EXPOSE 8000
 
