@@ -16,6 +16,7 @@ MU_TEST_SUITE(passing_char_0_to_the_is_path_function_should_be_1)
     //ARRANGE
     int         i               = 0;
     t_map       *map;
+    t_map       *next           = NULL;
     t_map       *back            = NULL;
     int         fd              = open("maps_test/valid_map.ber", O_RDONLY);
     char        *exp_cols[6];
@@ -32,8 +33,8 @@ MU_TEST_SUITE(passing_char_0_to_the_is_path_function_should_be_1)
     //ASSERTS
     while (map)
     {
-        mu_assert_string_eq(exp_cols[i++], map->cols);
         mu_assert(back == map->back, "address is different");
+        mu_assert_string_eq(exp_cols[i++], map->cols);
         back = map->next;
         map = map->next;
     }
