@@ -74,8 +74,8 @@ t_map   *get_map(int fd)
     {
         back = next;
         col = get_next_line(fd);
+        next->next = ft_mapnew(i++, col);
         next = next->next;
-        next = ft_mapnew(i++, col);
         next->back = back;
     }
     return (map);
