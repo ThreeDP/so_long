@@ -3,7 +3,7 @@
 #include "../srcs/get_next_line/get_next_line.h"
 #include "minunit.h"
 
-void    clear_map(t_map **map, void (*del)(void *))
+void    clear_map(t_map **map)
 {
     t_map   *head;
     t_map   *next;
@@ -16,9 +16,9 @@ void    clear_map(t_map **map, void (*del)(void *))
         if (next->back)
             free(next->back);
         if (next->cols)
-            del(next->cols);
+            free(next->cols);
         if (next)
-            del(next);
+            free(next);
         next = head;
     }
     *map = NULL;
@@ -50,7 +50,7 @@ MU_TEST_SUITE(passing_char_0_to_the_is_path_function_should_be_1)
         back = map;
         map = map->next;
     }
-    clear_map(&map, free);
+    clear_map(&map);
 }
 
 MU_TEST_SUITE(test_suite)
