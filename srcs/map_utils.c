@@ -72,7 +72,7 @@ t_map   *get_map(int fd)
         return (NULL);
     next = map;
     back = NULL;
-    while (next)
+    while (1)
     {
         back = next;
         col = get_next_line(fd);
