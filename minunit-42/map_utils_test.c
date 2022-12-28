@@ -16,7 +16,6 @@ MU_TEST_SUITE(passing_char_0_to_the_is_path_function_should_be_1)
     //ARRANGE
     int         i               = 0;
     t_map       *map;
-    t_map       *next           = NULL;
     t_map       *back            = NULL;
     int         fd              = open("maps_test/valid_map.ber", O_RDONLY);
     char        *exp_cols[6];
