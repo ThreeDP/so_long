@@ -14,7 +14,7 @@ void    clear_map(t_map **map, void (*del)(void *))
     {
         head = head->next;
         if (next->back)
-            free(next->back);
+            del(next->back);
         if (next->cols)
             del(next->cols);
         if (next)
@@ -29,6 +29,7 @@ MU_TEST_SUITE(passing_char_0_to_the_is_path_function_should_be_1)
     //ARRANGE
     int         i               = 0;
     t_map       *map;
+    t_map       *fmap;
     t_map       *back            = NULL;
     int         fd              = open("maps_test/valid_map.ber", O_RDONLY);
     char        *exp_cols[6];
@@ -41,7 +42,7 @@ MU_TEST_SUITE(passing_char_0_to_the_is_path_function_should_be_1)
 
     //ACT
     map = get_map(fd);
-
+    fmap = map;
     //ASSERTS
     while (map)
     {
@@ -50,7 +51,7 @@ MU_TEST_SUITE(passing_char_0_to_the_is_path_function_should_be_1)
         back = map;
         map = map->next;
     }
-    clear_map(&map, free);
+    clear_map(&fmap, free);
 }
 
 MU_TEST_SUITE(test_suite)
