@@ -44,7 +44,8 @@ t_map   *ft_maplast(t_map *map)
 
 void    ft_mapadd_back(t_map **map, t_map *new)
 {
-    t_map *tail;
+    t_map   *tail;
+    t_map   *now;
 
     if (!map || !new)
         return ;
@@ -52,31 +53,27 @@ void    ft_mapadd_back(t_map **map, t_map *new)
     if (tail == NULL)
         *map = new;
     else
+    {
+        now = tail;
         tail->next = new;
+        tail = tail->next;
+        tail->back = now;
+    }
 }
 
 t_map   *get_map(int fd)
 {
     int     i;
     t_map   *map;
-    t_map   *back;
-    t_map   *next;
     char    *col;
 
     i = 1;
-    back = NULL;
+    map = NULL;
     col = (char *)get_next_line(fd);
-    map = ft_mapnew(i++, col);
-    next = map;
     while (col)
     {
+        ft_mapadd_back(&map, ft_mapnew(i++, col));
         col = (char *)get_next_line(fd);
-        back = next;
-        if (!col)
-            break ;
-        next = next->next;
-        next = ft_mapnew(i++, col);
-        next->back = back;
     }
     return (map);
 }

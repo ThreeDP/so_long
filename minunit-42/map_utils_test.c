@@ -12,7 +12,7 @@ void    clear_map(t_map **map, void (*del)(void *))
     next = *map;
     while (next)
     {
-        head = head->next;
+        head = next->next;
         if (next->back)
             del(next->back);
         if (next->cols)
