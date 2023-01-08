@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapaulin <dapaulin@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 17:15:10 by dapaulin          #+#    #+#             */
-/*   Updated: 2022/12/17 17:15:10 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/07 19:57:30 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <unistd.h>
 #include "./libft/srcs/libft.h"
 #include "so_long.h"
+#include "utils.h"
 
 void    draw_img(t_data *img, t_data *img1, void *mlx, void *mlx_win,  const char *mapy)
 {
@@ -48,20 +49,24 @@ void	create_img(t_data *data, void *mlx, char *path)
     data->img = mlx_xpm_file_to_image(mlx, data->img_path, &data->img_w, &data->img_h);
 }
 
-int main(void)
+int main(int ac, char **av)
 {
+	int		fd;
     void	*mlx;
     void	*mlx_win;
     t_list	*map;
-    t_list	*map1;
 
+	if (ac != 2)
+		return (1);
+	fd = open(av[1], O_RDONLY);
+	if (!fd)
+		return (1);
     mlx = mlx_init();
     mlx_win = mlx_new_window(mlx, W_WIDTH, W_HEIGHT, "so_long");
-    map = ft_lstnew((t_data *) malloc (sizeof(t_data)));
-    create_img(map->content, mlx, "./textures/map/p-02.xpm");
-    map1 = ft_lstnew((t_data *) malloc (sizeof(t_data)));
-    create_img(map1->content, mlx, "./textures/players/t-02.xpm");
-    draw_img(map->content, map1->content,  mlx, mlx_win, MAPY);
+    map = get_map(fd);
+	
+    create_img(map->content, mlx, "./textures/players/t-02.xpm");
+    draw_img(map->content, map->content,  mlx, mlx_win, MAPY);
     mlx_loop(mlx);
 }
 

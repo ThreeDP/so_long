@@ -10,23 +10,23 @@ L_GREENB		=			\033[1;32m
 ################ CONFIG		##################
 NAME			=			so_long
 HEADERS			=			so_long.h
-SRCS			=			so_long.c
-LIBS_PATH		=			./libft/srcs
+SRCS			=			so_long.c utils.c map_utils.c
+LIBS_PATH		=			./libft/srcs/
 LIBS			=			-L $(LIBS_PATH) -lft
 FLAGS 			= 			-Wall -Werror -Wextra
 MLX				=			-Imlx_linux -lXext -lX11 -lm -lz
 ################ RULES		##################
 
-all: $(LIBS_PATH) $(NAME)
+all: libft $(NAME)
 
 %.o: %.c $(HEADERS)
-	$(CC) -I/usr/include -Imlx_linux -I $(LIBS_PATH) $(LIBS) -O3 -c $< -o $@
+	$(CC) -I /usr/include -I mlx_linux -I $(LIBS_PATH) $(LIBS) -O3 -c $< -o $@
 
 $(NAME): $(SRCS:.c=.o)
-	$(CC) $(SRCS:.c=.o) -Lmlx_linux -lmlx_Linux -L/usr/lib $(MLX) -I $(LIBS_PATH) $(LIBS) -o $(NAME)
+	$(CC) $(SRCS:.c=.o) -L mlx_linux -l mlx_Linux -L /usr/lib $(MLX) -I $(LIBS_PATH) $(LIBS) -o $(NAME)
 
-$(LIBS_PATH):
-	$(MAKE) bonus -C $(LIBS_PATH) --no-print-directory
+libft:
+	$(MAKE) -C $(LIBS_PATH) --no-print-directory
 
 clean:
 	@rm	-f *.o
@@ -37,5 +37,5 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: $(LIBS_PATH)  re fclean clean all
+.PHONY: libft re fclean clean all
 
