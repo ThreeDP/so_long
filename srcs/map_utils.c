@@ -3,30 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapaulin <dapaulin@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 11:59:26 by dapaulin          #+#    #+#             */
-/*   Updated: 2022/12/28 11:59:26 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/08 03:30:15 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include "./get_next_line/get_next_line.h"
+#include "libft/srcs/libft.h"
 #include "utils.h"
 
-t_map   *ft_mapnew(int line, char *cols)
-{
-    t_map   *map;
 
-    map = (t_map *)malloc(sizeof(t_map));
-    if (!map)
-        return (NULL);
-    map->line = line;
-    map->cols = cols;
-    map->back = NULL;
-    map->next = NULL;
-    return (map);
-}
 
 t_map   *ft_maplast(t_map *map)
 {
@@ -61,6 +50,25 @@ void    ft_mapadd_back(t_map **map, t_map *new)
     }
 }
 
+void    clear_map(t_map **map, void (*del)(void *))
+{
+    t_map   *head;
+    t_map   *next;
+
+    head = *map;
+    next = *map;
+    while (next)
+    {
+        head = next->next;
+        if (next->cols)
+            del(next->cols);
+        if (next)
+            del(next);
+        next = head;
+    }
+    *map = NULL;
+}
+
 t_map   *get_map(int fd)
 {
     int     i;
@@ -72,8 +80,8 @@ t_map   *get_map(int fd)
     col = (char *)get_next_line(fd);
     while (col)
     {
-        ft_mapadd_back(&map, ft_mapnew(i++, col));
-        col = (char *)get_next_line(fd);
+        ft_mapadd_back(&map, ft_mapnew(i++, col, ft_strlen(col)));
+        col = get_next_line(fd);
     }
     return (map);
 }
