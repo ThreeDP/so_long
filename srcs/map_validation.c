@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 19:03:31 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/08 03:24:20 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/08 05:38:41 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ size_t  searching(char *str, t_info **info)
 
     size = 0;
     if (!is_wall(str[size]))
-        return (0);
+       return ((*info)->err += ERRW, 0);
     size++;
     while (str[size])
     {
@@ -52,7 +52,7 @@ size_t  searching(char *str, t_info **info)
         size++;
     }
     if (!is_wall(str[size - 1]))
-        return (0);
+        return ((*info)->err += ERRW, 0);
     return (size);
 }
 
@@ -65,19 +65,23 @@ int map_validation(t_map *map, t_info **info)
     amount_cols = map->amount_cols;
     while (map && map->next)
     {
-        if(map->line == 1 && map->amount_cols != all_wall(map->cols))
-            return (0);
-        else if (map->amount_cols != searching(map->cols, info))
-            return (0);
         if(map->amount_cols != amount_cols)
+            return ((*info)->err += ERRS, 0);
+        if(map->line == 1 && map->amount_cols != all_wall(map->cols))
+            return ((*info)->err += ERRW, 0);
+        else if (map->amount_cols != searching(map->cols, info))
             return (0);
         map = map->next;
     }
     if ((*info)->p != 1)
-        return (0);
+        return ((*info)->err += ERRP, 0);
     if ((*info)->e != 1)
-        return (0);
+        return ((*info)->err += ERRE, 0);
+    if ((*info)->c < 1)
+        return ((*info)->err += ERRC, 0);
     if(map->amount_cols != all_wall(map->cols))
-        return (0);
+        return ((*info)->err += ERRW, 0);
+    if(map->amount_cols != amount_cols)
+        return ((*info)->err += ERRS, 0);
     return (1);
 }
