@@ -64,4 +64,10 @@ mv:	$(HEADERS)
 	@echo	"$(L_YELLOWB)[RUN map_validation_test.c]$(L_WHITE)"
 	@valgrind -s --track-origins=yes --error-exitcode=42 --leak-check=full ./map_validation.o
 
+mp:	$(HEADERS)
+	$(MAKE) -C $(LIBFT_PATH) --no-print-directory
+	$(CC) 	-g map_path_test.c $(DIR)map_validation.c $(DIR)create.c $(DIR)err.c $(DIR)map_path.c $(DIR)map_utils.c $(DIR)utils.c $(GNL) $(LIBFT_PATH)libft.a $(FLAGS) -o map_path.o
+	@echo	"$(L_YELLOWB)[RUN map_path_test.c]$(L_WHITE)"
+	@valgrind -s --track-origins=yes --error-exitcode=42 --leak-check=full ./map_path.o
+
 
