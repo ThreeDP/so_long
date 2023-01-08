@@ -12,6 +12,8 @@ DIR_OUTS		=			./outs/
 DIR				=			../srcs/
 SRCS 			= 			$(wildcard ./*.c)
 RUN				=			$(addprefix $(DIR_OUTS), $(srcs))
+GNL				=			$(DIR)/get_next_line/get_next_line.c $(DIR)/get_next_line/get_next_line_utils.c
+LIBFT_PATH		=			../srcs/libft/srcs/
 HEADERS_TEST 	= 			minunit.h
 HEADERS			=			../srcs/utils.h
 FLAGS 			= 			-Wall -Werror -Wextra
@@ -31,7 +33,7 @@ norm:
 	@cd 		$(DIR) && $(MAKE) $@
 
 clean_outs:
-	@rm 		-f $(DIR_OUTS)
+	@rm 		-f $(DIR_OUTS)/*.o
 
 cleant:
 	@rm			-f $(SRCS:.c=.o)
@@ -51,8 +53,15 @@ u:	$(HEADERS)
 	@./utils.o
 
 mu:	$(HEADERS)
-	$(CC) 	-g map_utils_test.c $(DIR)map_utils.c $(DIR)/get_next_line/get_next_line.c $(DIR)/get_next_line/get_next_line_utils.c $(FLAGS) -o map_utils.o
+	$(MAKE) -C $(LIBFT_PATH) --no-print-directory
+	$(CC) 	-g map_utils_test.c $(DIR)map_utils.c $(DIR)create.c $(GNL) $(LIBFT_PATH)libft.a $(FLAGS) -o map_utils.o
 	@echo	"$(L_YELLOWB)[RUN map_utils_test.c]$(L_WHITE)"
 	@valgrind -s --track-origins=yes --error-exitcode=42 --leak-check=full ./map_utils.o
+
+mv:	$(HEADERS)
+	$(MAKE) -C $(LIBFT_PATH) --no-print-directory
+	$(CC) 	-g map_validation_test.c $(DIR)map_validation.c $(DIR)create.c $(DIR)err.c $(DIR)map_utils.c $(DIR)utils.c $(GNL) $(LIBFT_PATH)libft.a $(FLAGS) -o map_validation.o
+	@echo	"$(L_YELLOWB)[RUN map_validation_test.c]$(L_WHITE)"
+	@valgrind -s --track-origins=yes --error-exitcode=42 --leak-check=full ./map_validation.o
 
 
