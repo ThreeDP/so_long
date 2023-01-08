@@ -30,7 +30,7 @@ MU_TEST_SUITE(passing_char_0_to_the_is_path_function_should_be_1)
     while (map)
     {
         mu_assert(back == map->back, "address is different");
-        mu_assert_int_eq(amout_cols[i], map->amout_cols);
+        mu_assert_int_eq(amout_cols[i], map->amount_cols);
         mu_assert_string_eq(exp_cols[i++], map->cols);
         back = map;
         map = map->next;
