@@ -10,8 +10,10 @@ L_GREENB		=			\033[1;32m
 ################ CONFIG		##################
 NAME			=			so_long
 HEADERS			=			so_long.h
-SRCS			=			so_long.c utils.c map_utils.c
 LIBS_PATH		=			./libft/srcs/
+GNL_PATH		=			./get_next_line/
+SRCS_GNL		=			$(addprefix $(GNL_PATH), get_next_line.c get_next_line_utils.c)
+SRCS			=			so_long.c utils.c map_utils.c map_validation.c create.c err.c
 LIBS			=			-L $(LIBS_PATH) -lft
 FLAGS 			= 			-Wall -Werror -Wextra
 MLX				=			-Imlx_linux -lXext -lX11 -lm -lz
@@ -22,8 +24,8 @@ all: libft $(NAME)
 %.o: %.c $(HEADERS)
 	$(CC) -I /usr/include -I mlx_linux -I $(LIBS_PATH) $(LIBS) -O3 -c $< -o $@
 
-$(NAME): $(SRCS:.c=.o)
-	$(CC) $(SRCS:.c=.o) -L mlx_linux -l mlx_Linux -L /usr/lib $(MLX) -I $(LIBS_PATH) $(LIBS) -o $(NAME)
+$(NAME): $(SRCS_GNL:.c=.o) $(SRCS:.c=.o)
+	$(CC) $(SRCS:.c=.o) $(SRCS_GNL:.c=.o) -L mlx_linux -l mlx_Linux -L /usr/lib $(MLX) -I $(LIBS_PATH) $(LIBS) -o $(NAME)
 
 libft:
 	$(MAKE) -C $(LIBS_PATH) --no-print-directory

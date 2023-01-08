@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 17:15:10 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/07 19:57:30 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/08 06:48:45 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "./libft/srcs/libft.h"
 #include "so_long.h"
 #include "utils.h"
-
+/*
 void    draw_img(t_data *img, t_data *img1, void *mlx, void *mlx_win,  const char *mapy)
 {
 	int i;
@@ -49,24 +49,31 @@ void	create_img(t_data *data, void *mlx, char *path)
     data->img = mlx_xpm_file_to_image(mlx, data->img_path, &data->img_w, &data->img_h);
 }
 
+void	openwin(t_map *map, t_info *info)
+{
+	void	*mlx;
+    void	*mlx_win;
+	
+	mlx = mlx_init();
+    mlx_win = mlx_new_window(mlx, W_WIDTH, W_HEIGHT, "so_long");
+    mlx_loop(mlx);
+}
+*/
 int main(int ac, char **av)
 {
 	int		fd;
-    void	*mlx;
-    void	*mlx_win;
-    t_list	*map;
+    t_map	*map;
+	t_info	*info;
 
 	if (ac != 2)
 		return (1);
 	fd = open(av[1], O_RDONLY);
 	if (!fd)
 		return (1);
-    mlx = mlx_init();
-    mlx_win = mlx_new_window(mlx, W_WIDTH, W_HEIGHT, "so_long");
     map = get_map(fd);
-	
-    create_img(map->content, mlx, "./textures/players/t-02.xpm");
-    draw_img(map->content, map->content,  mlx, mlx_win, MAPY);
-    mlx_loop(mlx);
+	info = ft_newinfo();
+	if (!map_validation(map, &info))
+		handle_err(&map, &info);
+	return (0);
 }
 

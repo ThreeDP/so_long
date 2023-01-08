@@ -22,12 +22,12 @@
 # define ERRF 5
 
 # define ERR "Error\n"
-# define ERRPLAYER "No player in the map!"
-# define ERREXIT "No exit in the map!"
-# define ERRWALL "The wall is broken!"
-# define ERRCOLLEC "No collecs in the map!"
-# define ERRSHAPE "Map in wrong shape!"
-# define ERRPHATH "No valid path!"
+# define ERRPLAYER "No player in the map!\n"
+# define ERREXIT "No exit in the map!\n"
+# define ERRWALL "The wall is broken!\n"
+# define ERRCOLLEC "No collecs in the map!\n"
+# define ERRSHAPE "Map in wrong shape!\n"
+# define ERRPHATH "No valid path!\n"
 
 typedef struct  s_data {
     void	*img;
@@ -67,5 +67,7 @@ t_map       *ft_maplast(t_map *map);
 t_map       *get_map(int fd);
 
 void    merr(char *err);
+void    handle_err(t_map **map, t_info **info);
+void    map_path(t_map **map, int x, int *c);
 
 #endif
