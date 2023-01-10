@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 03:30:17 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/08 04:53:54 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/10 03:14:50 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ t_info  *ft_newinfo(void)
     info->e = 0;
     info->walk = 0;
     info->err = 'A';
+    info->n_lines = 0;
     return (info);  
 }
