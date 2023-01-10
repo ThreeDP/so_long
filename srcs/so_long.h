@@ -14,6 +14,11 @@
 # define START_X 0
 # define START_Y 0
 
+# define A 97
+# define D 100
+# define W 115
+# define S 119
+
 # define ERRP 15
 # define ERRE 4
 # define ERRW 22
@@ -31,18 +36,23 @@
 # define ERRSHAPE "Map in wrong shape!\n"
 # define ERRPHATH "No valid path!\n"
 
+# define PATHP "./textures/player.xpm"
+# define PATHW "./textures/wall.xpm"
+# define PATHF "./textures/floor.xpm"
+# define PATHC "./textures/collec.xpm"
+# define PATHE "./textures/exit.xpm"
+
 typedef struct  s_data {
 	void	*img;
-	char	*img_path;
-	int		img_w;
-	int		img_h;
+	int		w;
+	int		h;
 }               t_data;
 
 typedef struct a_map
 {
 	int             line;
 	char            *cols;
-	size_t          amount_cols;
+	size_t          n_cols;
 	struct a_map    *back;
 	struct a_map    *next;
 }               t_map;
@@ -52,9 +62,18 @@ typedef struct s_info
 	int     p;
 	int     e;
 	int     c;
-	int     walk;
 	char    err;
+	int     walk;
 	int		n_lines;
+	void	*mlx;
+	void	*win;
+	t_map	*map;
+	t_data	*exit;
+	t_data	*collec;
+	t_data	*wall;
+	t_data	*floor;
+	t_data	*player;
+
 }               t_info;
 
 // Map utils
@@ -65,7 +84,7 @@ t_map       *ft_maplast(t_map *map);
 t_map       *get_map(int fd);
 
 // Created Structs
-t_map       *ft_mapnew(int line, char *cols, size_t amount_cols);
+t_map       *ft_mapnew(int line, char *cols, size_t n_cols);
 t_info      *ft_newinfo(void);
 
 // Game tools

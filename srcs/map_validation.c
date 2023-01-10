@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 19:03:31 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/10 03:20:08 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/10 06:36:22 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,17 +81,17 @@ int     path_validation(t_map *map, t_info *info)
 int map_validation(t_map *map, t_info **info)
 {
     int     i;
-    size_t  amount_cols;
+    size_t  n_cols;
 
     i = 0;
-    amount_cols = map->amount_cols;
+    n_cols = map->n_cols;
     while (map && map->next)
     {
-        if(map->amount_cols != amount_cols)
+        if(map->n_cols != n_cols)
             return ((*info)->err += ERRS, 0);
-        if(map->line == 1 && map->amount_cols != all_wall(map->cols))
+        if(map->line == 1 && map->n_cols != all_wall(map->cols))
             return ((*info)->err += ERRW, 0);
-        else if (map->amount_cols != search_elems(map->cols, info))
+        else if (map->n_cols != search_elems(map->cols, info))
             return (0);
         map = map->next;
     }
@@ -101,9 +101,9 @@ int map_validation(t_map *map, t_info **info)
         return ((*info)->err += ERRE, 0);
     if ((*info)->c < 1)
         return ((*info)->err += ERRC, 0);
-    if(map->amount_cols != all_wall(map->cols))
+    if(map->n_cols != all_wall(map->cols))
         return ((*info)->err += ERRW, 0);
-    if(map->amount_cols != amount_cols)
+    if(map->n_cols != n_cols)
         return ((*info)->err += ERRS, 0);
     (*info)->n_lines = map->line;
     return (1);

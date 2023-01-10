@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 03:42:07 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/10 03:49:25 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/10 19:59:51 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,53 +14,123 @@
 #include "utils.h"
 #include "so_long.h"
 
-int	key_hook(int keycode, t_map *map)
+void	my_swap(char *p, char *w, int *c)
 {
-	printf("'%s \t%i'\n", map->cols, keycode);
+	char	x;
+
+	x = '0';
+	if (*w == 'C')
+	{
+		*w = '0';
+		*c -= 1;
+	}
+	else if (*w == 'E' && *c == 0)
+		*w = '0';
+	x = *p;
+	*p = *w;
+	*w = x;
+}
+
+int	key_hook(int keycode, t_info *info)
+{
+	char x;
+	int		pos;
+	t_map	*map;
+	t_map	*back;
+	t_map	*next;
+
+	map = info->map;
+	pos = find_player(&map, 'P');
+	if (map->back)
+		back = map->back;
+	else
+		back = map;
+	if (next->next)
+		next = map->next;
+	else
+		next = map;
+	printf("\n%i\t%i\n", keycode, info->c);
+	if (keycode == A && !(map->cols[pos - 1] == '1') && (!(map->cols[pos - 1] == 'E') || info->c == 0))
+		my_swap(&map->cols[pos], &map->cols[pos - 1], &info->c);
+	else if (keycode == D && !(map->cols[pos + 1] == '1') && (!(map->cols[pos + 1] == 'E') || info->c == 0))
+		my_swap(&(map->cols[pos]), &(map->cols[pos + 1]), &info->c);
+	else if (keycode == W && !(next->cols[pos] == '1') && (!(next->cols[pos] == 'E') || info->c == 0))
+		my_swap(&(map->cols[pos]), &(next->cols[pos]), &info->c);
+	else if (keycode == S && !(back->cols[pos] == '1') && (!(back->cols[pos] == 'E') || info->c == 0))
+		my_swap(&(map->cols[pos]), &(back->cols[pos]), &info->c);
+	return (0);
+}
+
+void	set_elem(void *mlx, t_data *elem, char *path)
+{
+	elem->w = 0;
+	elem->h = 0;
+	elem->img = mlx_xpm_file_to_image(mlx, path, &elem->w, &elem->h);
+	
+}
+
+void	set_elems(t_info *info)
+{
+	set_elem(info->mlx, info->player, PATHP);
+	set_elem(info->mlx, info->wall, PATHW);
+	set_elem(info->mlx, info->floor, PATHF);
+	set_elem(info->mlx, info->collec, PATHC);
+	set_elem(info->mlx, info->exit, PATHE);
+}
+
+int    draw_img(t_info *info)
+{
+	int i;
+	int	x;
+	int y;
+	t_map	*map;
+	
+	y = 0;
+	x = 0;
+	map = info->map;
+	while (map)
+	{
+		x = 0;
+		i = 0;
+		while (map->cols[i])
+		{
+			if ('0' == map->cols[i])
+				mlx_put_image_to_window(info->mlx, info->win, info->floor->img, x, y);
+			else if ('1' == map->cols[i])
+				mlx_put_image_to_window(info->mlx, info->win, info->wall->img, x, y);
+			else if ('C' == map->cols[i])
+				mlx_put_image_to_window(info->mlx, info->win, info->collec->img, x, y);
+			else if ('E' == map->cols[i])
+				mlx_put_image_to_window(info->mlx, info->win, info->exit->img, x, y);
+			else if ('P' == map->cols[i])
+				mlx_put_image_to_window(info->mlx, info->win, info->player->img, x, y);
+			x += PXL;
+            i++;
+		}
+		i++;
+		y += PXL;
+		if (!map->next)
+			break ;
+		map = map->next;
+	}
 	return (0);
 }
 
 void	start_game(t_map *map, t_info *info)
 {
-	void	*mlx;
-    void	*mlx_win;
+	int		created;
 	
-	mlx = mlx_init();
-    mlx_win = mlx_new_window(mlx, PXL * map->amount_cols, PXL * info->n_lines, "so_long");
-    mlx_key_hook(mlx_win, key_hook, map);
-    mlx_loop(mlx);
-}
-
-/*
-void    draw_img(t_data *img, t_data *img1, void *mlx, void *mlx_win,  const char *mapy)
-{
-	int i;
-	int	x;
-	int y;
-	
-	i = 0;
-	y = 0;
-	while (mapy[i])
+	created = 0;
+	info->map = map;
+	info->mlx = mlx_init();
+	if (!created)
 	{
-		x = 0;
-		while (mapy[i] != '\n')
-		{
-			if ('p' == mapy[i])
-				mlx_put_image_to_window(mlx, mlx_win, img1->img, x, y);
-			if ('1' == mapy[i])
-				mlx_put_image_to_window(mlx, mlx_win, img->img, x, y);	
-			x += img->img_w;
-            i++;
-		}
-		i++;
-		y += img->img_h;
-        
+		set_elems(info);
+		created = 1;
 	}
+    info->win = mlx_new_window(info->mlx, PXL * map->n_cols, PXL * info->n_lines, "so_long");
+	//draw_img(info);
+	mlx_key_hook(info->win, key_hook, info);
+	mlx_loop_hook(info->mlx, &draw_img, info);
+    mlx_loop(info->mlx);
 }
-
-void	create_img(t_data *data, void *mlx, char *path)
-{	
-    data->img_path = path;
-    data->img = mlx_xpm_file_to_image(mlx, data->img_path, &data->img_w, &data->img_h);
-}
-*/
