@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 19:03:31 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/10 02:50:29 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/10 03:20:08 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ int map_validation(t_map *map, t_info **info)
         return ((*info)->err += ERRW, 0);
     if(map->amount_cols != amount_cols)
         return ((*info)->err += ERRS, 0);
+    (*info)->n_lines = map->line;
     return (1);
 }
 
