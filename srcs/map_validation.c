@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 19:03:31 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/08 05:38:41 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/10 02:50:29 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ size_t  all_wall(char *wall)
     return (i);
 }
 
-size_t  searching(char *str, t_info **info)
+size_t  search_elems(char *str, t_info **info)
 {
     size_t  size;
 
@@ -56,6 +56,28 @@ size_t  searching(char *str, t_info **info)
     return (size);
 }
 
+int     path_validation(t_map *map, t_info *info)
+{
+    char    *p;
+    int     x;
+
+    p = NULL;
+    x = find_player(&map, 'P');
+    map_path(map, x);
+    while (map->back)
+        map = map->back;
+    while (map)
+    {
+        if (ft_strchr(map->cols, 'E') || ft_strchr(map->cols, 'C'))
+        {
+            info->err += ERRF;
+            return (1);
+        }
+        map = map->next;
+    }
+    return (0);
+}
+
 int map_validation(t_map *map, t_info **info)
 {
     int     i;
@@ -69,7 +91,7 @@ int map_validation(t_map *map, t_info **info)
             return ((*info)->err += ERRS, 0);
         if(map->line == 1 && map->amount_cols != all_wall(map->cols))
             return ((*info)->err += ERRW, 0);
-        else if (map->amount_cols != searching(map->cols, info))
+        else if (map->amount_cols != search_elems(map->cols, info))
             return (0);
         map = map->next;
     }
@@ -84,4 +106,22 @@ int map_validation(t_map *map, t_info **info)
     if(map->amount_cols != amount_cols)
         return ((*info)->err += ERRS, 0);
     return (1);
+}
+
+void    map_path(t_map *map, int x)
+{
+
+    if (map->cols[x] == '1' || map->cols[x] == 'X' || map->cols[x] == 'S')
+        return ;
+    if (map->cols[x] == 'E')
+    {
+        map->cols[x] = 'S';
+        return ;
+    }
+    else
+        map->cols[x] = 'X';
+    map_path(map->next, x);
+    map_path(map->back, x);
+    map_path(map, x + 1);
+    map_path(map, x - 1);
 }
