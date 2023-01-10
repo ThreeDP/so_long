@@ -14,7 +14,6 @@ MU_TEST_SUITE(test)
     int         i               = 0;
     t_map       *map;
     t_map       *fmap;
-    int         c               = 3;
     int         fd              = open("maps_test/valid_map.ber", O_RDONLY);
     char        *exp_cols[6];
     exp_cols[0]                 = "111111111111";
@@ -31,7 +30,7 @@ MU_TEST_SUITE(test)
     map = map->next;
     map = map->next;
     map = map->next;
-    map_path(&map, 3, &c);
+    map_path(map, 3);
 
     while (map->back)
         map = map->back;
@@ -51,7 +50,6 @@ MU_TEST_SUITE(test2)
     int         i               = 0;
     t_map       *map;
     t_map       *fmap;
-    int         c               = 3;
     int         fd              = open("maps_test/close_collecs.ber", O_RDONLY);
     char        *exp_cols[6];
     exp_cols[0]                 = "111111111111";
@@ -68,7 +66,7 @@ MU_TEST_SUITE(test2)
     map = map->next;
     map = map->next;
     map = map->next;
-    map_path(&map, 3, &c);
+    map_path(map, 3);
 
     while (map->back)
         map = map->back;
@@ -88,7 +86,6 @@ MU_TEST_SUITE(test3)
     int         i               = 0;
     t_map       *map;
     t_map       *fmap;
-    int         c               = 3;
     int         fd              = open("maps_test/exit_close.ber", O_RDONLY);
     char        *exp_cols[6];
     exp_cols[0]                 = "111111111111";
@@ -105,7 +102,7 @@ MU_TEST_SUITE(test3)
     map = map->next;
     map = map->next;
     map = map->next;
-    map_path(&map, 3, &c);
+    map_path(map, 3);
 
     while (map->back)
         map = map->back;
