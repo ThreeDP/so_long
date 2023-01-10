@@ -6,11 +6,13 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 07:35:41 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/08 09:18:20 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/09 23:57:58 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+
 
 void    map_path(t_map **map, int x, int *c)
 {

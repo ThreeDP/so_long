@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 11:59:26 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/08 06:10:47 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/10 01:13:26 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,23 @@ void    clear_map(t_map **map, void (*del)(void *))
         next = head;
     }
     *map = NULL;
+}
+
+t_map   *cpy_map(t_map *map)
+{
+    char    *cols;
+    t_map   *cpy;
+
+    cpy = NULL;
+    while (map)
+    {
+        cols = ft_strdup(map->cols);
+        ft_mapadd_back(&cpy, ft_mapnew(map->line, cols, map->amount_cols));
+        map = map->next;
+    }
+    while (cpy->back)
+        cpy = cpy->back;
+    return (cpy);
 }
 
 t_map   *get_map(int fd)
