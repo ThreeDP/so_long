@@ -10,10 +10,12 @@ L_GREENB		=			\033[1;32m
 ################ CONFIG		##################
 DIR_OUTS		=			./outs/
 DIR				=			../srcs/
+SRCSSL			=			$(addprefix $(DIR), map_validation.c create.c err.c game_tools.c map_utils.c utils.c)
 SRCS 			= 			$(wildcard ./*.c)
 RUN				=			$(addprefix $(DIR_OUTS), $(srcs))
 GNL				=			$(DIR)/get_next_line/get_next_line.c $(DIR)/get_next_line/get_next_line_utils.c
 LIBFT_PATH		=			../srcs/libft/srcs/
+
 HEADERS_TEST 	= 			minunit.h
 HEADERS			=			../srcs/utils.h
 FLAGS 			= 			-Wall -Werror -Wextra
@@ -54,24 +56,32 @@ u:	$(HEADERS)
 
 mu:	$(HEADERS)
 	$(MAKE) -C $(LIBFT_PATH) --no-print-directory
-	$(CC) 	-g map_utils_test.c $(DIR)map_utils.c $(DIR)create.c $(GNL) $(LIBFT_PATH)libft.a $(FLAGS) -o map_utils.o
+	$(CC) 	-g map_utils_test.c $(SRCSSL) $(GNL) $(LIBFT_PATH)libft.a $(FLAGS) -o map_utils.o
 	@echo	"$(L_YELLOWB)[RUN map_utils_test.c]$(L_WHITE)"
 	@valgrind -s --track-origins=yes --error-exitcode=42 --leak-check=full ./map_utils.o
 
 mv:	$(HEADERS)
 	$(MAKE) -C $(LIBFT_PATH) --no-print-directory
-	$(CC) 	-g map_validation_test.c $(DIR)map_validation.c $(DIR)create.c $(DIR)err.c $(DIR)map_utils.c $(DIR)utils.c $(GNL) $(LIBFT_PATH)libft.a $(FLAGS) -o map_validation.o
+	$(CC) 	-g map_validation_test.c $(SRCSSL) $(GNL) $(LIBFT_PATH)libft.a $(FLAGS) -o map_validation.o
 	@echo	"$(L_YELLOWB)[RUN map_validation_test.c]$(L_WHITE)"
 	@valgrind -s --track-origins=yes --error-exitcode=42 --leak-check=full ./map_validation.o
 
 mp:	$(HEADERS)
 	$(MAKE) -C $(LIBFT_PATH) --no-print-directory
-	$(CC) 	-g map_path_test.c $(DIR)map_validation.c $(DIR)create.c $(DIR)err.c $(DIR)map_path.c $(DIR)map_utils.c $(DIR)utils.c $(GNL) $(LIBFT_PATH)libft.a $(FLAGS) -o map_path.o
+	$(CC) 	-g map_path_test.c $(SRCSSL) $(GNL) $(LIBFT_PATH)libft.a $(FLAGS) -o map_path.o
 	@echo	"$(L_YELLOWB)[RUN map_path_test.c]$(L_WHITE)"
 	@valgrind -s --track-origins=yes --error-exitcode=42 --leak-check=full ./map_path.o
 
 cpy:	$(HEADERS)
 	$(MAKE) -C $(LIBFT_PATH) --no-print-directory
-	$(CC) 	-g cpy_map_test.c $(DIR)map_validation.c $(DIR)create.c $(DIR)err.c $(DIR)map_path.c $(DIR)map_utils.c $(DIR)utils.c $(GNL) $(LIBFT_PATH)libft.a $(FLAGS) -o cpy_map.o
+	$(CC) 	-g cpy_map_test.c $(SRCSSL) $(GNL) $(LIBFT_PATH)libft.a $(FLAGS) -o cpy_map.o
 	@echo	"$(L_YELLOWB)[RUN cpy_map_test.c]$(L_WHITE)"
 	@valgrind -s --track-origins=yes --error-exitcode=42 --leak-check=full ./cpy_map.o
+
+pv:	$(HEADERS)
+	$(MAKE) -C $(LIBFT_PATH) --no-print-directory
+	$(CC) 	-g path_validation_test.c $(SRCSSL) $(GNL) $(LIBFT_PATH)libft.a $(FLAGS) -o path_validation.o
+	@echo	"$(L_YELLOWB)[RUN path_validation_test.c]$(L_WHITE)"
+	@valgrind -s --track-origins=yes --error-exitcode=42 --leak-check=full ./path_validation.o
+
+a: u mu mv mp cpy vp
