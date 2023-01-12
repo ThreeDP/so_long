@@ -6,13 +6,14 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 03:42:07 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/11 22:41:37 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/12 01:48:17 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mlx.h>
 #include "utils.h"
 #include "so_long.h"
+#include "./libft/srcs/libft.h"
 
 void	my_swap(char *p, char *w, int *c)
 {
@@ -31,6 +32,27 @@ void	my_swap(char *p, char *w, int *c)
 	*w = x;
 }
 
+int end_game(t_info *info)
+{
+	mlx_destroy_image(info->mlx, info->exit->img);
+	mlx_destroy_image(info->mlx, info->collec->img);
+	mlx_destroy_image(info->mlx, info->wall->img);
+	mlx_destroy_image(info->mlx, info->floor->img);
+	mlx_destroy_image(info->mlx, info->player->img);
+	clear_map(&info->map, free);
+	free(info->exit);
+	free(info->collec);
+	free(info->wall);
+	free(info->floor);
+	free(info->player);
+	mlx_clear_window(info->mlx, info->win);
+	mlx_destroy_window(info->mlx, info->win);
+	mlx_destroy_display(info->mlx);
+	free(info->mlx);
+	free(info);
+	exit(0);
+}
+
 int	key_hook(int keycode, t_info *info)
 {
 	char x;
@@ -39,6 +61,8 @@ int	key_hook(int keycode, t_info *info)
 	t_map	*back;
 	t_map	*next;
 
+	if (keycode == ESC)
+		end_game(info);
 	map = info->map;
 	pos = find_player(&map, 'P');
 	if (map->back)
@@ -117,26 +141,7 @@ int    draw_img(t_info *info)
 	return (0);
 }
 
-int end_game(t_info *info)
-{
-	mlx_destroy_image(info->mlx, info->exit->img);
-	mlx_destroy_image(info->mlx, info->collec->img);
-	mlx_destroy_image(info->mlx, info->wall->img);
-	mlx_destroy_image(info->mlx, info->floor->img);
-	mlx_destroy_image(info->mlx, info->player->img);
-	clear_map(&info->map, free);
-	free(info->exit);
-	free(info->collec);
-	free(info->wall);
-	free(info->floor);
-	free(info->player);
-	mlx_clear_window(info->mlx, info->win);
-	mlx_destroy_window(info->mlx, info->win);
-	mlx_destroy_display(info->mlx);
-	free(info->mlx);
-	free(info);
-	exit(0);
-}
+
 
 void	start_game(t_map *map, t_info *info)
 {
@@ -144,6 +149,8 @@ void	start_game(t_map *map, t_info *info)
 	
 	created = 0;
 	info->map = map;
+	if (vdc("testeb.er", ".ber"))
+		printf("\ndeu Certo\n");
 	info->mlx = mlx_init();
 	if (!created)
 	{
@@ -151,7 +158,7 @@ void	start_game(t_map *map, t_info *info)
 		created = 1;
 	}
     info->win = mlx_new_window(info->mlx, PXL * map->n_cols, PXL * info->n_lines, "so_long");
-	mlx_hook(info->win, 2, 1L<<0, end_game, info);
+	mlx_hook(info->win, 17, 0L, end_game, info);
 	mlx_key_hook(info->win, key_hook, info);
 	mlx_loop_hook(info->mlx, &draw_img, info);
 	if (map)

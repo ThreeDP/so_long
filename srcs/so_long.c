@@ -6,13 +6,23 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 17:15:10 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/11 22:33:04 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/12 01:49:45 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./libft/srcs/libft.h"
 #include "so_long.h"
 #include "utils.h"
+
+size_t  all_wall(char *wall)
+{
+    size_t  i;
+
+    i = 0;
+    while (is_wall(wall[i]))
+        i++;
+    return (i);
+}
 
 int main(int ac, char **av)
 {
