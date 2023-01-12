@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 17:15:10 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/12 01:49:45 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/12 01:56:57 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int main(int ac, char **av)
 
 	if (ac != 2)
 		return (1);
+	if (check_extension(av[1], ".ber"))
+		merr(ERREXT);
 	fd = open(av[1], O_RDONLY);
 	if (!fd)
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 03:42:07 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/12 01:48:17 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/12 01:53:01 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,8 +149,6 @@ void	start_game(t_map *map, t_info *info)
 	
 	created = 0;
 	info->map = map;
-	if (vdc("testeb.er", ".ber"))
-		printf("\ndeu Certo\n");
 	info->mlx = mlx_init();
 	if (!created)
 	{

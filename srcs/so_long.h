@@ -49,6 +49,7 @@ enum {
 # define ERRCOLLEC "No collecs in the map!\n"
 # define ERRSHAPE "Map in wrong shape!\n"
 # define ERRPHATH "No valid path!\n"
+# define ERREXT "Extension not valid!\n"
 
 # define PATHP "./textures/player.xpm"
 # define PATHW "./textures/wall.xpm"
