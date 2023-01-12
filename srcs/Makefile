@@ -14,7 +14,7 @@ LIBS_PATH		=			./libft/srcs/
 GNL_PATH		=			./get_next_line/
 SRCS_GNL		=			$(addprefix $(GNL_PATH), get_next_line.c get_next_line_utils.c)
 
-SRCS			=			window_tools.c game_tools.c so_long.c utils.c 	\
+SRCS			=			window_tools.c game_tools.c so_long.c utils.c map_images.c \
 							create.c err.c map_utils.c map_validation.c
 							
 LIBS			=			-L $(LIBS_PATH) -lft
@@ -32,6 +32,9 @@ $(NAME): $(SRCS_GNL:.c=.o) $(SRCS:.c=.o)
 
 libft:
 	$(MAKE) -C $(LIBS_PATH) --no-print-directory
+
+n:
+	norminette $(SRCS)
 
 v:
 	valgrind --track-origins=yes --error-exitcode=42 --leak-check=full --show-leak-kinds=all ./so_long ../minunit-42/maps_test/valid_map.ber

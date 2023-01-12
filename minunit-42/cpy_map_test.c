@@ -27,7 +27,7 @@ MU_TEST_SUITE(test)
     {
         mu_assert_string_eq(map->cols, cpy->cols);
         mu_assert_int_eq(map->line, cpy->line);
-        mu_assert_int_eq(map->amount_cols, cpy->amount_cols);
+        mu_assert_int_eq(map->n_cols, cpy->n_cols);
         map = map->next;
         cpy = cpy->next;
     }

@@ -14,7 +14,7 @@ MU_TEST_SUITE(passing_char_0_to_the_is_path_function_should_be_1)
     t_map       *back           = NULL;
     int         fd              = open("maps_test/valid_map.ber", O_RDONLY);
     char        *exp_cols[6];
-    size_t      amout_cols[]     = {12, 12, 12, 12, 12, 12};
+    size_t      amount_cols[]     = {12, 12, 12, 12, 12, 12};
     exp_cols[0]                 = "111111111111";
     exp_cols[1]                 = "1000000C0001";
     exp_cols[2]                 = "1C1110000001";
@@ -30,7 +30,7 @@ MU_TEST_SUITE(passing_char_0_to_the_is_path_function_should_be_1)
     while (map)
     {
         mu_assert(back == map->back, "address is different");
-        mu_assert_int_eq(amout_cols[i], map->amount_cols);
+        mu_assert_int_eq(amount_cols[i], map->n_cols);
         mu_assert_string_eq(exp_cols[i++], map->cols);
         back = map;
         map = map->next;

@@ -10,37 +10,49 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int is_path(char c)
+#include "utils.h"
+
+int	is_path(char c)
 {
-    if (c == '0')
-        return (1);
-    return (0);
+	if (c == '0')
+		return (1);
+	return (0);
 }
 
-int is_wall(char c)
+int	is_wall(char c)
 {
-    if (c == '1')
-        return (1);
-    return (0);
+	if (c == '1')
+		return (1);
+	return (0);
 }
 
-int is_collec(char c)
+int	is_collec(char c)
 {
-    if (c == 'C')
-        return (1);
-    return (0);
+	if (c == 'C')
+		return (1);
+	return (0);
 }
 
-int is_exit(char c)
+int	is_exit(char c)
 {
-    if (c == 'E')
-        return (1);
-    return (0);
+	if (c == 'E')
+		return (1);
+	return (0);
 }
 
-int is_player(char c)
+int	is_player(char c)
 {
-    if (c == 'P')
-        return (1);
-    return (0);
+	if (c == 'P')
+		return (1);
+	return (0);
+}
+
+size_t	all_wall(char *wall)
+{
+	size_t	i;
+
+	i = 0;
+	while (is_wall(wall[i]))
+		i++;
+	return (i);
 }

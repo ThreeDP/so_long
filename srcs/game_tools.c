@@ -6,26 +6,58 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 02:43:17 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/10 11:28:46 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/12 09:04:49 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include "./libft/srcs/libft.h"
 
-int find_player(t_map **map, char c)
+void	my_swap(char *p, char *w, int *c)
 {
-    char *cols;
+	char	x;
 
-    cols = ft_strchr((*map)->cols, c);
-    while (!cols)
-    {
-        if (!(*map)->next)
-            break ;
-        *map = (*map)->next;
-        cols = ft_strchr((*map)->cols, c);
-    }
-    if (cols)
-        return (cols - (*map)->cols);
-    return (0);
+	x = '0';
+	if (*w == 'C')
+	{
+		*w = '0';
+		*c -= 1;
+	}
+	else if (*w == 'E' && *c == 0)
+		*w = '0';
+	x = *p;
+	*p = *w;
+	*w = x;
+}
+
+void	move_player(int pos, t_info *info, int x, char *new_pos)
+{
+	char	*m_cols;
+
+
+	m_cols = info->map->cols;
+	if (new_pos[x] != '1' && (new_pos[x] != 'E' || info->c == 0))
+	{
+		my_swap(&m_cols[pos], &new_pos[x], &info->c);
+		info->walk++;
+	}
+	while (info->map->back)
+		info->map = info->map->back;
+}
+
+int	find_player(t_map **map, char c)
+{
+	char	*cols;
+
+	cols = ft_strchr((*map)->cols, c);
+	while (!cols)
+	{
+		if (!(*map)->next)
+			break ;
+		*map = (*map)->next;
+		cols = ft_strchr((*map)->cols, c);
+	}
+	if (cols)
+		return (cols - (*map)->cols);
+	return (0);
 }

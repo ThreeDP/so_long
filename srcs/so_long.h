@@ -104,21 +104,28 @@ t_info      *ft_newinfo(void);
 
 // Game tools
 int			find_player(t_map **map, char c);
+void		move_player(int pos, t_info *info, int x, char *y);
+
+// Map Images
+void		set_elem(void *mlx, t_data *elem, char *path);
+void		set_elems(t_info *info);
+void		put_images(t_info *d, char *cols, int y);
+int			put_in_window(t_info *info);
 
 // Game windows
 void		start_game(t_map *map, t_info *info);
+int			end_game(t_info *info);
+int			key_hook(int keycode, t_info *info);
 
 // Validations
 int         map_validation(t_map *map, t_info **info);
 int         path_validation(t_map *map, t_info *info);
 size_t  	search_elems(char *str, t_info **info);
 void        map_path(t_map *map, int x);
+int			check_extension(char const *s1, char const *set);
 
 // Error Handle
 void        merr(char *err);
 void        handle_err(t_map **map, t_info **info);
-
-// Utils
-size_t  	all_wall(char *wall);
 
 #endif

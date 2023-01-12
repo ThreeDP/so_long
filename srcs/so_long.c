@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 17:15:10 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/12 01:56:57 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/12 08:31:30 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,10 @@
 #include "so_long.h"
 #include "utils.h"
 
-size_t  all_wall(char *wall)
-{
-    size_t  i;
-
-    i = 0;
-    while (is_wall(wall[i]))
-        i++;
-    return (i);
-}
-
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	int		fd;
-    t_map	*map;
+	t_map	*map;
 	t_map	*cpy;
 	t_info	*info;
 
@@ -38,7 +28,7 @@ int main(int ac, char **av)
 	fd = open(av[1], O_RDONLY);
 	if (!fd)
 		return (1);
-    map = get_map(fd);
+	map = get_map(fd);
 	close(fd);
 	cpy = cpy_map(map);
 	info = ft_newinfo();
@@ -49,9 +39,8 @@ int main(int ac, char **av)
 		clear_map(&cpy, free);
 		handle_err(&map, &info);
 	}
-	else 
+	else
 		clear_map(&cpy, free);
 	start_game(map, info);
 	return (0);
 }
-
