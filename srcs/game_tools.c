@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 02:43:17 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/12 13:14:50 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/12 13:42:07 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	move_player(int pos, t_info *info, int x, char *new_pos)
 		end_game(info);
 	}
 }
+
 
 int	find_player(t_map **map, char c)
 {
