@@ -28,10 +28,13 @@ all: libft $(NAME)
 	$(CC) -I /usr/include -I mlx_linux -I $(LIBS_PATH) $(LIBS) -O3 -c $< -o $@
 
 $(NAME): $(SRCS_GNL:.c=.o) $(SRCS:.c=.o)
-	$(CC) $(SRCS:.c=.o) $(SRCS_GNL:.c=.o) -L mlx_linux -l mlx_Linux -L /usr/lib $(MLX) -I $(LIBS_PATH) $(LIBS) -o $(NAME)
+	$(CC) -g $(SRCS:.c=.o) $(SRCS_GNL:.c=.o) -L mlx_linux -l mlx_Linux -L /usr/lib $(MLX) -I $(LIBS_PATH) $(LIBS) -o $(NAME)
 
 libft:
 	$(MAKE) -C $(LIBS_PATH) --no-print-directory
+
+v:
+	valgrind --track-origins=yes --error-exitcode=42 --leak-check=full --show-leak-kinds=all ./so_long ../minunit-42/maps_test/valid_map.ber
 
 clean:
 	@rm	-f *.o

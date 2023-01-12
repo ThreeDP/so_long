@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 17:15:10 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/10 11:19:02 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/11 22:33:04 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int main(int ac, char **av)
 		clear_map(&cpy, free);
 		handle_err(&map, &info);
 	}
+	else 
+		clear_map(&cpy, free);
 	start_game(map, info);
-	clear_map(&map, free);
-	free(info);
 	return (0);
 }
 

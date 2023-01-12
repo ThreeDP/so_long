@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 03:42:07 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/10 19:59:51 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/11 22:41:37 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ int	key_hook(int keycode, t_info *info)
 		next = map->next;
 	else
 		next = map;
-	printf("\n%i\t%i\n", keycode, info->c);
+	info->walk++;
+	printf("\n%i\t%i\t%i\n", keycode, info->c, info->walk);
 	if (keycode == A && !(map->cols[pos - 1] == '1') && (!(map->cols[pos - 1] == 'E') || info->c == 0))
 		my_swap(&map->cols[pos], &map->cols[pos - 1], &info->c);
 	else if (keycode == D && !(map->cols[pos + 1] == '1') && (!(map->cols[pos + 1] == 'E') || info->c == 0))
@@ -116,6 +117,27 @@ int    draw_img(t_info *info)
 	return (0);
 }
 
+int end_game(t_info *info)
+{
+	mlx_destroy_image(info->mlx, info->exit->img);
+	mlx_destroy_image(info->mlx, info->collec->img);
+	mlx_destroy_image(info->mlx, info->wall->img);
+	mlx_destroy_image(info->mlx, info->floor->img);
+	mlx_destroy_image(info->mlx, info->player->img);
+	clear_map(&info->map, free);
+	free(info->exit);
+	free(info->collec);
+	free(info->wall);
+	free(info->floor);
+	free(info->player);
+	mlx_clear_window(info->mlx, info->win);
+	mlx_destroy_window(info->mlx, info->win);
+	mlx_destroy_display(info->mlx);
+	free(info->mlx);
+	free(info);
+	exit(0);
+}
+
 void	start_game(t_map *map, t_info *info)
 {
 	int		created;
@@ -129,8 +151,9 @@ void	start_game(t_map *map, t_info *info)
 		created = 1;
 	}
     info->win = mlx_new_window(info->mlx, PXL * map->n_cols, PXL * info->n_lines, "so_long");
-	//draw_img(info);
+	mlx_hook(info->win, 2, 1L<<0, end_game, info);
 	mlx_key_hook(info->win, key_hook, info);
 	mlx_loop_hook(info->mlx, &draw_img, info);
-    mlx_loop(info->mlx);
+	if (map)
+		mlx_loop(info->mlx);
 }

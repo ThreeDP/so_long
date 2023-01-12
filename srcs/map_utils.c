@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 11:59:26 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/10 06:36:26 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/11 22:13:03 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ t_map   *cpy_map(t_map *map)
         ft_mapadd_back(&cpy, ft_mapnew(map->line, cols, map->n_cols));
         map = map->next;
     }
+
     while (cpy->back)
         cpy = cpy->back;
     return (cpy);

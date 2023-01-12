@@ -14,10 +14,24 @@
 # define START_X 0
 # define START_Y 0
 
+/*
 # define A 97
 # define D 100
 # define W 115
 # define S 119
+*/
+
+enum {
+	A = 97,
+	D = 100,
+	W = 115,
+	S = 119,
+	LEFT = 65361,
+	UP = 65362,
+	RIGHT = 65363,
+	DOWN = 65364,
+	ESC = 65307
+};
 
 # define ERRP 15
 # define ERRE 4
