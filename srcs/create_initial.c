@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create.c                                           :+:      :+:    :+:   */
+/*   create_initial.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 03:30:17 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/12 02:16:39 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/12 12:36:29 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include "utils.h"
+#include "./get_next_line/get_next_line.h"
 
 t_map	*ft_mapnew(int line, char *cols, size_t n_cols)
 {
@@ -50,4 +51,45 @@ t_info	*ft_newinfo(void)
 	info->floor = (t_data *) malloc(sizeof(t_data));
 	info->player = (t_data *) malloc(sizeof(t_data));
 	return (info);
+}
+
+void	check_screen_size(char **av)
+{
+	int		fd;
+	char	*str;
+	int		lines;
+	int		cols;
+	
+	lines = 0;
+	cols = 0;
+	fd = open(av[1], O_RDONLY);
+	if (fd < 0)
+		merr(ERRNOF);
+	while (1)
+	{
+		str = get_next_line(fd);
+		if (!str)
+			break ;
+		free(str);
+		lines++;
+		cols++;
+	}
+	close(fd);
+	if ((PXL * lines) > MAX_H || (PXL * cols) > MAX_W)
+		merr(ERROUTRANGE);
+	if ((PXL * lines) < MIN_H && (PXL * cols) < MIN_W)
+		merr(ERRMINRANGE);
+}
+
+void	open_map(t_map **map, t_map **cpy, char **av)
+{
+	int		fd;
+
+	check_screen_size(av);
+	fd = open(av[1], O_RDONLY);
+	if (fd < 0)
+		merr(ERRNOF);
+	*map = get_map(fd);
+	close(fd);
+	*cpy = cpy_map(*map);
 }

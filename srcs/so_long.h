@@ -9,17 +9,12 @@
 # include <fcntl.h>
 # include "utils.h"
 
-# define W_WIDTH 850
-# define W_HEIGHT 408
-# define START_X 0
-# define START_Y 0
+# define MAX_W 1720
+# define MAX_H 1080
+# define MIN_W 159
+# define MIN_H 159
 
-/*
-# define A 97
-# define D 100
-# define W 115
-# define S 119
-*/
+# define NAME "Other Game: A history of nothing"
 
 enum {
 	A = 97,
@@ -50,6 +45,9 @@ enum {
 # define ERRSHAPE "Map in wrong shape!\n"
 # define ERRPHATH "No valid path!\n"
 # define ERREXT "Extension not valid!\n"
+# define ERRNOF "Map File not reporting or does not exist!\n"
+# define ERROUTRANGE "The map overflow the max screen view!\n"
+# define ERRMINRANGE "The map is too small!\n"
 
 # define PATHP "./textures/player.xpm"
 # define PATHW "./textures/wall.xpm"
@@ -98,9 +96,11 @@ void        ft_mapadd_back(t_map **map, t_map *new);
 t_map       *ft_maplast(t_map *map);
 t_map       *get_map(int fd);
 
-// Created Structs
-t_map       *ft_mapnew(int line, char *cols, size_t n_cols);
+// Create Initial
 t_info      *ft_newinfo(void);
+void		check_screen_size(char **av);
+t_map       *ft_mapnew(int line, char *cols, size_t n_cols);
+void		open_map(t_map **map, t_map **cpy, char **av);
 
 // Game tools
 int			find_player(t_map **map, char c);

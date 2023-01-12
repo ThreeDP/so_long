@@ -10,13 +10,14 @@ L_GREENB		=			\033[1;32m
 ################ CONFIG		##################
 DIR_OUTS		=			./outs/
 DIR				=			../srcs/
-SRCSSL			=			$(addprefix $(DIR), map_validation.c create.c err.c game_tools.c map_utils.c utils.c)
+SRCSSL			=			$(addprefix $(DIR), create_initial.c err.c game_tools.c map_images.c map_utils.c map_validation.c  utils.c window_tools.c)
 SRCS 			= 			$(wildcard ./*.c)
 RUN				=			$(addprefix $(DIR_OUTS), $(srcs))
-GNL				=			$(DIR)/get_next_line/get_next_line.c $(DIR)/get_next_line/get_next_line_utils.c
+GNL				=			$(DIR)get_next_line/get_next_line.c $(DIR)/get_next_line/get_next_line_utils.c
 LIBFT_PATH		=			../srcs/libft/srcs/
 
 HEADERS_TEST 	= 			minunit.h
+MLX				=			-I$(DIR)mlx_linux -lXext -lX11 -lm -lz
 HEADERS			=			../srcs/utils.h
 FLAGS 			= 			-Wall -Werror -Wextra
 ################ RULES		##################
@@ -83,5 +84,11 @@ pv:	$(HEADERS)
 	$(CC) 	-g path_validation_test.c $(SRCSSL) $(GNL) $(LIBFT_PATH)libft.a $(FLAGS) -o path_validation.o
 	@echo	"$(L_YELLOWB)[RUN path_validation_test.c]$(L_WHITE)"
 	@valgrind -s --track-origins=yes --error-exitcode=42 --leak-check=full ./path_validation.o
+
+ce:	$(HEADERS)
+	$(MAKE) -C $(LIBFT_PATH) --no-print-directory
+	$(CC) 	-g check_extension_test.c $(SRCSSL) $(GNL) -L $(DIR)mlx_linux -l mlx_Linux -L /usr/lib $(MLX) $(LIBFT_PATH)libft.a $(FLAGS) -o check_extension.o
+	@echo	"$(L_YELLOWB)[RUN check_extension_test.c]$(L_WHITE)"
+	@valgrind -s --track-origins=yes --error-exitcode=42 --leak-check=full ./check_extension.o
 
 a: u mu mv mp cpy vp

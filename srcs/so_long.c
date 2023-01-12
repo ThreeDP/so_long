@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 17:15:10 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/12 08:31:30 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/12 11:32:39 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,10 @@ int	main(int ac, char **av)
 	t_info	*info;
 
 	if (ac != 2)
-		return (1);
+		merr(ERRNOF);
 	if (check_extension(av[1], ".ber"))
 		merr(ERREXT);
-	fd = open(av[1], O_RDONLY);
-	if (!fd)
-		return (1);
-	map = get_map(fd);
-	close(fd);
-	cpy = cpy_map(map);
+	open_map(&map, &cpy, av);
 	info = ft_newinfo();
 	if (!map_validation(map, &info))
 		handle_err(&map, &info);

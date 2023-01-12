@@ -15,7 +15,7 @@ GNL_PATH		=			./get_next_line/
 SRCS_GNL		=			$(addprefix $(GNL_PATH), get_next_line.c get_next_line_utils.c)
 
 SRCS			=			window_tools.c game_tools.c so_long.c utils.c map_images.c \
-							create.c err.c map_utils.c map_validation.c
+							create_initial.c err.c map_utils.c map_validation.c
 							
 LIBS			=			-L $(LIBS_PATH) -lft
 FLAGS 			= 			-Wall -Werror -Wextra

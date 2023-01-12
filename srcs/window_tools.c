@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 03:42:07 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/12 09:38:39 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/12 09:50:13 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,12 @@ int	key_hook(int keycode, t_info *info)
 void	start_game(t_map *map, t_info *info)
 {
 	int	created;
+	int	n_lines;
+	int	n_cols;
 
 	created = 0;
+	n_lines = info->n_lines;
+	n_cols = map->n_cols;
 	info->map = map;
 	info->mlx = mlx_init();
 	if (!created)
@@ -76,7 +80,7 @@ void	start_game(t_map *map, t_info *info)
 		set_elems(info);
 		created = 1;
 	}
-	info->win = mlx_new_window(info->mlx, PXL * map->n_cols, PXL * info->n_lines, "so_long");
+	info->win = mlx_new_window(info->mlx, PXL * n_cols, PXL * n_lines, NAME);
 	mlx_hook(info->win, 17, 0L, end_game, info);
 	mlx_key_hook(info->win, key_hook, info);
 	mlx_loop_hook(info->mlx, &put_in_window, info);
