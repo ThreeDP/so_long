@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 03:30:17 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/12 12:36:29 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/12 13:30:46 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	check_screen_size(char **av)
 	char	*str;
 	int		lines;
 	int		cols;
-	
+
 	lines = 0;
 	cols = 0;
 	fd = open(av[1], O_RDONLY);

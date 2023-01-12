@@ -90,21 +90,22 @@ typedef struct s_info
 }               t_info;
 
 // Map utils
-t_map       *cpy_map(t_map *map);
-void        clear_map(t_map **map, void (*del)(void *));
-void        ft_mapadd_back(t_map **map, t_map *new);
 t_map       *ft_maplast(t_map *map);
+void        ft_mapadd_back(t_map **map, t_map *new);
+void        clear_map(t_map **map, void (*del)(void *));
+t_map       *cpy_map(t_map *map);
 t_map       *get_map(int fd);
 
 // Create Initial
+t_map       *ft_mapnew(int line, char *cols, size_t n_cols);
 t_info      *ft_newinfo(void);
 void		check_screen_size(char **av);
-t_map       *ft_mapnew(int line, char *cols, size_t n_cols);
 void		open_map(t_map **map, t_map **cpy, char **av);
 
 // Game tools
-int			find_player(t_map **map, char c);
+void		my_swap(char *p, char *w, int *c, int *e);
 void		move_player(int pos, t_info *info, int x, char *y);
+int			find_player(t_map **map, char c);
 
 // Map Images
 void		set_elem(void *mlx, t_data *elem, char *path);
