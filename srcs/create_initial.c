@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 03:30:17 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/17 16:06:28 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/17 18:18:27 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ t_info	*ft_newinfo(void)
 	new_data(info->collec);
 	new_data(info->wall);
 	info->floor = (t_data *) malloc(sizeof(t_data));
+	info->move = (t_data *) malloc(sizeof(t_data));
 	i = 0;
 	while (i < 4)
 		new_data(info->player[i++]);

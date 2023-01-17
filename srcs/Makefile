@@ -25,7 +25,7 @@ MLX				=			-Imlx_linux -lXext -lX11 -lm -lz
 all: libft $(NAME)
 
 %.o: %.c $(HEADERS)
-	$(CC) -I /usr/include -I mlx_linux -I $(LIBS_PATH) $(LIBS) -O3 -c $< -o $@
+	$(CC) -I /usr/include -I mlx_linux -I $(LIBS_PATH) -O3 -c $< -o $@
 
 $(NAME): $(SRCS_GNL:.c=.o) $(SRCS:.c=.o)
 	$(CC) -g $(SRCS:.c=.o) $(SRCS_GNL:.c=.o) -L mlx_linux -l mlx_Linux -L /usr/lib $(MLX) -I $(LIBS_PATH) $(LIBS) -o $(NAME)
@@ -48,4 +48,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: libft re fclean clean all
+.PHONY: libft re fclean clean all $(NAME)

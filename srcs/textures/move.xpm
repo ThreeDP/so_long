@@ -1,0 +1,22 @@
+/* XPM */
+static char *OQ__[] = {
+/* columns rows colors chars-per-pixel */
+"44 14 2 2 ",
+"C  c #FFFFFF",
+"G  c #A6A6A6",
+/* pixels */
+"G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G ",
+"G G C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C G G ",
+"G C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C G ",
+"G C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C G ",
+"G C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C G ",
+"G C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C G ",
+"G C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C G ",
+"G C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C G ",
+"G C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C G ",
+"G C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C G ",
+"G C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C G ",
+"G C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C G ",
+"G G C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C G G ",
+"G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G G "
+};

@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:29 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/17 17:05:21 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/17 18:19:10 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ enum {
 # define PATHW_2 "./textures/wall-2.xpm"
 # define PATHW_3 "./textures/wall-3.xpm"
 # define PATHF "./textures/floor.xpm"
+# define PATHM "./textures/move.xpm"
 # define PATHC_0 "./textures/collec-0.xpm"
 # define PATHC_1 "./textures/collec-1.xpm"
 # define PATHC_2 "./textures/collec-2.xpm"
@@ -125,6 +126,7 @@ typedef struct s_info
 	t_data	*floor;
 	t_data	*player[4][4];
 	int		direc;
+	t_data	*move;
 
 }				t_info;
 
