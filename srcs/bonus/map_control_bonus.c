@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_control.c                                      :+:      :+:    :+:   */
+/*   map_control_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:19:12 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/17 16:25:22 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/17 20:30:23 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mlx.h>
-#include "utils.h"
-#include "so_long.h"
-#include "./libft/srcs/libft.h"
+#include "utils_bonus.h"
+#include "so_long_bonus.h"
+#include "../libft/srcs/libft.h"
 
 void	destroy_elems(void *mlx, t_data *data[])
 {

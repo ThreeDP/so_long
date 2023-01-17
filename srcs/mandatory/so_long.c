@@ -6,17 +6,16 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 17:15:10 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/12 11:32:39 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/17 20:57:32 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./libft/srcs/libft.h"
+#include "../libft/srcs/libft.h"
 #include "so_long.h"
 #include "utils.h"
 
 int	main(int ac, char **av)
 {
-	int		fd;
 	t_map	*map;
 	t_map	*cpy;
 	t_info	*info;

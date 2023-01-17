@@ -6,14 +6,14 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 08:42:35 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/17 19:04:11 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/17 20:57:56 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mlx.h>
 #include "utils.h"
 #include "so_long.h"
-#include "./libft/srcs/libft.h"
+#include "../libft/srcs/libft.h"
 
 void	set_elem(void *mlx, t_data *elem, char *path)
 {
@@ -50,7 +50,6 @@ void	set_elems(t_info *info)
 	set_elem(info->mlx, info->wall[2], PATHW_2);
 	set_elem(info->mlx, info->wall[3], PATHW_3);
 	set_elem(info->mlx, info->floor, PATHF);
-	set_elem(info->mlx, info->move, PATHM);
 	set_elem(info->mlx, info->collec[0], PATHC_0);
 	set_elem(info->mlx, info->collec[1], PATHC_1);
 	set_elem(info->mlx, info->collec[2], PATHC_2);
@@ -96,6 +95,7 @@ int	put_in_window(t_info *info)
 	char	*walk;
 
 	y = 0;
+	walk = NULL;
 	map = info->map;
 	while (map)
 	{
@@ -105,9 +105,5 @@ int	put_in_window(t_info *info)
 			break ;
 		map = map->next;
 	}
-	walk = ft_itoa(info->walk);
-	mlx_put_image_to_window(info->mlx, info->win, info->move->img, 12, 4);
-	mlx_string_put(info->mlx, info->win, 15, 15, 0, walk);
-	free(walk);
 	return (0);
 }

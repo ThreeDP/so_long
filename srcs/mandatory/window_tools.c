@@ -6,14 +6,14 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 03:42:07 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/17 20:06:55 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/17 20:45:53 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <mlx.h>
 #include "utils.h"
 #include "so_long.h"
-#include "./libft/srcs/libft.h"
+#include "../libft/srcs/libft.h"
 
 int	end_game(t_info *info)
 {
@@ -24,8 +24,6 @@ int	end_game(t_info *info)
 		info->map = info->map->back;
 	mlx_destroy_image(info->mlx, info->floor->img);
 	free(info->floor);
-	mlx_destroy_image(info->mlx, info->move->img);
-	free(info->move);
 	destroy_elems(info->mlx, info->exit);
 	destroy_elems(info->mlx, info->wall);
 	destroy_elems(info->mlx, info->collec);
@@ -48,7 +46,6 @@ int	key_hook(int keycode, t_info *info)
 
 	if (keycode == ESC)
 		end_game(info);
-	printf("\n%i\n", keycode);
 	pos = find_player(&info->map, 'P');
 	valid_y_axis(&next, &back, info->map);
 	info->direc = anim_direction(keycode, info->direc);

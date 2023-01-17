@@ -6,12 +6,12 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 02:43:17 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/17 16:55:24 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/17 20:54:17 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "./libft/srcs/libft.h"
+#include "../libft/srcs/libft.h"
 
 void	my_swap(char *p, char *w, int *c, int *e)
 {
@@ -35,8 +35,10 @@ void	my_swap(char *p, char *w, int *c, int *e)
 void	move_player(int pos, t_info *info, int x, char *new_pos)
 {
 	char		*map_cols;
+	char		*walk;
 	static int	l;
 
+	walk = NULL;
 	map_cols = info->map->cols;
 	if (info->direc != l)
 	{
@@ -46,6 +48,11 @@ void	move_player(int pos, t_info *info, int x, char *new_pos)
 	{
 		my_swap(&map_cols[pos], &new_pos[x], &info->c, &info->e);
 		info->walk++;
+		walk = ft_itoa(info->walk);
+		write(1, "move: ", 6);
+		write(1, walk, ft_strlen(walk));
+		write(1, "\n", 1);
+		free(walk);
 	}
 	if (!info->c && !info->e)
 	{

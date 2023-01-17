@@ -6,15 +6,13 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 19:03:31 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/17 17:05:02 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/17 20:32:27 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "./get_next_line/get_next_line.h"
-#include "./libft/srcs/libft.h"
+#include "../libft/srcs/libft.h"
 #include "utils.h"
-#include <stdio.h>
 
 int	check_extension(char const *s1, char const *set)
 {

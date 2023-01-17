@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   err.c                                              :+:      :+:    :+:   */
+/*   err_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 04:38:55 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/17 17:05:30 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/17 20:30:11 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./so_long.h"
-#include "libft/srcs/libft.h"
+#include "./so_long_bonus.h"
+#include "../libft/srcs/libft.h"
 
 void	merr(char *err)
 {

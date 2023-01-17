@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_utils.c                                        :+:      :+:    :+:   */
+/*   map_utils_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 11:59:26 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/12 02:07:24 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/17 20:30:42 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
-#include "./get_next_line/get_next_line.h"
-#include "libft/srcs/libft.h"
-#include "utils.h"
+#include "so_long_bonus.h"
+#include "../get_next_line/get_next_line.h"
+#include "../libft/srcs/libft.h"
+#include "utils_bonus.h"
 
 t_map	*ft_maplast(t_map *map)
 {
