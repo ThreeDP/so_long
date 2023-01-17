@@ -30,7 +30,7 @@ void    unset(t_info *info)
     free(info);
 }
 
-MU_TEST_SUITE(test)
+MU_TEST_SUITE(passing_a_map_with_a_valid_path_should_be_0_and_no_err)
 {
     //ARRANGE
     t_info      *info           = ft_newinfo();
@@ -50,7 +50,7 @@ MU_TEST_SUITE(test)
     unset(info);
 }
 
-MU_TEST_SUITE(test1)
+MU_TEST_SUITE(passing_a_map_with_collec_close_should_be_1_and_error_F)
 {
     //ARRANGE
     t_info      *info           = ft_newinfo();
@@ -70,7 +70,7 @@ MU_TEST_SUITE(test1)
     unset(info);
 }
 
-MU_TEST_SUITE(test2)
+MU_TEST_SUITE(passing_a_map_with_exit_close_should_be_1_and_error_F)
 {
     //ARRANGE
     t_info      *info           = ft_newinfo();
@@ -90,12 +90,32 @@ MU_TEST_SUITE(test2)
     unset(info);
 }
 
+MU_TEST_SUITE(passing_a_map_with_player_close_should_be_1_and_error_F)
+{
+    //ARRANGE
+    t_info      *info           = ft_newinfo();
+    char        err             = 'F';
+    int         result;
+    int         expected        = 1;
+    int         fd              = open("maps_test/player_close.ber", O_RDONLY);
+
+    //ACT
+    info->map = get_map(fd);
+    close(fd);
+    result = path_validation(info->map, info);
+
+    //ASSERTS
+    mu_assert_int_eq(expected, result);
+    mu_assert_int_eq(err, info->err);
+    unset(info);
+}
 
 MU_TEST_SUITE(test_suite)
 {
-    MU_RUN_TEST(test);
-    MU_RUN_TEST(test1);
-    MU_RUN_TEST(test2);
+    MU_RUN_TEST(passing_a_map_with_a_valid_path_should_be_0_and_no_err);
+    MU_RUN_TEST(passing_a_map_with_collec_close_should_be_1_and_error_F);
+    MU_RUN_TEST(passing_a_map_with_exit_close_should_be_1_and_error_F);
+    MU_RUN_TEST(passing_a_map_with_player_close_should_be_1_and_error_F);
 }
 
 int main() {

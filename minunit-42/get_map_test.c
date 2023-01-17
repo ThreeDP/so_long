@@ -61,8 +61,6 @@ MU_TEST_SUITE(passing_file_with_backslash_n_valid_map_should_be_the_same_in_a_li
     fmap = map;
 
     //ASSERTS
-    if (!map->cols)
-        printf("\n%s\t is (NULL);\n", map->cols);
     while (map)
     {
         mu_assert(back == map->back, "address is different");
