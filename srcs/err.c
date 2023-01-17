@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 04:38:55 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/12 12:22:05 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/17 17:05:30 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,15 @@ void	handle_err(t_map **map, t_info **info)
 		merr(ERRSHAPE);
 	else if (err == 'F')
 		merr(ERRPHATH);
+}
+
+int	elems_validation(t_info **info)
+{
+	if ((*info)->p != 1)
+		return ((*info)->err += ERRP, 1);
+	if ((*info)->e != 1)
+		return ((*info)->err += ERRE, 1);
+	if ((*info)->c < 1)
+		return ((*info)->err += ERRC, 1);
+	return (0);
 }

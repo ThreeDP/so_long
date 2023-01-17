@@ -46,13 +46,3 @@ int	is_player(char c)
 		return (1);
 	return (0);
 }
-
-size_t	all_wall(char *wall)
-{
-	size_t	i;
-
-	i = 0;
-	while (is_wall(wall[i]))
-		i++;
-	return (i);
-}

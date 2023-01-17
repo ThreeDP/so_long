@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 03:30:17 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/16 20:34:37 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/17 16:06:28 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,17 @@ t_map	*ft_mapnew(int line, char *cols, size_t n_cols)
 void	new_data(t_data *data[])
 {
 	int	i;
-	
+
 	i = 0;
 	while (i < 4)
-	{
 		data[i++] = (t_data *) malloc(sizeof(t_data));
-	}
 }
 
 t_info	*ft_newinfo(void)
 {
 	int		i;
-	int		j;
 	t_info	*info;
 
-	i = 0;
-	j = 0;
 	info = (t_info *)malloc(sizeof(t_info));
 	if (!info)
 		return (NULL);
@@ -64,9 +59,10 @@ t_info	*ft_newinfo(void)
 	new_data(info->collec);
 	new_data(info->wall);
 	info->floor = (t_data *) malloc(sizeof(t_data));
+	i = 0;
 	while (i < 4)
 		new_data(info->player[i++]);
-	info->pos = 0;
+	info->direc = 0;
 	return (info);
 }
 

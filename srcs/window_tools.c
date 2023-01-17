@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 03:42:07 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/17 10:13:06 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/17 16:55:29 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,20 @@
 #include "so_long.h"
 #include "./libft/srcs/libft.h"
 
-void	destroy_elems(void *mlx, t_data *data[])
-{
-	int	i;
-
-	i = 0;
-	while (i < 4)
-	{
-		mlx_destroy_image(mlx, data[i]->img);
-		free(data[i++]);
-	}
-}
-
 int	end_game(t_info *info)
 {
 	int	i;
 
 	i = 0;
+	while (info->map->back)
+		info->map = info->map->back;
 	mlx_destroy_image(info->mlx, info->floor->img);
+	free(info->floor);
 	destroy_elems(info->mlx, info->exit);
 	destroy_elems(info->mlx, info->wall);
 	destroy_elems(info->mlx, info->collec);
 	while (i < 4)
-		destroy_elems(info->mlx, info->player[i]);
+		destroy_elems(info->mlx, info->player[i++]);
 	clear_map(&info->map, free);
 	mlx_clear_window(info->mlx, info->win);
 	mlx_destroy_window(info->mlx, info->win);
@@ -56,34 +47,16 @@ int	key_hook(int keycode, t_info *info)
 	if (keycode == ESC)
 		end_game(info);
 	pos = find_player(&info->map, 'P');
-	if (info->map->back)
-		back = info->map->back;
-	else
-		back = info->map;
-	if (info->map->next)
-		next = info->map->next;
-	else
-		next = info->map;
+	valid_y_axis(&next, &back, info->map);
+	info->direc = anim_direction(keycode, info->direc);
 	if (keycode == A || keycode == LEFT)
-	{
-		info->pos = 1;
 		move_player(pos, info, pos - 1, info->map->cols);
-	}
 	else if (keycode == W || keycode == UP)
-	{
-		info->pos = 2;
 		move_player(pos, info, pos, next->cols);
-	}
 	else if (keycode == D || keycode == RIGHT)
-	{
-		info->pos = 3;
 		move_player(pos, info, pos + 1, info->map->cols);
-	}
 	else if (keycode == S || keycode == DOWN)
-	{
-		info->pos = 0;
 		move_player(pos, info, pos, back->cols);
-	}
 	while (info->map->back)
 		info->map = info->map->back;
 	return (0);

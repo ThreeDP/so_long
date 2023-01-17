@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/17 16:00:29 by dapaulin          #+#    #+#             */
+/*   Updated: 2023/01/17 17:05:21 by dapaulin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
@@ -42,7 +54,7 @@ enum {
 # define ERREXIT "No exit in the map!\n"
 # define ERRWALL "The wall is broken!\n"
 # define ERRCOLLEC "No collecs in the map!\n"
-# define ERRSHAPE "Map in wrong shape!\n"
+# define ERRSHAPE "Map in wrong shape or with invalid characters!\n"
 # define ERRPHATH "No valid path!\n"
 # define ERREXT "Extension not valid!\n"
 # define ERRNOF "Map File not reporting or does not exist!\n"
@@ -80,28 +92,29 @@ enum {
 # define PATHE_2 "./textures/exit-2.xpm"
 # define PATHE_3 "./textures/exit-3.xpm"
 
-typedef struct  s_data {
+typedef struct s_data
+{
 	void	*img;
 	int		w;
 	int		h;
-}               t_data;
+}				t_data;
 
 typedef struct a_map
 {
-	int             line;
-	char            *cols;
-	size_t          n_cols;
-	struct a_map    *back;
-	struct a_map    *next;
-}               t_map;
+	int				line;
+	char			*cols;
+	size_t			n_cols;
+	struct a_map	*back;
+	struct a_map	*next;
+}				t_map;
 
-typedef struct s_info 
+typedef struct s_info
 {
-	int     p;
-	int     e;
-	int     c;
-	char    err;
-	int     walk;
+	int		p;
+	int		e;
+	int		c;
+	char	err;
+	int		walk;
 	int		n_lines;
 	void	*mlx;
 	void	*win;
@@ -111,20 +124,20 @@ typedef struct s_info
 	t_data	*wall[4];
 	t_data	*floor;
 	t_data	*player[4][4];
-	int		pos;
+	int		direc;
 
-}               t_info;
+}				t_info;
 
 // Map utils
-t_map       *ft_maplast(t_map *map);
-void        ft_mapadd_back(t_map **map, t_map *new);
-void        clear_map(t_map **map, void (*del)(void *));
-t_map       *cpy_map(t_map *map);
-t_map       *get_map(int fd);
+t_map		*ft_maplast(t_map *map);
+void		ft_mapadd_back(t_map **map, t_map *new);
+void		clear_map(t_map **map, void (*del)(void *));
+t_map		*cpy_map(t_map *map);
+t_map		*get_map(int fd);
 
 // Create Initial
-t_map       *ft_mapnew(int line, char *cols, size_t n_cols);
-t_info      *ft_newinfo(void);
+t_map		*ft_mapnew(int line, char *cols, size_t n_cols);
+t_info		*ft_newinfo(void);
 void		check_screen_size(char **av);
 void		open_map(t_map **map, t_map **cpy, char **av);
 
@@ -145,14 +158,24 @@ int			end_game(t_info *info);
 int			key_hook(int keycode, t_info *info);
 
 // Validations
-int         map_validation(t_map *map, t_info **info);
-int         path_validation(t_map *map, t_info *info);
-size_t  	search_elems(char *str, t_info **info);
-void        map_path(t_map *map, int x);
+int			map_validation(t_map *map, t_info **info);
+int			path_validation(t_map *map, t_info *info);
+size_t		search_elems(char *str, t_info **info);
+void		map_path(t_map *map, int x);
 int			check_extension(char const *s1, char const *set);
 
 // Error Handle
-void        merr(char *err);
-void        handle_err(t_map **map, t_info **info);
+void		merr(char *err);
+void		handle_err(t_map **map, t_info **info);
+int			elems_validation(t_info **info);
+
+// Anime Utils
+int			anim_direction(int keycode, int direc);
+int			time_anim(int anim);
+
+//Map Control
+size_t		all_wall(char *wall);
+void		valid_y_axis(t_map **next, t_map **back, t_map *map);
+void		destroy_elems(void *mlx, t_data *data[]);
 
 #endif

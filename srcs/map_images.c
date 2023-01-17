@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 08:42:35 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/16 20:37:26 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/17 17:10:49 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,45 +60,32 @@ void	set_elems(t_info *info)
 	set_elem(info->mlx, info->exit[3], PATHE_3);
 }
 
-int	time_anim(anim)
-{
-	static int	time;
-	
-	time++;
-	if (anim < 4 && time > 1000)
-	{
-		time = 0;
-		return (anim + 1);
-	}
-	else if (anim == 4)
-		return (0);
-	return (anim);
-}
-
 void	put_images(t_info *d, char *cols, int y)
 {
 	int			i;
 	int			x;
-	static int	anim;
+	int			l;
+	static int	a;
 
 	i = 0;
 	x = 0;
+	l = d->direc;
 	while (cols[i])
 	{
 		if (is_path(cols[i]))
 			mlx_put_image_to_window(d->mlx, d->win, d->floor->img, x, y);
 		else if (is_wall(cols[i]))
-			mlx_put_image_to_window(d->mlx, d->win, d->wall[anim]->img, x, y);
+			mlx_put_image_to_window(d->mlx, d->win, d->wall[a]->img, x, y);
 		else if (is_collec(cols[i]))
-			mlx_put_image_to_window(d->mlx, d->win, d->collec[anim]->img, x, y);
+			mlx_put_image_to_window(d->mlx, d->win, d->collec[a]->img, x, y);
 		else if (is_exit(cols[i]))
-			mlx_put_image_to_window(d->mlx, d->win, d->exit[anim]->img, x, y);
+			mlx_put_image_to_window(d->mlx, d->win, d->exit[a]->img, x, y);
 		else if (is_player(cols[i]))
-			mlx_put_image_to_window(d->mlx, d->win, d->player[d->pos][anim]->img, x, y);
+			mlx_put_image_to_window(d->mlx, d->win, d->player[l][a]->img, x, y);
 		x += PXL;
 		i++;
 	}
-	anim = time_anim(anim);
+	a = time_anim(a);
 }
 
 int	put_in_window(t_info *info)

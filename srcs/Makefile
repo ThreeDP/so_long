@@ -9,14 +9,14 @@ L_GREEN			=			\033[0;32m
 L_GREENB		=			\033[1;32m
 ################ CONFIG		##################
 NAME			=			so_long
-HEADERS			=			so_long.h
+HEADERS			=			so_long.h utils.h $(addprefix $(LIBS_PATH), libft.h) $(addprefix $(GNL_PATH), get_next_line.h)
 LIBS_PATH		=			./libft/srcs/
 GNL_PATH		=			./get_next_line/
 SRCS_GNL		=			$(addprefix $(GNL_PATH), get_next_line.c get_next_line_utils.c)
 
 SRCS			=			window_tools.c game_tools.c so_long.c utils.c map_images.c \
-							create_initial.c err.c map_utils.c map_validation.c
-							
+							create_initial.c err.c map_utils.c map_validation.c map_control.c \
+							anim_utils.c					
 LIBS			=			-L $(LIBS_PATH) -lft
 FLAGS 			= 			-Wall -Werror -Wextra
 MLX				=			-Imlx_linux -lXext -lX11 -lm -lz
@@ -34,7 +34,7 @@ libft:
 	$(MAKE) -C $(LIBS_PATH) --no-print-directory
 
 n:
-	norminette $(SRCS)
+	norminette $(SRCS) $(HEADERS)
 
 v:
 	valgrind --track-origins=yes --error-exitcode=42 --leak-check=full --show-leak-kinds=all ./so_long ../minunit-42/maps_test/valid_map.ber
@@ -49,4 +49,3 @@ fclean: clean
 re: fclean all
 
 .PHONY: libft re fclean clean all
-

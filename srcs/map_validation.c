@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 19:03:31 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/17 12:32:38 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/17 17:05:02 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,7 @@ size_t	search_elems(char *str, t_info **info)
 		else if (is_player(str[size]))
 			(*info)->p += 1;
 		else if (is_wall(str[size]) || is_path(str[size]))
-		{
-			size++;
-			continue ;
-		}
+			;
 		else
 			break ;
 		size++;
@@ -109,15 +106,11 @@ int	map_validation(t_map *map, t_info **info)
 		if (map->line == 1 && map->n_cols != all_wall(map->cols))
 			return ((*info)->err += ERRW, 0);
 		else if (map->n_cols != search_elems(map->cols, info))
-			return (0);
+			return ((*info)->err += ERRS, 0);
 		map = map->next;
 	}
-	if ((*info)->p != 1)
-		return ((*info)->err += ERRP, 0);
-	if ((*info)->e != 1)
-		return ((*info)->err += ERRE, 0);
-	if ((*info)->c < 1)
-		return ((*info)->err += ERRC, 0);
+	if (elems_validation(info))
+		return (0);
 	if (map->n_cols != all_wall(map->cols))
 		return ((*info)->err += ERRW, 0);
 	if (map->n_cols != n_cols)
