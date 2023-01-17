@@ -18,7 +18,9 @@ LIBFT_PATH		=			../srcs/libft/srcs/
 
 HEADERS_TEST 	= 			minunit.h
 MLX				=			-I$(DIR)mlx_linux -lXext -lX11 -lm -lz
+MLX_ALL			=			-L $(DIR)mlx_linux -l mlx_Linux -L /usr/lib $(MLX)
 HEADERS			=			../srcs/utils.h
+TESTS			=			get_map check_extension cpy_map map_path map_validation path_validation 
 FLAGS 			= 			-Wall -Werror -Wextra
 ################ RULES		##################
 
@@ -55,40 +57,10 @@ u:	$(HEADERS)
 	@echo	"$(L_YELLOWB)[RUN utils_test.c]$(L_WHITE)"
 	@./utils.o
 
-mu:	$(HEADERS)
-	$(MAKE) -C $(LIBFT_PATH) --no-print-directory
-	$(CC) 	-g map_utils_test.c $(SRCSSL) $(GNL) $(LIBFT_PATH)libft.a $(FLAGS) -o map_utils.o
-	@echo	"$(L_YELLOWB)[RUN map_utils_test.c]$(L_WHITE)"
-	@valgrind -s --track-origins=yes --error-exitcode=42 --leak-check=full ./map_utils.o
+a: u $(TESTS)
 
-mv:	$(HEADERS)
+$(TESTS):	$(HEADERS)
 	$(MAKE) -C $(LIBFT_PATH) --no-print-directory
-	$(CC) 	-g map_validation_test.c $(SRCSSL) $(GNL) $(LIBFT_PATH)libft.a $(FLAGS) -o map_validation.o
-	@echo	"$(L_YELLOWB)[RUN map_validation_test.c]$(L_WHITE)"
-	@valgrind -s --track-origins=yes --error-exitcode=42 --leak-check=full ./map_validation.o
-
-mp:	$(HEADERS)
-	$(MAKE) -C $(LIBFT_PATH) --no-print-directory
-	$(CC) 	-g map_path_test.c $(SRCSSL) $(GNL) $(LIBFT_PATH)libft.a $(FLAGS) -o map_path.o
-	@echo	"$(L_YELLOWB)[RUN map_path_test.c]$(L_WHITE)"
-	@valgrind -s --track-origins=yes --error-exitcode=42 --leak-check=full ./map_path.o
-
-cpy:	$(HEADERS)
-	$(MAKE) -C $(LIBFT_PATH) --no-print-directory
-	$(CC) 	-g cpy_map_test.c $(SRCSSL) $(GNL) $(LIBFT_PATH)libft.a $(FLAGS) -o cpy_map.o
-	@echo	"$(L_YELLOWB)[RUN cpy_map_test.c]$(L_WHITE)"
-	@valgrind -s --track-origins=yes --error-exitcode=42 --leak-check=full ./cpy_map.o
-
-pv:	$(HEADERS)
-	$(MAKE) -C $(LIBFT_PATH) --no-print-directory
-	$(CC) 	-g path_validation_test.c $(SRCSSL) $(GNL) $(LIBFT_PATH)libft.a $(FLAGS) -o path_validation.o
-	@echo	"$(L_YELLOWB)[RUN path_validation_test.c]$(L_WHITE)"
-	@valgrind -s --track-origins=yes --error-exitcode=42 --leak-check=full ./path_validation.o
-
-ce:	$(HEADERS)
-	$(MAKE) -C $(LIBFT_PATH) --no-print-directory
-	$(CC) 	-g check_extension_test.c $(SRCSSL) $(GNL) -L $(DIR)mlx_linux -l mlx_Linux -L /usr/lib $(MLX) $(LIBFT_PATH)libft.a $(FLAGS) -o check_extension.o
-	@echo	"$(L_YELLOWB)[RUN check_extension_test.c]$(L_WHITE)"
-	@valgrind -s --track-origins=yes --error-exitcode=42 --leak-check=full ./check_extension.o
-
-a: u mu mv mp cpy vp
+	$(CC) 	-g $@_test.c $(SRCSSL) $(GNL) $(MLX_ALL) $(LIBFT_PATH)libft.a $(FLAGS) -o $@.o
+	@echo	"$(L_YELLOWB)[RUN $@_test.c]$(L_WHITE)"
+	@valgrind -s --track-origins=yes --error-exitcode=42 --leak-check=full ./$@.o

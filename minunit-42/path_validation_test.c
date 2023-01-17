@@ -6,10 +6,33 @@
 #include <unistd.h>
 #include "minunit.h"
 
+void	unset_aux(t_data *data[])
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+		free(data[i++]);
+}
+
+void    unset(t_info *info)
+{
+    int i;
+
+    i = 0;
+    unset_aux(info->collec);
+    unset_aux(info->exit);
+    unset_aux(info->wall);
+    while (i < 4)
+        unset_aux(info->player[i++]);
+    free(info->floor);
+    clear_map(&info->map, free);
+    free(info);
+}
+
 MU_TEST_SUITE(test)
 {
     //ARRANGE
-    t_map       *map;
     t_info      *info           = ft_newinfo();
     int         result;
     char        err             = 'A';
@@ -17,21 +40,19 @@ MU_TEST_SUITE(test)
     int         fd              = open("maps_test/valid_map.ber", O_RDONLY);
 
     //ACT
-    map = get_map(fd);
+    info->map = get_map(fd);
     close(fd);
-    result = path_validation(map, info);
+    result = path_validation(info->map, info);
 
     //ASSERTS
     mu_assert_int_eq(expected, result);
     mu_assert_int_eq(err, info->err);
-    clear_map(&map, free);
-    free(info);
+    unset(info);
 }
 
 MU_TEST_SUITE(test1)
 {
     //ARRANGE
-    t_map       *map;
     t_info      *info           = ft_newinfo();
     char        err             = 'F';
     int         result;
@@ -39,21 +60,19 @@ MU_TEST_SUITE(test1)
     int         fd              = open("maps_test/close_collecs.ber", O_RDONLY);
 
     //ACT
-    map = get_map(fd);
+    info->map = get_map(fd);
     close(fd);
-    result = path_validation(map, info);
+    result = path_validation(info->map, info);
 
     //ASSERTS
     mu_assert_int_eq(expected, result);
     mu_assert_int_eq(err, info->err);
-    clear_map(&map, free);
-    free(info);
+    unset(info);
 }
 
 MU_TEST_SUITE(test2)
 {
     //ARRANGE
-    t_map       *map;
     t_info      *info           = ft_newinfo();
     char        err             = 'F';
     int         result;
@@ -61,15 +80,14 @@ MU_TEST_SUITE(test2)
     int         fd              = open("maps_test/exit_close.ber", O_RDONLY);
 
     //ACT
-    map = get_map(fd);
+    info->map = get_map(fd);
     close(fd);
-    result = path_validation(map, info);
+    result = path_validation(info->map, info);
 
     //ASSERTS
     mu_assert_int_eq(expected, result);
     mu_assert_int_eq(err, info->err);
-    clear_map(&map, free);
-    free(info);
+    unset(info);
 }
 
 
