@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 02:43:17 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/12 13:42:07 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/16 16:17:19 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,16 @@ void	my_swap(char *p, char *w, int *c, int *e)
 void	move_player(int pos, t_info *info, int x, char *new_pos)
 {
 	char	*map_cols;
+	static int	l;
 
 	map_cols = info->map->cols;
-	if (new_pos[x] != '1' && (new_pos[x] != 'E' || info->c == 0))
+	if (info->pos != l)
+		l = info->pos;
+	else if (new_pos[x] != '1' && (new_pos[x] != 'E' || info->c == 0))
 	{
 		my_swap(&map_cols[pos], &new_pos[x], &info->c, &info->e);
 		info->walk++;
 	}
-	while (info->map->back)
-		info->map = info->map->back;
 	if (!info->c && !info->e)
 	{
 		write(1, "You Win!\n", 9);

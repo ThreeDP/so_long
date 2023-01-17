@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 08:42:35 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/12 09:52:12 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/16 20:37:26 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,64 @@ void	set_elem(void *mlx, t_data *elem, char *path)
 	elem->img = mlx_xpm_file_to_image(mlx, path, &elem->w, &elem->h);
 }
 
+void	set_player_imgs(t_info *info)
+{
+	set_elem(info->mlx, info->player[0][0], PATHP_W0);
+	set_elem(info->mlx, info->player[0][1], PATHP_W1);
+	set_elem(info->mlx, info->player[0][2], PATHP_W2);
+	set_elem(info->mlx, info->player[0][3], PATHP_W3);
+	set_elem(info->mlx, info->player[1][0], PATHP_A0);
+	set_elem(info->mlx, info->player[1][1], PATHP_A1);
+	set_elem(info->mlx, info->player[1][2], PATHP_A2);
+	set_elem(info->mlx, info->player[1][3], PATHP_A3);
+	set_elem(info->mlx, info->player[2][0], PATHP_S0);
+	set_elem(info->mlx, info->player[2][1], PATHP_S1);
+	set_elem(info->mlx, info->player[2][2], PATHP_S2);
+	set_elem(info->mlx, info->player[2][3], PATHP_S3);
+	set_elem(info->mlx, info->player[3][0], PATHP_D0);
+	set_elem(info->mlx, info->player[3][1], PATHP_D1);
+	set_elem(info->mlx, info->player[3][2], PATHP_D2);
+	set_elem(info->mlx, info->player[3][3], PATHP_D3);
+}
+
 void	set_elems(t_info *info)
 {
-	set_elem(info->mlx, info->player, PATHP);
-	set_elem(info->mlx, info->wall, PATHW);
+	set_player_imgs(info);
+	set_elem(info->mlx, info->wall[0], PATHW_0);
+	set_elem(info->mlx, info->wall[1], PATHW_1);
+	set_elem(info->mlx, info->wall[2], PATHW_2);
+	set_elem(info->mlx, info->wall[3], PATHW_3);
 	set_elem(info->mlx, info->floor, PATHF);
-	set_elem(info->mlx, info->collec, PATHC);
-	set_elem(info->mlx, info->exit, PATHE);
+	set_elem(info->mlx, info->collec[0], PATHC_0);
+	set_elem(info->mlx, info->collec[1], PATHC_1);
+	set_elem(info->mlx, info->collec[2], PATHC_2);
+	set_elem(info->mlx, info->collec[3], PATHC_3);
+	set_elem(info->mlx, info->exit[0], PATHE_0);
+	set_elem(info->mlx, info->exit[1], PATHE_1);
+	set_elem(info->mlx, info->exit[2], PATHE_2);
+	set_elem(info->mlx, info->exit[3], PATHE_3);
+}
+
+int	time_anim(anim)
+{
+	static int	time;
+	
+	time++;
+	if (anim < 4 && time > 1000)
+	{
+		time = 0;
+		return (anim + 1);
+	}
+	else if (anim == 4)
+		return (0);
+	return (anim);
 }
 
 void	put_images(t_info *d, char *cols, int y)
 {
-	int		i;
-	int		x;
+	int			i;
+	int			x;
+	static int	anim;
 
 	i = 0;
 	x = 0;
@@ -43,16 +88,17 @@ void	put_images(t_info *d, char *cols, int y)
 		if (is_path(cols[i]))
 			mlx_put_image_to_window(d->mlx, d->win, d->floor->img, x, y);
 		else if (is_wall(cols[i]))
-			mlx_put_image_to_window(d->mlx, d->win, d->wall->img, x, y);
+			mlx_put_image_to_window(d->mlx, d->win, d->wall[anim]->img, x, y);
 		else if (is_collec(cols[i]))
-			mlx_put_image_to_window(d->mlx, d->win, d->collec->img, x, y);
+			mlx_put_image_to_window(d->mlx, d->win, d->collec[anim]->img, x, y);
 		else if (is_exit(cols[i]))
-			mlx_put_image_to_window(d->mlx, d->win, d->exit->img, x, y);
+			mlx_put_image_to_window(d->mlx, d->win, d->exit[anim]->img, x, y);
 		else if (is_player(cols[i]))
-			mlx_put_image_to_window(d->mlx, d->win, d->player->img, x, y);
+			mlx_put_image_to_window(d->mlx, d->win, d->player[d->pos][anim]->img, x, y);
 		x += PXL;
 		i++;
 	}
+	anim = time_anim(anim);
 }
 
 int	put_in_window(t_info *info)
@@ -72,7 +118,7 @@ int	put_in_window(t_info *info)
 		map = map->next;
 	}
 	walk = ft_itoa(info->walk);
-	mlx_string_put(info->mlx, info->win, 8, 12, 99999999, walk);
+	mlx_string_put(info->mlx, info->win, 15, 15, 99999999, walk);
 	free(walk);
 	return (0);
 }

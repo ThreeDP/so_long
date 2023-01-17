@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 03:30:17 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/12 13:30:46 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/16 20:34:37 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,25 @@ t_map	*ft_mapnew(int line, char *cols, size_t n_cols)
 	return (map);
 }
 
+void	new_data(t_data *data[])
+{
+	int	i;
+	
+	i = 0;
+	while (i < 4)
+	{
+		data[i++] = (t_data *) malloc(sizeof(t_data));
+	}
+}
+
 t_info	*ft_newinfo(void)
 {
+	int		i;
+	int		j;
 	t_info	*info;
 
+	i = 0;
+	j = 0;
 	info = (t_info *)malloc(sizeof(t_info));
 	if (!info)
 		return (NULL);
@@ -45,11 +60,13 @@ t_info	*ft_newinfo(void)
 	info->walk = 0;
 	info->n_lines = 0;
 	info->map = NULL;
-	info->exit = (t_data *) malloc(sizeof(t_data));
-	info->collec = (t_data *) malloc(sizeof(t_data));
-	info->wall = (t_data *) malloc(sizeof(t_data));
+	new_data(info->exit);
+	new_data(info->collec);
+	new_data(info->wall);
 	info->floor = (t_data *) malloc(sizeof(t_data));
-	info->player = (t_data *) malloc(sizeof(t_data));
+	while (i < 4)
+		new_data(info->player[i++]);
+	info->pos = 0;
 	return (info);
 }
 

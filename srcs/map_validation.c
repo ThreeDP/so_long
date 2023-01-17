@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 19:03:31 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/12 12:53:45 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/17 09:54:25 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,20 @@ int	check_extension(char const *s1, char const *set)
 {
 	size_t	i;
 	size_t	j;
+	char	*s;
 
 	if (!s1 || !set)
 		return (0);
-	i = ft_strlen(s1);
 	j = ft_strlen(set);
-	while (j > 0 && s1[i - 1] == set[j - 1])
+	s = ft_strrchr(s1, '/');
+	if (!s)
+		s = (char *)s1;
+	else
+		s++;
+	i = ft_strlen(s);
+	if (i <= 4)
+		return (1);
+	while (j > 0 && s[i - 1] == set[j - 1])
 	{
 		i--;
 		j--;

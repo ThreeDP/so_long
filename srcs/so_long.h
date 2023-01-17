@@ -49,11 +49,36 @@ enum {
 # define ERROUTRANGE "The map overflow the max screen view!\n"
 # define ERRMINRANGE "The map is too small!\n"
 
-# define PATHP "./textures/player.xpm"
-# define PATHW "./textures/wall.xpm"
+# define PATHP_0 "./textures/player-0.xpm"
+# define PATHP_A0 "./textures/player-a0.xpm"
+# define PATHP_A1 "./textures/player-a1.xpm"
+# define PATHP_A2 "./textures/player-a2.xpm"
+# define PATHP_A3 "./textures/player-a3.xpm"
+# define PATHP_D0 "./textures/player-d0.xpm"
+# define PATHP_D1 "./textures/player-d1.xpm"
+# define PATHP_D2 "./textures/player-d2.xpm"
+# define PATHP_D3 "./textures/player-d3.xpm"
+# define PATHP_S0 "./textures/player-s0.xpm"
+# define PATHP_S1 "./textures/player-s1.xpm"
+# define PATHP_S2 "./textures/player-s2.xpm"
+# define PATHP_S3 "./textures/player-s3.xpm"
+# define PATHP_W0 "./textures/player-w0.xpm"
+# define PATHP_W1 "./textures/player-w1.xpm"
+# define PATHP_W2 "./textures/player-w2.xpm"
+# define PATHP_W3 "./textures/player-w3.xpm"
+# define PATHW_0 "./textures/wall-0.xpm"
+# define PATHW_1 "./textures/wall-1.xpm"
+# define PATHW_2 "./textures/wall-2.xpm"
+# define PATHW_3 "./textures/wall-3.xpm"
 # define PATHF "./textures/floor.xpm"
-# define PATHC "./textures/collec.xpm"
-# define PATHE "./textures/exit.xpm"
+# define PATHC_0 "./textures/collec-0.xpm"
+# define PATHC_1 "./textures/collec-1.xpm"
+# define PATHC_2 "./textures/collec-2.xpm"
+# define PATHC_3 "./textures/collec-3.xpm"
+# define PATHE_0 "./textures/exit-0.xpm"
+# define PATHE_1 "./textures/exit-1.xpm"
+# define PATHE_2 "./textures/exit-2.xpm"
+# define PATHE_3 "./textures/exit-3.xpm"
 
 typedef struct  s_data {
 	void	*img;
@@ -81,11 +106,12 @@ typedef struct s_info
 	void	*mlx;
 	void	*win;
 	t_map	*map;
-	t_data	*exit;
-	t_data	*collec;
-	t_data	*wall;
+	t_data	*exit[4];
+	t_data	*collec[4];
+	t_data	*wall[4];
 	t_data	*floor;
-	t_data	*player;
+	t_data	*player[4][4];
+	int		pos;
 
 }               t_info;
 
