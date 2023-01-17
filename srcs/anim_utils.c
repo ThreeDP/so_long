@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:14:54 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/17 16:27:30 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/17 20:07:08 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ int	anim_direction(int keycode, int direc)
 	if (keycode == A || keycode == LEFT)
 		return (1);
 	else if (keycode == W || keycode == UP)
-		return (2);
+		return (0);
 	else if (keycode == D || keycode == RIGHT)
 		return (3);
 	else if (keycode == S || keycode == DOWN)
-		return (0);
+		return (2);
 	return (direc);
 }

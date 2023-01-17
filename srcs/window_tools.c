@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 03:42:07 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/17 18:39:52 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/17 20:06:55 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,18 @@ int	key_hook(int keycode, t_info *info)
 
 	if (keycode == ESC)
 		end_game(info);
+	printf("\n%i\n", keycode);
 	pos = find_player(&info->map, 'P');
 	valid_y_axis(&next, &back, info->map);
 	info->direc = anim_direction(keycode, info->direc);
 	if (keycode == A || keycode == LEFT)
 		move_player(pos, info, pos - 1, info->map->cols);
 	else if (keycode == W || keycode == UP)
-		move_player(pos, info, pos, next->cols);
+		move_player(pos, info, pos, back->cols);
 	else if (keycode == D || keycode == RIGHT)
 		move_player(pos, info, pos + 1, info->map->cols);
 	else if (keycode == S || keycode == DOWN)
-		move_player(pos, info, pos, back->cols);
+		move_player(pos, info, pos, next->cols);
 	while (info->map->back)
 		info->map = info->map->back;
 	return (0);
