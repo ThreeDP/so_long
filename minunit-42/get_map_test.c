@@ -1,9 +1,4 @@
-#include "../srcs/utils.h"
-#include "../srcs/so_long.h"
-#include "../srcs/get_next_line/get_next_line.h"
-#include <stdlib.h>
-#include <unistd.h>
-#include "minunit.h"
+#include "test_mandatory.h"
 
 MU_TEST_SUITE(passing_file_with_a_valid_map_should_be_the_same_in_a_linked_list)
 {

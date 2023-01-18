@@ -1,12 +1,4 @@
-#include "../srcs/utils.h"
-#include "../srcs/so_long.h"
-#include "../srcs/get_next_line/get_next_line.h"
-#include "../srcs/libft/srcs/libft.h"
-#include <stdlib.h>
-#include <unistd.h>
-#include "minunit.h"
-
-
+#include "test_mandatory.h"
 
 MU_TEST_SUITE(test)
 {

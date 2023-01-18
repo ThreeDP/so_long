@@ -1,5 +1,4 @@
-#include "../srcs/utils.h"
-#include "minunit.h"
+#include "test_mandatory.h"
 
 MU_TEST_SUITE(passing_char_0_to_the_is_path_function_should_be_1)
 {
