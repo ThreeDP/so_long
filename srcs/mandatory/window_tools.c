@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 03:42:07 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/17 21:39:37 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/18 11:19:23 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ int	end_game(t_info *info)
 	i = 0;
 	while (info->map->back)
 		info->map = info->map->back;
-	mlx_destroy_image(info->mlx, info->floor->img);
-	free(info->floor);
+	if (info->floor->img)
+		mlx_destroy_image(info->mlx, info->floor->img);
+	if (info->floor)
+		free(info->floor);
 	destroy_elems(info->mlx, info->exit);
 	destroy_elems(info->mlx, info->wall);
 	destroy_elems(info->mlx, info->collec);
