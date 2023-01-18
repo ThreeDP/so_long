@@ -35,7 +35,7 @@ all: libft $(NAME)
 $(NAME): $(SRCS_GNL:.c=.o) $(SRCS:.c=.o) $(HEADERS)
 	$(CC) -g $(SRCS:.c=.o) $(SRCS_GNL:.c=.o) -L mlx_linux -l mlx_Linux -L /usr/lib $(MLX) -I $(LIBS_PATH) $(LIBS) -o $(NAME)
 
-bonus: $(SRCS_GNL:.c=.o) $(SRCS_B:.c=.o) $(HEADERS_B)
+bonus: libft $(SRCS_GNL:.c=.o) $(SRCS_B:.c=.o) $(HEADERS_B)
 	$(CC) -g $(SRCS_B:.c=.o) $(SRCS_GNL:.c=.o) -L mlx_linux -l mlx_Linux -L /usr/lib $(MLX) -I $(LIBS_PATH) $(LIBS) -o $(NAME)
 
 libft:
@@ -49,6 +49,8 @@ v:
 
 clean:
 	@rm	-f $(SRCS:.c=.o) $(SRCS_B:.c=.o)
+	@$(MAKE) $@ -C $(LIBS_PATH) --no-print-directory
+	@rm -f $(GNL_PATH)/*.o 
 
 fclean: clean
 	@rm	-f $(NAME)
