@@ -24,19 +24,19 @@ SRCS_B			=			$(addprefix $(BONP), window_tools_bonus.c game_tools_bonus.c so_lon
 							map_control_bonus.c anim_utils_bonus.c)
 LIBS			=			-L $(LIBS_PATH) -lft
 FLAGS 			= 			-Wall -Werror -Wextra
-MLX				=			-Imlx_linux -lXext -lX11 -lm -lz
+MLX				=			-lmlx -lXext -lX11
 ################ RULES		##################
 
 all: libft $(NAME)
 
 %.o: %.c
-	$(CC) -I /usr/include -I mlx_linux -I $(LIBS_PATH) $(FLAGS) -O3 -c $< -o $@
+	$(CC) -I $(LIBS_PATH) $(FLAGS) -c $< -o $@
 
 $(NAME): $(SRCS_GNL:.c=.o) $(SRCS:.c=.o) $(HEADERS)
-	$(CC) -g $(SRCS:.c=.o) $(SRCS_GNL:.c=.o) -L mlx_linux -l mlx_Linux -L /usr/lib $(MLX) -I $(LIBS_PATH) $(LIBS) -o $(NAME)
+	$(CC) -g $(SRCS:.c=.o) $(SRCS_GNL:.c=.o) $(MLX) -I $(LIBS_PATH) $(LIBS) -o $(NAME)
 
 bonus: libft $(SRCS_GNL:.c=.o) $(SRCS_B:.c=.o) $(HEADERS_B)
-	$(CC) -g $(SRCS_B:.c=.o) $(SRCS_GNL:.c=.o) -L mlx_linux -l mlx_Linux -L /usr/lib $(MLX) -I $(LIBS_PATH) $(LIBS) -o $(NAME)
+	$(CC) -g $(SRCS_B:.c=.o) $(SRCS_GNL:.c=.o) $(MLX) -I $(LIBS_PATH) $(LIBS) -o $(NAME)
 
 libft:
 	$(MAKE) -C $(LIBS_PATH) --no-print-directory

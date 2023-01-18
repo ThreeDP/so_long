@@ -6,13 +6,14 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:29 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/17 20:49:20 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/17 21:39:06 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
+# include <mlx.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>

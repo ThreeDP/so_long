@@ -6,11 +6,10 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 08:42:35 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/17 20:57:56 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/17 21:39:24 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <mlx.h>
 #include "utils.h"
 #include "so_long.h"
 #include "../libft/srcs/libft.h"
