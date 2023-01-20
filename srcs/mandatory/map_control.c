@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:19:12 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/20 04:51:17 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/20 14:53:43 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,21 @@ size_t	all_wall(char *wall)
 	return (i);
 }
 
-int	open_map(t_map **map, t_map **cpy, char **av)
+int	open_map(t_info *info, t_map **cpy, char **av)
 {
 	int		fd;
 
-	check_screen_size(av);
+	check_screen_size(info, av);
 	fd = open(av[1], O_RDONLY);
 	if (fd < 0)
 		return (2);
-	*map = get_map(fd);
+	info->map = get_map(fd);
 	close(fd);
-	if (!*map)
-		return (1);
-	*cpy = cpy_map(*map);
+	if (!info->map)
+		clean_initial(info, *cpy, ERRA);
+	*cpy = cpy_map(info->map);
 	if (!*cpy)
-		return (1);
+		clean_initial(info, *cpy, ERRA);
 	return (0);
 }
 

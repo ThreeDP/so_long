@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 17:09:17 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/20 03:27:01 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/20 15:17:15 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ void	clean_data(t_data *data[])
 		if (data[i])
 		{
 			free(data[i]);
-			data[i++] = NULL;
+			data[i] = NULL;
 		}
+		i++;
 	}
 }
 
@@ -46,18 +47,16 @@ void	clean_all_data(t_info *info)
 	}
 }
 
-void    clean_initial(t_info *info, t_map *cpy, int err)
+void	clean_initial(t_info *info, t_map *cpy, int err)
 {
-    clear_map(&cpy, free);
+	clean_elems(info->mlx, info);
 	clear_map(&info->map, free);
+	clear_map(&cpy, free);
 	clean_all_data(info);
 	clean_window(info);
 	if (info)
-	{
 		free(info);
-		info = NULL;
-	}
-    merr(ERR, err, info->err);
+	merr(ERR, 2, err);
 }
 
 void	destroy_elems(void *mlx, t_data *data[])

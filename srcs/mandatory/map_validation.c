@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 19:03:31 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/19 21:32:32 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/20 11:48:28 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,16 @@ int	check_extension(char const *s1, char const *set)
 
 int	elems_validation(t_info **info)
 {
+	int	err;
+
+	err = 0;
 	if ((*info)->p != 1)
-		return ((*info)->err = ERRP, 1);
-	if ((*info)->e != 1)
-		return ((*info)->err = ERRE, 1);
-	if ((*info)->c < 1)
-		return ((*info)->err = ERRC, 1);
-	return (0);
+		err = set_err(*info, ERRP, 1);
+	else if ((*info)->e != 1)
+		err = set_err(*info, ERRE, 1);
+	else if ((*info)->c < 1)
+		err = set_err(*info, ERRC, 1);
+	return (err);
 }
 
 size_t	search_elems(char *str, t_info **info)
@@ -58,16 +61,18 @@ size_t	search_elems(char *str, t_info **info)
 
 	size = 0;
 	if (!is_wall(str[size]))
-		return ((*info)->err = ERRW, 0);
+		size = set_err(*info, ERRW, 1);
+	if (size)
+		return (size);
 	size++;
 	while (str[size])
 	{
 		if (is_collec(str[size]))
-			(*info)->c = 1;
+			(*info)->c += 1;
 		else if (is_exit(str[size]))
-			(*info)->e = 1;
+			(*info)->e += 1;
 		else if (is_player(str[size]))
-			(*info)->p = 1;
+			(*info)->p += 1;
 		else if (is_wall(str[size]) || is_path(str[size]))
 			;
 		else
@@ -75,7 +80,7 @@ size_t	search_elems(char *str, t_info **info)
 		size++;
 	}
 	if (!is_wall(str[size - 1]))
-		return ((*info)->err = ERRW, 0);
+		size = set_err(*info, ERRW, 1);
 	return (size);
 }
 
@@ -83,8 +88,10 @@ int	path_validation(t_map *map, t_info *info)
 {
 	char	*p;
 	int		x;
+	int		err;
 
 	p = NULL;
+	err = 0;
 	x = find_player(&map, 'P');
 	map_path(map, x);
 	while (map->back)
@@ -92,41 +99,37 @@ int	path_validation(t_map *map, t_info *info)
 	while (map)
 	{
 		if (ft_strchr(map->cols, 'E') || ft_strchr(map->cols, 'C'))
-			return (info->err = ERRF, 1);
+			err = set_err(info, ERRF, 1);
 		map = map->next;
 	}
-	return (0);
+	return (err);
 }
 
-int	map_validation(t_info **info)
+int	map_validation(t_map *map, t_info **info, int err)
 {
 	int		i;
 	size_t	n_cols;
-	t_map	*map;
 
 	i = 0;
-	map = (*info)->map;
 	n_cols = map->n_cols;
 	while (map && map->next)
 	{
-		if (map->n_cols != n_cols || !n_cols)
-			return ((*info)->err = ERRS, 1);
 		if (map->line == 1 && map->n_cols != all_wall(map->cols))
-			return ((*info)->err = ERRW, 1);
+			err = set_err(*info, ERRW, 1);
+		if (map->n_cols != n_cols || !n_cols)
+			err = set_err(*info, ERRS, 1);
 		else if (map->n_cols != search_elems(map->cols, info))
 			return (1);
+		if(err)
+			return (err);
 		map = map->next;
 	}
 	if (elems_validation(info))
 		return (1);
 	if (map->n_cols != all_wall(map->cols))
-		return ((*info)->err = ERRW, 1);
-	if (map->n_cols != n_cols)
-		return ((*info)->err = ERRS, 1);
+		err = set_err(*info, ERRW, 1);
+	else if (map->n_cols != n_cols)
+		err = set_err(*info, ERRS, 1);
 	(*info)->n_lines = map->line;
-	return (0);
+	return (err);
 }
-
-
-
-

@@ -22,8 +22,9 @@ GNL				=			$(addprefix $(GNL_PATH), get_next_line.c get_next_line_utils.c)
 ################ PROJ SRCS	##################
 DIR_MAN			=			../srcs/mandatory/
 H_MAN			=			$(addprefix $(DIR_MAN), utils.h so_long.h)
-SRCS_MAN		=			$(addprefix $(DIR_MAN), anim_utils.c create_initial.c err.c game_tools.c \
-							map_control.c map_images.c map_utils.c map_validation.c  utils.c window_tools.c)
+SRCS_MAN		=			$(addprefix $(DIR_MAN),game_tools.c utils.c map_images.c \
+							create_initial.c err.c map_utils.c map_validation.c map_control.c anim_utils.c \
+							memory_free.c game_utils.c)
 DIR_BNS			=			../srcs/bonus/
 H_BNS			=			$(addprefix $(DIR_BNS), utils_bonus.h so_long_bonus.h)
 SRCS_BNS		=			$(addprefix $(DIR_BNS), anim_utils_bonus.c create_initial_bonus.c err_bonus.c \

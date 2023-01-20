@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:29 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/20 05:11:44 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/20 15:34:23 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define MAX_H 1080
 # define MIN_W 159
 # define MIN_H 159
+# define MAX_F 2500
 # define PXL 40
 /**************************************/
 
@@ -58,6 +59,7 @@ enum {
 # define ERRF 'F'
 # define ERRO 'O'
 # define ERRN 'N'
+# define ERRT 'T'
 /*************************************/
 
 ///////////// Error messages /////////////
@@ -141,6 +143,8 @@ typedef struct s_info
 	t_data	*floor;
 	t_data	*player[4][4];
 	int		direc;
+	char	*msg;
+	int		time;
 }				t_info;
 
 // Game tools
@@ -150,29 +154,30 @@ int			find_player(t_map **map, char c);
 
 // Anime Utils
 int			anim_direction(int keycode, int direc);
-int			time_anim(int anim);
-
-//////////////// REFACTORY //////////////////
+int			time_anim(int anim, int stop);
+int			control_frames(int lines, int cols);
 
 // Create Initial
+void		init_data(t_info **info);
 void		new_data(t_data *data[], t_info *info);
 t_map		*ft_mapnew(int line, char *cols, size_t n_cols);
 t_info		*ft_newinfo(void);
 
 // Game Utils
 void		clean_window(t_info *info);
-void		check_screen_size(char **av);
+void		check_screen_size(t_info *info, char **av);
 void		start_game(t_map *map, t_info *info);
 int			end_game(t_info *info);
 
 // Map Control
 void		valid_y_axis(t_map **next, t_map **back, t_map *map);
 size_t		all_wall(char *wall);
-int			open_map(t_map **map, t_map **cpy, char **av);
+int			open_map(t_info *info, t_map **cpy, char **av);
 void		map_path(t_map *map, int x);
 int			key_hook(int keycode, t_info *info);
 
 // Error Handle
+int			set_err(t_info *info, char err, int code);
 int			print_message(char *str, char *msg);
 int			print_err(char *str, int err);
 int			merr(char *str, int code, int err);
@@ -182,7 +187,7 @@ void		handle_err(t_info **info, char **av);
 void		set_elem(void *mlx, t_data *elem, char *path, t_info *info);
 void		set_player_imgs(t_info *info);
 void		set_elems(t_info *info);
-void		put_images(t_info *d, char *cols, int y);
+void		put_images(t_info *d, char *cols, int y, int time);
 int			put_in_window(t_info *info);
 
 // Validations
@@ -190,7 +195,7 @@ int			check_extension(char const *s1, char const *set);
 int			elems_validation(t_info **info);
 size_t		search_elems(char *str, t_info **info);
 int			path_validation(t_map *map, t_info *info);
-int			map_validation(t_info **info);
+int			map_validation(t_map *map, t_info **info, int err);
 
 // Map utils
 t_map		*ft_maplast(t_map *map);

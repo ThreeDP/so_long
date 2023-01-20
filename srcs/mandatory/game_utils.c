@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 18:57:16 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/20 04:51:57 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/20 12:41:31 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "../get_next_line/get_next_line.h"
 #include "utils.h"
 
-void	check_screen_size(char **av)
+void	check_screen_size(t_info *info, char **av)
 {
 	int		fd;
 	char	*str;
@@ -37,6 +37,7 @@ void	check_screen_size(char **av)
 		cols++;
 	}
 	close(fd);
+	info->time = control_frames(lines, cols);
 	if ((PXL * lines) > MAX_H || (PXL * cols) > MAX_W)
 		merr(ERR, 1, ERRO);
 	if ((PXL * lines) < MIN_H && (PXL * cols) < MIN_W)
@@ -61,6 +62,7 @@ void	clean_window(t_info *info)
 
 int	end_game(t_info *info)
 {
+	clean_elems(info->mlx, info);
 	clear_map(&info->map, free);
 	clean_all_data(info);
 	clean_window(info);
@@ -77,8 +79,7 @@ void	start_game(t_map *map, t_info *info)
 	int	n_lines;
 	int	n_cols;
 
-	info->mlx = NULL;
-	info->win = NULL;
+
 	n_lines = info->n_lines;
 	n_cols = map->n_cols;
 	info->map = map;

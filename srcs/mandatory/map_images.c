@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 08:42:35 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/20 04:48:07 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/20 14:51:25 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	set_elem(void *mlx, t_data *elem, char *path, t_info *info)
 		clean_elems(mlx, info);
 		clear_map(&info->map, free);
 		clean_all_data(info);
-		free(info->mlx);
+		if (info->mlx)
+			free(info->mlx);
 		if (info)
 		{
 			free(info);
@@ -73,7 +74,7 @@ void	set_elems(t_info *info)
 	set_elem(info->mlx, info->exit[3], PATHE_3, info);
 }
 
-void	put_images(t_info *d, char *cols, int y)
+void	put_images(t_info *d, char *cols, int y, int time)
 {
 	int			i;
 	int			x;
@@ -98,7 +99,7 @@ void	put_images(t_info *d, char *cols, int y)
 		x += PXL;
 		i++;
 	}
-	a = time_anim(a);
+	a = time_anim(a, time);
 }
 
 int	put_in_window(t_info *info)
@@ -112,7 +113,7 @@ int	put_in_window(t_info *info)
 	map = info->map;
 	while (map)
 	{
-		put_images(info, map->cols, y);
+		put_images(info, map->cols, y, info->time);
 		y += PXL;
 		if (!map->next)
 			break ;
