@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 17:15:10 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/18 19:38:38 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/20 19:53:40 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,20 @@
 
 int	main(int ac, char **av)
 {
-	t_map	*map;
-	t_map	*cpy;
+	int		err;
 	t_info	*info;
 
-	if (open(PATHP_A0, O_RDONLY) < 0)
-		return (perror("NO PATH"), 1);
+	info = NULL;
 	if (ac != 2)
-		merr(ERRNOF);
+		merr(ERR, 1, ERRF);
 	if (check_extension(av[1], ".ber"))
-		merr(ERREXT);
-	open_map(&map, &cpy, av);
+		merr(ERR, 1, ERRT);
+	err = check_screen_size(av, 0, 0, 0);
+	if (err)
+		merr(ERR, 1, err);
 	info = ft_newinfo();
-	if (!map_validation(map, &info))
-		handle_err(&map, &info);
-	if (path_validation(cpy, info))
-	{
-		clear_map(&cpy, free);
-		handle_err(&map, &info);
-	}
-	else
-		clear_map(&cpy, free);
-	start_game(map, info);
+	handle_err(&info, av);
+	info->time = control_frames(info->n_lines, info->map->n_cols);
+	start_game(info->map, info);
 	return (0);
 }

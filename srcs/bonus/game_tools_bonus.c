@@ -6,14 +6,14 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 02:43:17 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/17 20:30:15 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/20 19:27:30 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 #include "../libft/srcs/libft.h"
 
-void	my_swap(char *p, char *w, int *c, int *e)
+void	swap_pos(char *p, char *w, int *c, int *e)
 {
 	char	x;
 
@@ -32,26 +32,38 @@ void	my_swap(char *p, char *w, int *c, int *e)
 	*w = x;
 }
 
+void	print_result(t_info *info, char *walk)
+{
+	info->msg = ft_strjoin("Number of Moves: ", walk);
+	print_message("\nYou Win!\n", info->msg);
+	if (info->msg)
+		free(info->msg);
+	if (walk)
+		free(walk);
+	end_game(info);
+}
+
 void	move_player(int pos, t_info *info, int x, char *new_pos)
 {
 	char		*map_cols;
+	char		*walk;
 	static int	l;
 
+	walk = NULL;
 	map_cols = info->map->cols;
 	if (info->direc != l)
-	{
 		l = info->direc;
-	}
 	else if (new_pos[x] != '1' && (new_pos[x] != 'E' || info->c == 0))
 	{
-		my_swap(&map_cols[pos], &new_pos[x], &info->c, &info->e);
+		swap_pos(&map_cols[pos], &new_pos[x], &info->c, &info->e);
 		info->walk++;
+		walk = ft_itoa(info->walk);
+		print_message("\nMoves: ", walk);
 	}
 	if (!info->c && !info->e)
-	{
-		write(1, "You Win!\n", 9);
-		end_game(info);
-	}
+		print_result(info, walk);
+	if (walk)
+		free(walk);
 }
 
 int	find_player(t_map **map, char c)

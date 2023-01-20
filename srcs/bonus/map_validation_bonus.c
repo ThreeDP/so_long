@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 19:03:31 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/18 19:31:26 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/20 19:28:46 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,29 @@ int	check_extension(char const *s1, char const *set)
 	return (0);
 }
 
+int	elems_validation(t_info **info)
+{
+	int	err;
+
+	err = 0;
+	if ((*info)->p != 1)
+		err = set_err(*info, ERRP, 1);
+	else if ((*info)->e != 1)
+		err = set_err(*info, ERRE, 1);
+	else if ((*info)->c < 1)
+		err = set_err(*info, ERRC, 1);
+	return (err);
+}
+
 size_t	search_elems(char *str, t_info **info)
 {
 	size_t	size;
 
 	size = 0;
 	if (!is_wall(str[size]))
-		return ((*info)->err += ERRW, 0);
+		size = set_err(*info, ERRW, 1);
+	if (size)
+		return (size);
 	size++;
 	while (str[size])
 	{
@@ -64,7 +80,7 @@ size_t	search_elems(char *str, t_info **info)
 		size++;
 	}
 	if (!is_wall(str[size - 1]))
-		return ((*info)->err += ERRW, 0);
+		size = set_err(*info, ERRW, 1);
 	return (size);
 }
 
@@ -72,8 +88,10 @@ int	path_validation(t_map *map, t_info *info)
 {
 	char	*p;
 	int		x;
+	int		err;
 
 	p = NULL;
+	err = 0;
 	x = find_player(&map, 'P');
 	map_path(map, x);
 	while (map->back)
@@ -81,16 +99,13 @@ int	path_validation(t_map *map, t_info *info)
 	while (map)
 	{
 		if (ft_strchr(map->cols, 'E') || ft_strchr(map->cols, 'C'))
-		{
-			info->err += ERRF;
-			return (1);
-		}
+			err = set_err(info, ERRF, 1);
 		map = map->next;
 	}
-	return (0);
+	return (err);
 }
 
-int	map_validation(t_map *map, t_info **info)
+int	map_validation(t_map *map, t_info **info, int err)
 {
 	int		i;
 	size_t	n_cols;
@@ -99,37 +114,22 @@ int	map_validation(t_map *map, t_info **info)
 	n_cols = map->n_cols;
 	while (map && map->next)
 	{
-		if (map->n_cols != n_cols || !n_cols)
-			return ((*info)->err += ERRS, 0);
 		if (map->line == 1 && map->n_cols != all_wall(map->cols))
-			return ((*info)->err += ERRW, 0);
+			err = set_err(*info, ERRW, 1);
+		if (map->n_cols != n_cols || !n_cols)
+			err = set_err(*info, ERRS, 1);
 		else if (map->n_cols != search_elems(map->cols, info))
-			return (0);
+			return (1);
+		if (err)
+			return (err);
 		map = map->next;
 	}
 	if (elems_validation(info))
-		return (0);
+		return (1);
 	if (map->n_cols != all_wall(map->cols))
-		return ((*info)->err += ERRW, 0);
-	if (map->n_cols != n_cols)
-		return ((*info)->err += ERRS, 0);
+		err = set_err(*info, ERRW, 1);
+	else if (map->n_cols != n_cols)
+		err = set_err(*info, ERRS, 1);
 	(*info)->n_lines = map->line;
-	return (1);
-}
-
-void	map_path(t_map *map, int x)
-{
-	if (map->cols[x] == '1' || map->cols[x] == 'X' || map->cols[x] == 'S')
-		return ;
-	if (map->cols[x] == 'E')
-	{
-		map->cols[x] = 'S';
-		return ;
-	}
-	else
-		map->cols[x] = 'X';
-	map_path(map->next, x);
-	map_path(map->back, x);
-	map_path(map, x + 1);
-	map_path(map, x - 1);
+	return (err);
 }

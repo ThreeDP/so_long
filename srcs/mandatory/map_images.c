@@ -6,14 +6,13 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 08:42:35 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/20 17:11:55 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/20 19:37:53 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include "so_long.h"
 #include "../libft/srcs/libft.h"
-#include <errno.h>
 
 void	set_elem(void *mlx, t_data *elem, char *path, t_info *info)
 {
@@ -94,10 +93,8 @@ int	put_in_window(t_info *info)
 {
 	int		y;
 	t_map	*map;
-	char	*walk;
 
 	y = 0;
-	walk = NULL;
 	map = info->map;
 	while (map)
 	{
