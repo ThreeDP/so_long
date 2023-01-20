@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:19:12 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/20 14:53:43 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/20 15:50:42 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	open_map(t_info *info, t_map **cpy, char **av)
 {
 	int		fd;
 
-	check_screen_size(info, av);
+	
 	fd = open(av[1], O_RDONLY);
 	if (fd < 0)
 		return (2);

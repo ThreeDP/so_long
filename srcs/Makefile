@@ -49,24 +49,24 @@ n:
 
 v: 
 #	$(VALGRI) ./so_long ./maps/.ber
-	$(VALGRI) ./so_long ./maps/big_map.ber
-	$(VALGRI) ./so_long ./maps/close_collecs.ber
-	$(VALGRI) ./so_long ./maps/exit_close.ber
-	$(VALGRI) ./so_long ./maps/exit_close.ber
-	$(VALGRI) ./so_long ./maps/more_exit.ber
-	$(VALGRI) ./so_long ./maps/more_players.ber
-	$(VALGRI) ./so_long ./maps/no_collecs.ber
-	$(VALGRI) ./so_long ./maps/no_exit.ber
-	$(VALGRI) ./so_long ./maps/no_map.ber
-	$(VALGRI) ./so_long ./maps/no_player.ber
-	$(VALGRI) ./so_long ./maps/no_square.ber
-	$(VALGRI) ./so_long ./maps/player_close.ber
-	$(VALGRI) ./so_long ./maps/space_map.ber
-	$(VALGRI) ./so_long ./maps/space_middle_map.ber
-	$(VALGRI) ./so_long ./maps/x_in_left_wall.ber
-	$(VALGRI) ./so_long ./maps/x_in_right_wall.ber
-	$(VALGRI) ./so_long ./maps/x_in_top_wall.ber
-	$(VALGRI) ./so_long ./maps/y_in_down_wall.ber
+#	$(VALGRI) ./so_long ./maps/big_map.ber
+#	$(VALGRI) ./so_long ./maps/close_collecs.ber
+#	$(VALGRI) ./so_long ./maps/exit_close.ber
+#	$(VALGRI) ./so_long ./maps/more_exit.ber
+#	$(VALGRI) ./so_long ./maps/more_players.ber
+#	$(VALGRI) ./so_long ./maps/no_collecs.ber
+#	$(VALGRI) ./so_long ./maps/no_exit.ber
+#	$(VALGRI) ./so_long ./maps/no_map.ber
+#	$(VALGRI) ./so_long ./maps/no_player.ber
+#	$(VALGRI) ./so_long ./maps/no_square.ber
+#	$(VALGRI) ./so_long ./maps/player_close.ber
+#	$(VALGRI) ./so_long ./maps/space_map.ber
+#	$(VALGRI) ./so_long ./maps/space_middle_map.ber
+#	$(VALGRI) ./so_long ./maps/x_in_left_wall.ber
+#	$(VALGRI) ./so_long ./maps/x_in_right_wall.ber
+#	$(VALGRI) ./so_long ./maps/x_in_top_wall.ber
+#	$(VALGRI) ./so_long ./maps/y_in_down_wall.ber
+	@cd			./maps/  && $(VALGRI) ../so_long valid_map.ber
 
 clean:
 	@rm	-f $(SRCS:.c=.o) $(SRCS_B:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 08:42:35 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/20 14:51:25 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/20 16:30:59 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,14 @@ void	set_elem(void *mlx, t_data *elem, char *path, t_info *info)
 	elem->img = mlx_xpm_file_to_image(mlx, path, &elem->w, &elem->h);
 	if (!elem->img)
 	{
-		clean_elems(mlx, info);
-		clear_map(&info->map, free);
+		clean_elems(info->mlx, info);
 		clean_all_data(info);
+		clear_map(&info->map, free);
+		mlx_destroy_display(info->mlx);
 		if (info->mlx)
 			free(info->mlx);
 		if (info)
-		{
 			free(info);
-			info = NULL;
-		}
 		merr(ERR, 2, ERRA);
 	}
 }

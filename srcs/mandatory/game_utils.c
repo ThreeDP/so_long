@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 18:57:16 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/20 12:41:31 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/20 16:30:55 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "../get_next_line/get_next_line.h"
 #include "utils.h"
 
-void	check_screen_size(t_info *info, char **av)
+int	check_screen_size(char **av)
 {
 	int		fd;
 	char	*str;
@@ -36,12 +36,14 @@ void	check_screen_size(t_info *info, char **av)
 		lines++;
 		cols++;
 	}
+	if (str)
+		free(str);
 	close(fd);
-	info->time = control_frames(lines, cols);
 	if ((PXL * lines) > MAX_H || (PXL * cols) > MAX_W)
-		merr(ERR, 1, ERRO);
+		return (ERRO);
 	if ((PXL * lines) < MIN_H && (PXL * cols) < MIN_W)
-		merr(ERR, 1, ERRN);
+		return (ERRN);
+	return (0);
 }
 
 void	clean_window(t_info *info)
