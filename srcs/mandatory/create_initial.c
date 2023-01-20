@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 03:30:17 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/17 20:55:33 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/20 03:25:10 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,26 @@ t_map	*ft_mapnew(int line, char *cols, size_t n_cols)
 	return (map);
 }
 
-void	new_data(t_data *data[])
+void	new_data(t_data *data[], t_info *info)
 {
 	int	i;
 
 	i = 0;
 	while (i < 4)
-		data[i++] = (t_data *) malloc(sizeof(t_data));
+	{
+		data[i] = (t_data *) malloc(sizeof(t_data));
+		if (!data[i])
+		{
+			clean_all_data(info);
+			if (info)
+			{
+				free(info);
+				info = NULL;
+			}
+			data[i]->img = NULL;
+		}
+		i++;
+	}
 }
 
 t_info	*ft_newinfo(void)
@@ -55,54 +68,15 @@ t_info	*ft_newinfo(void)
 	info->walk = 0;
 	info->n_lines = 0;
 	info->map = NULL;
-	new_data(info->exit);
-	new_data(info->collec);
-	new_data(info->wall);
+	info->mlx = NULL;
+	info->win = NULL;
+	new_data(info->exit, info);
+	new_data(info->collec, info);
+	new_data(info->wall, info);
 	info->floor = (t_data *) malloc(sizeof(t_data));
 	i = 0;
 	while (i < 4)
-		new_data(info->player[i++]);
+		new_data(info->player[i++], info);
 	info->direc = 0;
 	return (info);
-}
-
-void	check_screen_size(char **av)
-{
-	int		fd;
-	char	*str;
-	int		lines;
-	int		cols;
-
-	lines = 0;
-	cols = 0;
-	fd = open(av[1], O_RDONLY);
-	if (fd < 0)
-		merr(ERRNOF);
-	while (1)
-	{
-		str = get_next_line(fd);
-		if (!str)
-			break ;
-		free(str);
-		lines++;
-		cols++;
-	}
-	close(fd);
-	if ((PXL * lines) > MAX_H || (PXL * cols) > MAX_W)
-		merr(ERROUTRANGE);
-	if ((PXL * lines) < MIN_H && (PXL * cols) < MIN_W)
-		merr(ERRMINRANGE);
-}
-
-void	open_map(t_map **map, t_map **cpy, char **av)
-{
-	int		fd;
-
-	check_screen_size(av);
-	fd = open(av[1], O_RDONLY);
-	if (fd < 0)
-		merr(ERRNOF);
-	*map = get_map(fd);
-	close(fd);
-	*cpy = cpy_map(*map);
 }

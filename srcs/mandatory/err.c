@@ -6,49 +6,69 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 04:38:55 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/17 20:15:02 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/20 05:11:31 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./so_long.h"
 #include "../libft/srcs/libft.h"
 
-void	merr(char *err)
+int	print_message(char *str, char *msg)
 {
-	write(2, ERR, 6);
-	write(2, err, ft_strlen(err));
-	exit(1);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd(msg, 2);
+	return (1);
 }
 
-void	handle_err(t_map **map, t_info **info)
+int	print_err(char *str, int err)
 {
-	char	err;
+	int ret;
 
-	err = (*info)->err;
-	clear_map(map, free);
-	if ((*info))
-		free((*info));
+	ret = 0;
 	if (err == 'P')
-		merr(ERRPLAYER);
+		ret = print_message(str, ERRPLAYER);
 	else if (err == 'E')
-		merr(ERREXIT);
+		ret = print_message(str, ERREXIT);
 	else if (err == 'W')
-		merr(ERRWALL);
+		ret = print_message(str, ERRWALL);
 	else if (err == 'C')
-		merr(ERRCOLLEC);
+		ret = print_message(str, ERRCOLLEC);
 	else if (err == 'S')
-		merr(ERRSHAPE);
+		ret = print_message(str, ERRSHAPE);
 	else if (err == 'F')
-		merr(ERRPHATH);
+		ret = print_message(str, ERRPHATH);
+	else if (err == 'O')
+		ret = print_message(str, ERROUTRANGE);
+	else if (err == 'N')
+		ret = print_message(str, ERRMINRANGE);
+	return (ret);
 }
 
-int	elems_validation(t_info **info)
+int	merr(char *str, int code, int err)
 {
-	if ((*info)->p != 1)
-		return ((*info)->err += ERRP, 1);
-	if ((*info)->e != 1)
-		return ((*info)->err += ERRE, 1);
-	if ((*info)->c < 1)
-		return ((*info)->err += ERRC, 1);
-	return (0);
+
+	if (print_err(str, err))
+		exit(code);
+	perror(str);
+	exit(code);
+}
+
+void	handle_err(t_info **info, char **av)
+{
+	t_map	*cpy;
+	int		err;
+	t_info	*inf;
+
+	err = 0;
+	inf = *info;
+	err = open_map(&inf->map, &cpy, av);
+	if (err)
+		clean_initial(*info, cpy, err);
+	err = map_validation(info);
+	if (err)
+		clean_initial(*info, cpy, err);
+	err = path_validation(cpy, *info);
+	if (err)
+		clean_initial(*info, cpy, err);
+	clear_map(&cpy, free);
 }

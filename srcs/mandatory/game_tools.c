@@ -6,14 +6,14 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 02:43:17 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/17 20:54:17 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/20 04:53:27 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 #include "../libft/srcs/libft.h"
 
-void	my_swap(char *p, char *w, int *c, int *e)
+void	swap_pos(char *p, char *w, int *c, int *e)
 {
 	char	x;
 
@@ -46,7 +46,7 @@ void	move_player(int pos, t_info *info, int x, char *new_pos)
 	}
 	else if (new_pos[x] != '1' && (new_pos[x] != 'E' || info->c == 0))
 	{
-		my_swap(&map_cols[pos], &new_pos[x], &info->c, &info->e);
+		swap_pos(&map_cols[pos], &new_pos[x], &info->c, &info->e);
 		info->walk++;
 		walk = ft_itoa(info->walk);
 		write(1, "move: ", 6);

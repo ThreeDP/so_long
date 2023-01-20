@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:29 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/17 21:39:06 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/20 05:11:44 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,17 @@
 # include <fcntl.h>
 # include "utils.h"
 
+///////////// Config window /////////////
+
+# define NAME "Other Game: A history of nothing"
 # define MAX_W 1720
 # define MAX_H 1080
 # define MIN_W 159
 # define MIN_H 159
+# define PXL 40
+/**************************************/
 
-# define NAME "Other Game: A history of nothing"
+///////////// Control Keys /////////////
 
 enum {
 	A = 97,
@@ -40,15 +45,22 @@ enum {
 	DOWN = 65364,
 	ESC = 65307
 };
+/**************************************/
 
-# define ERRP 15
-# define ERRE 4
-# define ERRW 22
-# define ERRC 2
-# define ERRS 18
-# define ERRF 5
+///////////// Error flags /////////////
 
-# define PXL 40
+# define ERRA 'A'
+# define ERRP 'P'
+# define ERRE 'E'
+# define ERRW 'W'
+# define ERRC 'C'
+# define ERRS 'S'
+# define ERRF 'F'
+# define ERRO 'O'
+# define ERRN 'N'
+/*************************************/
+
+///////////// Error messages /////////////
 
 # define ERR "Error\n"
 # define ERRPLAYER "No player in the map!\n"
@@ -61,8 +73,10 @@ enum {
 # define ERRNOF "Map File not reporting or does not exist!\n"
 # define ERROUTRANGE "The map overflow the max screen view!\n"
 # define ERRMINRANGE "The map is too small!\n"
+/****************************************/
 
-# define PATHP_0 "./textures/player-0.xpm"
+///////////// Path .xpm Files /////////////
+
 # define PATHP_A0 "./textures/player-a0.xpm"
 # define PATHP_A1 "./textures/player-a1.xpm"
 # define PATHP_A2 "./textures/player-a2.xpm"
@@ -92,6 +106,7 @@ enum {
 # define PATHE_1 "./textures/exit-1.xpm"
 # define PATHE_2 "./textures/exit-2.xpm"
 # define PATHE_3 "./textures/exit-3.xpm"
+/****************************************/
 
 typedef struct s_data
 {
@@ -128,6 +143,55 @@ typedef struct s_info
 	int		direc;
 }				t_info;
 
+// Game tools
+void		swap_pos(char *p, char *w, int *c, int *e);
+void		move_player(int pos, t_info *info, int x, char *y);
+int			find_player(t_map **map, char c);
+
+// Anime Utils
+int			anim_direction(int keycode, int direc);
+int			time_anim(int anim);
+
+//////////////// REFACTORY //////////////////
+
+// Create Initial
+void		new_data(t_data *data[], t_info *info);
+t_map		*ft_mapnew(int line, char *cols, size_t n_cols);
+t_info		*ft_newinfo(void);
+
+// Game Utils
+void		clean_window(t_info *info);
+void		check_screen_size(char **av);
+void		start_game(t_map *map, t_info *info);
+int			end_game(t_info *info);
+
+// Map Control
+void		valid_y_axis(t_map **next, t_map **back, t_map *map);
+size_t		all_wall(char *wall);
+int			open_map(t_map **map, t_map **cpy, char **av);
+void		map_path(t_map *map, int x);
+int			key_hook(int keycode, t_info *info);
+
+// Error Handle
+int			print_message(char *str, char *msg);
+int			print_err(char *str, int err);
+int			merr(char *str, int code, int err);
+void		handle_err(t_info **info, char **av);
+
+// Map Images
+void		set_elem(void *mlx, t_data *elem, char *path, t_info *info);
+void		set_player_imgs(t_info *info);
+void		set_elems(t_info *info);
+void		put_images(t_info *d, char *cols, int y);
+int			put_in_window(t_info *info);
+
+// Validations
+int			check_extension(char const *s1, char const *set);
+int			elems_validation(t_info **info);
+size_t		search_elems(char *str, t_info **info);
+int			path_validation(t_map *map, t_info *info);
+int			map_validation(t_info **info);
+
 // Map utils
 t_map		*ft_maplast(t_map *map);
 void		ft_mapadd_back(t_map **map, t_map *new);
@@ -135,47 +199,11 @@ void		clear_map(t_map **map, void (*del)(void *));
 t_map		*cpy_map(t_map *map);
 t_map		*get_map(int fd);
 
-// Create Initial
-t_map		*ft_mapnew(int line, char *cols, size_t n_cols);
-t_info		*ft_newinfo(void);
-void		check_screen_size(char **av);
-void		open_map(t_map **map, t_map **cpy, char **av);
-
-// Game tools
-void		my_swap(char *p, char *w, int *c, int *e);
-void		move_player(int pos, t_info *info, int x, char *y);
-int			find_player(t_map **map, char c);
-
-// Map Images
-void		set_elem(void *mlx, t_data *elem, char *path);
-void		set_elems(t_info *info);
-void		put_images(t_info *d, char *cols, int y);
-int			put_in_window(t_info *info);
-
-// Game windows
-void		start_game(t_map *map, t_info *info);
-int			end_game(t_info *info);
-int			key_hook(int keycode, t_info *info);
-
-// Validations
-int			map_validation(t_map *map, t_info **info);
-int			path_validation(t_map *map, t_info *info);
-size_t		search_elems(char *str, t_info **info);
-void		map_path(t_map *map, int x);
-int			check_extension(char const *s1, char const *set);
-
-// Error Handle
-void		merr(char *err);
-void		handle_err(t_map **map, t_info **info);
-int			elems_validation(t_info **info);
-
-// Anime Utils
-int			anim_direction(int keycode, int direc);
-int			time_anim(int anim);
-
-//Map Control
-size_t		all_wall(char *wall);
-void		valid_y_axis(t_map **next, t_map **back, t_map *map);
+// Memory Free
+void		clean_data(t_data *data[]);
+void		clean_all_data(t_info *info);
+void		clean_initial(t_info *info, t_map *cpy, int err);
 void		destroy_elems(void *mlx, t_data *data[]);
+void		clean_elems(void *mlx, t_info *info);
 
 #endif

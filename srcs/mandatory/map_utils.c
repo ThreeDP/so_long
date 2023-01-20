@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 11:59:26 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/17 20:15:18 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/18 19:56:31 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void	clear_map(t_map **map, void (*del)(void *))
 	t_map	*head;
 	t_map	*next;
 
+	while ((*map)->back)
+		(*map) = (*map)->back;
 	head = *map;
 	next = *map;
 	while (next)

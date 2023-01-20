@@ -17,8 +17,9 @@ MANP			=			./mandatory/
 BONP			=			./bonus/
 HEADERS			=			$(addprefix $(MANP), so_long.h utils.h) $(addprefix $(LIBS_PATH), libft.h) $(addprefix $(GNL_PATH), get_next_line.h)
 HEADERS_B		=			$(addprefix $(BONP), so_long_bonus.h utils_bonus.h) $(addprefix $(LIBS_PATH), libft.h) $(addprefix $(GNL_PATH), get_next_line.h)
-SRCS			=			$(addprefix $(MANP), window_tools.c game_tools.c so_long.c utils.c map_images.c \
-							create_initial.c err.c map_utils.c map_validation.c map_control.c anim_utils.c)
+SRCS			=			$(addprefix $(MANP), game_tools.c so_long.c utils.c map_images.c \
+							create_initial.c err.c map_utils.c map_validation.c map_control.c anim_utils.c \
+							memory_free.c game_utils.c)
 SRCS_B			=			$(addprefix $(BONP), window_tools_bonus.c game_tools_bonus.c so_long_bonus.c utils_bonus.c \
 							map_images_bonus.c create_initial_bonus.c err_bonus.c map_utils_bonus.c map_validation_bonus.c \
 							map_control_bonus.c anim_utils_bonus.c)

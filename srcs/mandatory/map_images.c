@@ -6,57 +6,71 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 08:42:35 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/18 11:56:36 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/20 04:48:07 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include "so_long.h"
 #include "../libft/srcs/libft.h"
+#include <errno.h>
 
-void	set_elem(void *mlx, t_data *elem, char *path)
+void	set_elem(void *mlx, t_data *elem, char *path, t_info *info)
 {
 	elem->w = 0;
 	elem->h = 0;
 	elem->img = mlx_xpm_file_to_image(mlx, path, &elem->w, &elem->h);
+	if (!elem->img)
+	{
+		clean_elems(mlx, info);
+		clear_map(&info->map, free);
+		clean_all_data(info);
+		free(info->mlx);
+		if (info)
+		{
+			free(info);
+			info = NULL;
+		}
+		merr(ERR, 2, ERRA);
+	}
 }
 
 void	set_player_imgs(t_info *info)
 {
-	set_elem(info->mlx, info->player[0][0], PATHP_W0);
-	set_elem(info->mlx, info->player[0][1], PATHP_W1);
-	set_elem(info->mlx, info->player[0][2], PATHP_W2);
-	set_elem(info->mlx, info->player[0][3], PATHP_W3);
-	set_elem(info->mlx, info->player[1][0], PATHP_A0);
-	set_elem(info->mlx, info->player[1][1], PATHP_A1);
-	set_elem(info->mlx, info->player[1][2], PATHP_A2);
-	set_elem(info->mlx, info->player[1][3], PATHP_A3);
-	set_elem(info->mlx, info->player[2][0], PATHP_S0);
-	set_elem(info->mlx, info->player[2][1], PATHP_S1);
-	set_elem(info->mlx, info->player[2][2], PATHP_S2);
-	set_elem(info->mlx, info->player[2][3], PATHP_S3);
-	set_elem(info->mlx, info->player[3][0], PATHP_D0);
-	set_elem(info->mlx, info->player[3][1], PATHP_D1);
-	set_elem(info->mlx, info->player[3][2], PATHP_D2);
-	set_elem(info->mlx, info->player[3][3], PATHP_D3);
+	set_elem(info->mlx, info->player[0][0], PATHP_W0, info);
+	set_elem(info->mlx, info->player[0][1], PATHP_W1, info);
+	set_elem(info->mlx, info->player[0][2], PATHP_W2, info);
+	set_elem(info->mlx, info->player[0][3], PATHP_W3, info);
+	set_elem(info->mlx, info->player[1][0], PATHP_A0, info);
+	set_elem(info->mlx, info->player[1][1], PATHP_A1, info);
+	set_elem(info->mlx, info->player[1][2], PATHP_A2, info);
+	set_elem(info->mlx, info->player[1][3], PATHP_A3, info);
+	set_elem(info->mlx, info->player[2][0], PATHP_S0, info);
+	set_elem(info->mlx, info->player[2][1], PATHP_S1, info);
+	set_elem(info->mlx, info->player[2][2], PATHP_S2, info);
+	set_elem(info->mlx, info->player[2][3], PATHP_S3, info);
+	set_elem(info->mlx, info->player[3][0], PATHP_D0, info);
+	set_elem(info->mlx, info->player[3][1], PATHP_D1, info);
+	set_elem(info->mlx, info->player[3][2], PATHP_D2, info);
+	set_elem(info->mlx, info->player[3][3], PATHP_D3, info);
 }
 
 void	set_elems(t_info *info)
 {
 	set_player_imgs(info);
-	set_elem(info->mlx, info->wall[0], PATHW_0);
-	set_elem(info->mlx, info->wall[1], PATHW_1);
-	set_elem(info->mlx, info->wall[2], PATHW_2);
-	set_elem(info->mlx, info->wall[3], PATHW_3);
-	set_elem(info->mlx, info->floor, PATHF);
-	set_elem(info->mlx, info->collec[0], PATHC_0);
-	set_elem(info->mlx, info->collec[1], PATHC_1);
-	set_elem(info->mlx, info->collec[2], PATHC_2);
-	set_elem(info->mlx, info->collec[3], PATHC_3);
-	set_elem(info->mlx, info->exit[0], PATHE_0);
-	set_elem(info->mlx, info->exit[1], PATHE_1);
-	set_elem(info->mlx, info->exit[2], PATHE_2);
-	set_elem(info->mlx, info->exit[3], PATHE_3);
+	set_elem(info->mlx, info->wall[0], PATHW_0, info);
+	set_elem(info->mlx, info->wall[1], PATHW_1, info);
+	set_elem(info->mlx, info->wall[2], PATHW_2, info);
+	set_elem(info->mlx, info->wall[3], PATHW_3, info);
+	set_elem(info->mlx, info->floor, PATHF, info);
+	set_elem(info->mlx, info->collec[0], PATHC_0, info);
+	set_elem(info->mlx, info->collec[1], PATHC_1, info);
+	set_elem(info->mlx, info->collec[2], PATHC_2, info);
+	set_elem(info->mlx, info->collec[3], PATHC_3, info);
+	set_elem(info->mlx, info->exit[0], PATHE_0, info);
+	set_elem(info->mlx, info->exit[1], PATHE_1, info);
+	set_elem(info->mlx, info->exit[2], PATHE_2, info);
+	set_elem(info->mlx, info->exit[3], PATHE_3, info);
 }
 
 void	put_images(t_info *d, char *cols, int y)

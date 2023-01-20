@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 17:15:10 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/17 20:57:16 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/18 19:38:38 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	main(int ac, char **av)
 	t_map	*cpy;
 	t_info	*info;
 
+	if (open(PATHP_A0, O_RDONLY) < 0)
+		return (perror("NO PATH"), 1);
 	if (ac != 2)
 		merr(ERRNOF);
 	if (check_extension(av[1], ".ber"))
