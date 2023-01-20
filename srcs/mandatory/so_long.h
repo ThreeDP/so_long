@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:29 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/20 17:22:14 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/20 19:01:25 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ t_info		*ft_newinfo(void);
 
 // Game Utils
 void		clean_window(t_info *info);
-int			check_screen_size(char **av);
+int			check_screen_size(char **av, int lines, int cols, int c);
 void		start_game(t_map *map, t_info *info);
 void		end_game_err(t_info *info);
 int			end_game(t_info *info);

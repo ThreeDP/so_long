@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 17:09:17 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/20 16:29:53 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/20 18:09:50 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	clean_initial(t_info *info, t_map *cpy, int err)
 	clear_map(&cpy, free);
 	clean_all_data(info);
 	clean_window(info);
+	cpy = NULL;
 	if (info)
 		free(info);
 	merr(ERR, 2, err);

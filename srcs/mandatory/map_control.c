@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:19:12 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/20 17:16:15 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/20 17:33:45 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	open_map(t_info *info, t_map **cpy, char **av)
 	info->map = get_map(fd);
 	close(fd);
 	if (!info->map)
-		clean_initial(info, *cpy, ERRA);
+		clean_initial(info, NULL, ERRA);
 	*cpy = cpy_map(info->map);
 	if (!*cpy)
 		clean_initial(info, *cpy, ERRA);

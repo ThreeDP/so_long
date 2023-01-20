@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 18:57:16 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/20 17:24:55 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/20 19:03:13 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,33 +15,33 @@
 #include "../get_next_line/get_next_line.h"
 #include "utils.h"
 
-int	check_screen_size(char **av)
+int	check_screen_size(char **av, int lines, int cols, int c)
 {
 	int		fd;
 	char	*str;
-	int		lines;
-	int		cols;
 
-	lines = 0;
-	cols = 0;
 	fd = open(av[1], O_RDONLY);
 	if (fd < 0)
 		merr(ERR, 2, ERRA);
+	str = get_next_line(fd);
+	cols = ft_strlen(str);
 	while (1)
 	{
-		str = get_next_line(fd);
 		if (!str)
 			break ;
+		if (ft_strlen(str) == 1 && *str == '\n')
+			c = ERRS;
+		if ((size_t)cols < ft_strlen(str))
+			cols = ft_strlen(str);
 		free(str);
 		lines++;
-		cols++;
+		str = get_next_line(fd);
 	}
-	close(fd);
 	if ((PXL * lines) > MAX_H || (PXL * cols) > MAX_W)
-		return (ERRO);
+		c = ERRO;
 	if ((PXL * lines) < MIN_H && (PXL * cols) < MIN_W)
-		return (ERRN);
-	return (0);
+		c = ERRN;
+	return (c);
 }
 
 void	clean_window(t_info *info)
