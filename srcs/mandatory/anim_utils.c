@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:14:54 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/20 11:55:36 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/20 17:15:46 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	anim_direction(int keycode, int direc)
 	return (direc);
 }
 
-int control_frames(int lines, int cols)
+int	control_frames(int lines, int cols)
 {
 	int	time;
 

@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 03:30:17 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/20 15:10:38 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/20 17:16:39 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ void	new_data(t_data *data[], t_info *info)
 
 void	init_data(t_info **info)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	(*info)->mlx = NULL;
 	(*info)->win = NULL;

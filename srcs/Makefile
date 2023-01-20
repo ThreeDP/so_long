@@ -32,13 +32,13 @@ VALGRI			=			valgrind --track-origins=yes --error-exitcode=42 --leak-check=full 
 
 all: libft $(NAME)
 
-%.o: %.c
+%.o: %.c $(HEADERS) $(HEADERS_B)
 	$(CC) -I $(LIBS_PATH) $(FLAGS) -c $< -o $@
 
-$(NAME): $(SRCS_GNL:.c=.o) $(SRCS:.c=.o) $(HEADERS)
+$(NAME): $(SRCS_GNL:.c=.o) $(SRCS:.c=.o) 
 	$(CC) -g $(SRCS:.c=.o) $(SRCS_GNL:.c=.o) $(MLX) -I $(LIBS_PATH) $(LIBS) -o $(NAME)
 
-bonus: libft $(SRCS_GNL:.c=.o) $(SRCS_B:.c=.o) $(HEADERS_B)
+bonus: libft $(SRCS_GNL:.c=.o) $(SRCS_B:.c=.o) 
 	$(CC) -g $(SRCS_B:.c=.o) $(SRCS_GNL:.c=.o) $(MLX) -I $(LIBS_PATH) $(LIBS) -o $(NAME)
 
 libft:
@@ -67,6 +67,11 @@ v:
 #	$(VALGRI) ./so_long ./maps/x_in_top_wall.ber
 #	$(VALGRI) ./so_long ./maps/y_in_down_wall.ber
 	@cd			./maps/  && $(VALGRI) ../so_long valid_map.ber
+#	$(VALGRI) ./so_long ./maps/y_in_down_wall.ber etstes
+#	$(VALGRI) ./so_long 
+#	$(VALGRI) ./so_long ./maps/test
+#	$(VALGRI) ./so_long ./maps/y_in_down_wall.ber etstes
+#	$(VALGRI) ./so_long ./maps/ber.ber
 
 clean:
 	@rm	-f $(SRCS:.c=.o) $(SRCS_B:.c=.o)

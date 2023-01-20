@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 19:03:31 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/20 11:48:28 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/20 17:23:24 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ int	map_validation(t_map *map, t_info **info, int err)
 			err = set_err(*info, ERRS, 1);
 		else if (map->n_cols != search_elems(map->cols, info))
 			return (1);
-		if(err)
+		if (err)
 			return (err);
 		map = map->next;
 	}

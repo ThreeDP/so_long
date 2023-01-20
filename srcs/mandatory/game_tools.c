@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 02:43:17 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/20 12:24:22 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/20 17:24:01 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,24 @@ void	swap_pos(char *p, char *w, int *c, int *e)
 	*w = x;
 }
 
+void	print_result(t_info *info, char *walk)
+{
+	info->msg = ft_strjoin("Number of Moves: ", walk);
+	print_message("\nYou Win!\n", info->msg);
+	if (info->msg)
+		free(info->msg);
+	if (walk)
+		free(walk);
+	end_game(info);
+}
+
 void	move_player(int pos, t_info *info, int x, char *new_pos)
 {
 	char		*map_cols;
 	char		*walk;
 	static int	l;
 
-	walk = ft_itoa(info->walk);
+	walk = NULL;
 	map_cols = info->map->cols;
 	if (info->direc != l)
 		l = info->direc;
@@ -46,18 +57,11 @@ void	move_player(int pos, t_info *info, int x, char *new_pos)
 	{
 		swap_pos(&map_cols[pos], &new_pos[x], &info->c, &info->e);
 		info->walk++;
+		walk = ft_itoa(info->walk);
 		print_message("\nMoves: ", walk);
 	}
 	if (!info->c && !info->e)
-	{
-		info->msg = ft_strjoin("Number of Moves: ", walk);
-		print_message("You Win!\n", info->msg);
-		if (info->msg)
-			free(info->msg);
-		if (walk)
-			free(walk);
-		end_game(info);
-	}
+		print_result(info, walk);
 	if (walk)
 		free(walk);
 }

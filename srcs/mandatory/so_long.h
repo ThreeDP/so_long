@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:29 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/20 15:58:07 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/20 17:22:14 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,7 @@ typedef struct s_info
 void		swap_pos(char *p, char *w, int *c, int *e);
 void		move_player(int pos, t_info *info, int x, char *y);
 int			find_player(t_map **map, char c);
+void		print_result(t_info *info, char *walk);
 
 // Anime Utils
 int			anim_direction(int keycode, int direc);
@@ -167,6 +168,7 @@ t_info		*ft_newinfo(void);
 void		clean_window(t_info *info);
 int			check_screen_size(char **av);
 void		start_game(t_map *map, t_info *info);
+void		end_game_err(t_info *info);
 int			end_game(t_info *info);
 
 // Map Control

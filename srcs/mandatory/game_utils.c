@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 18:57:16 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/20 16:30:55 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/20 17:24:55 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ int	check_screen_size(char **av)
 		lines++;
 		cols++;
 	}
-	if (str)
-		free(str);
 	close(fd);
 	if ((PXL * lines) > MAX_H || (PXL * cols) > MAX_W)
 		return (ERRO);
@@ -62,6 +60,19 @@ void	clean_window(t_info *info)
 	}
 }
 
+void	end_game_err(t_info *info)
+{
+	clean_elems(info->mlx, info);
+	clean_all_data(info);
+	clear_map(&info->map, free);
+	mlx_destroy_display(info->mlx);
+	if (info->mlx)
+		free(info->mlx);
+	if (info)
+		free(info);
+	merr(ERR, 2, ERRA);
+}
+
 int	end_game(t_info *info)
 {
 	clean_elems(info->mlx, info);
@@ -81,13 +92,12 @@ void	start_game(t_map *map, t_info *info)
 	int	n_lines;
 	int	n_cols;
 
-
 	n_lines = info->n_lines;
 	n_cols = map->n_cols;
 	info->map = map;
 	info->mlx = mlx_init();
 	if (!info->mlx)
-		clean_initial(info, NULL, ERRA);
+		end_game_err(info);
 	set_elems(info);
 	info->win = mlx_new_window(info->mlx, PXL * n_cols, PXL * n_lines, NAME);
 	if (!info->win)

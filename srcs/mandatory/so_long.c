@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 17:15:10 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/20 15:57:30 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/20 17:23:38 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ int	main(int ac, char **av)
 	int		err;
 	t_info	*info;
 
-	//if (open(PATHP_A0, O_RDONLY) < 0)
-	//	return (perror("NO PATH"), 1);
 	info = NULL;
 	if (ac != 2)
 		merr(ERR, 1, ERRF);
