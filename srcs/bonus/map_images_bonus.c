@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 08:42:35 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/20 19:41:06 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/24 10:43:30 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,10 @@ void	set_elems(t_info *info)
 	set_elem(info->mlx, info->wall[3], PATHW_3, info);
 	set_elem(info->mlx, info->floor, PATHF, info);
 	set_elem(info->mlx, info->move, PATHM, info);
+	set_elem(info->mlx, info->enemy[0], PATHV_0, info);
+	set_elem(info->mlx, info->enemy[1], PATHV_1, info);
+	set_elem(info->mlx, info->enemy[2], PATHV_2, info);
+	set_elem(info->mlx, info->enemy[3], PATHV_3, info);
 	set_elem(info->mlx, info->collec[0], PATHC_0, info);
 	set_elem(info->mlx, info->collec[1], PATHC_1, info);
 	set_elem(info->mlx, info->collec[2], PATHC_2, info);
@@ -62,29 +66,16 @@ void	set_elems(t_info *info)
 	set_elem(info->mlx, info->exit[3], PATHE_3, info);
 }
 
-void	put_images(t_info *d, char *cols, int y, int time)
+void	put_images(t_info *info, char *cols, int time)
 {
 	int			i;
-	int			x;
-	int			l;
 	static int	a;
 
 	i = 0;
-	x = 0;
-	l = d->direc;
+	info->x = 0;
 	while (cols[i])
 	{
-		if (is_path(cols[i]))
-			mlx_put_image_to_window(d->mlx, d->win, d->floor->img, x, y);
-		else if (is_wall(cols[i]))
-			mlx_put_image_to_window(d->mlx, d->win, d->wall[a]->img, x, y);
-		else if (is_collec(cols[i]))
-			mlx_put_image_to_window(d->mlx, d->win, d->collec[a]->img, x, y);
-		else if (is_exit(cols[i]))
-			mlx_put_image_to_window(d->mlx, d->win, d->exit[a]->img, x, y);
-		else if (is_player(cols[i]))
-			mlx_put_image_to_window(d->mlx, d->win, d->player[l][a]->img, x, y);
-		x += PXL;
+		info->x += frame_anim(info, a, cols, i);
 		i++;
 	}
 	a = time_anim(a, time);
@@ -92,17 +83,16 @@ void	put_images(t_info *d, char *cols, int y, int time)
 
 int	put_in_window(t_info *info)
 {
-	int		y;
 	t_map	*map;
 	char	*walk;
 
-	y = 0;
+	info->y = 0;
 	walk = NULL;
 	map = info->map;
 	while (map)
 	{
-		put_images(info, map->cols, y, info->time);
-		y += PXL;
+		put_images(info, map->cols, info->time);
+		info->y += PXL;
 		if (!map->next)
 			break ;
 		map = map->next;

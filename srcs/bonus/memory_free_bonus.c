@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 17:09:17 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/20 19:48:29 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/23 19:31:24 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	clean_all_data(t_info *info)
 	clean_data(info->collec);
 	clean_data(info->exit);
 	clean_data(info->wall);
+	clean_data(info->enemy);
 	if (info->floor)
 	{
 		free(info->floor);
@@ -96,6 +97,7 @@ void	clean_elems(void *mlx, t_info *info)
 		mlx_destroy_image(mlx, info->move->img);
 		info->move->img = NULL;
 	}
+	destroy_elems(info->mlx, info->enemy);
 	destroy_elems(info->mlx, info->exit);
 	destroy_elems(info->mlx, info->wall);
 	destroy_elems(info->mlx, info->collec);

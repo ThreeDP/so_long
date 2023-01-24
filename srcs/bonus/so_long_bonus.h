@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:00:29 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/20 19:44:01 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/24 10:43:53 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,10 @@ enum {
 # define PATHW_3 "./textures/wall-3.xpm"
 # define PATHF "./textures/floor.xpm"
 # define PATHM "./textures/move.xpm"
+# define PATHV_0 "./textures/enemy-0.xpm"
+# define PATHV_1 "./textures/enemy-1.xpm"
+# define PATHV_2 "./textures/enemy-2.xpm"
+# define PATHV_3 "./textures/enemy-3.xpm"
 # define PATHC_0 "./textures/collec-0.xpm"
 # define PATHC_1 "./textures/collec-1.xpm"
 # define PATHC_2 "./textures/collec-2.xpm"
@@ -144,9 +148,12 @@ typedef struct s_info
 	t_data	*floor;
 	t_data	*move;
 	t_data	*player[4][4];
+	t_data	*enemy[4];
 	int		direc;
 	char	*msg;
 	int		time;
+	int		x;
+	int		y;
 }				t_info;
 
 // Game tools
@@ -154,17 +161,20 @@ void		swap_pos(char *p, char *w, int *c, int *e);
 void		move_player(int pos, t_info *info, int x, char *y);
 int			find_player(t_map **map, char c);
 void		print_result(t_info *info, char *walk);
+int			insert_enemies(t_info *info);
 
 // Anime Utils
 int			anim_direction(int keycode, int direc);
 int			time_anim(int anim, int stop);
 int			control_frames(int lines, int cols);
+int			frame_anim(t_info *d, int a, char *cols, int i);
 
 // Create Initial
 void		init_data(t_info **info);
 void		new_data(t_data *data[], t_info *info);
 t_map		*ft_mapnew(int line, char *cols, size_t n_cols);
 t_info		*ft_newinfo(void);
+int			is_free(t_map *map, int i);
 
 // Game Utils
 void		clean_window(t_info *info);
@@ -191,7 +201,7 @@ void		handle_err(t_info **info, char **av);
 void		set_elem(void *mlx, t_data *elem, char *path, t_info *info);
 void		set_player_imgs(t_info *info);
 void		set_elems(t_info *info);
-void		put_images(t_info *d, char *cols, int y, int time);
+void		put_images(t_info *d, char *cols, int time);
 int			put_in_window(t_info *info);
 
 // Validations

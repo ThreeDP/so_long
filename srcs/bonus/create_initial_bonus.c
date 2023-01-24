@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 03:30:17 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/20 19:54:47 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/24 10:35:12 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_map	*ft_mapnew(int line, char *cols, size_t n_cols)
 {
 	t_map	*map;
 
-	map = (t_map *)malloc(sizeof(t_map));
+	map = (t_map *) malloc(sizeof(t_map));
 	if (!map)
 		return (NULL);
 	map->line = line;
@@ -63,6 +63,7 @@ void	init_data(t_info **info)
 	if (!(*info)->move)
 		clean_initial(*info, NULL, ERRA);
 	(*info)->move->img = NULL;
+	new_data((*info)->enemy, *info);
 	new_data((*info)->exit, *info);
 	new_data((*info)->collec, *info);
 	new_data((*info)->wall, *info);
@@ -86,6 +87,20 @@ t_info	*ft_newinfo(void)
 	info->err = 'A';
 	info->walk = 0;
 	info->n_lines = 0;
+	info->x = 0;
+	info->y = 0;
 	init_data(&info);
 	return (info);
+}
+
+int	is_free(t_map *map, int i)
+{
+	char	*cols;
+
+	cols = map->cols;
+	if ((is_collec(cols[i - 1]) || is_path(cols[i - 1])) \
+		&& (is_collec(cols[i]) || is_path(cols[i])) \
+		&& (is_collec(cols[i + 1]) || is_path(cols[i + 1])))
+		return (1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 17:15:10 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/20 19:53:40 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/23 18:28:40 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	main(int ac, char **av)
 	info = ft_newinfo();
 	handle_err(&info, av);
 	info->time = control_frames(info->n_lines, info->map->n_cols);
+	insert_enemies(info);
 	start_game(info->map, info);
 	return (0);
 }

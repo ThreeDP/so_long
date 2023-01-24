@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:19:12 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/20 19:27:49 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/23 18:44:51 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,6 @@ void	valid_y_axis(t_map **next, t_map **back, t_map *map)
 		(*next) = map->next;
 	else
 		(*next) = map;
-}
-
-size_t	all_wall(char *wall)
-{
-	size_t	i;
-
-	i = 0;
-	while (is_wall(wall[i]))
-		i++;
-	return (i);
 }
 
 int	open_map(t_info *info, t_map **cpy, char **av)

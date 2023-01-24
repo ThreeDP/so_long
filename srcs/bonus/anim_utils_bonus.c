@@ -6,7 +6,7 @@
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 16:14:54 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/20 19:27:08 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/01/24 10:44:27 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,22 @@ int	control_frames(int lines, int cols)
 	else
 		time = (((PXL * PXL) * MAX_F) / ((cols * PXL) * (lines * PXL))) * 130;
 	return (time);
+}
+
+int	frame_anim(t_info *d, int a, char *cols, int i)
+{
+	if (is_path(cols[i]))
+		mlx_put_image_to_window(d->mlx, d->win, d->floor->img, d->x, d->y);
+	else if (is_wall(cols[i]))
+		mlx_put_image_to_window(d->mlx, d->win, d->wall[a]->img, d->x, d->y);
+	else if (is_collec(cols[i]))
+		mlx_put_image_to_window(d->mlx, d->win, d->collec[a]->img, d->x, d->y);
+	else if (is_exit(cols[i]))
+		mlx_put_image_to_window(d->mlx, d->win, d->exit[a]->img, d->x, d->y);
+	else if (is_player(cols[i]))
+		mlx_put_image_to_window(d->mlx, d->win, d->player[d->direc][a]->img, \
+		d->x, d->y);
+	else if (is_enemy(cols[i]))
+		mlx_put_image_to_window(d->mlx, d->win, d->enemy[a]->img, d->x, d->y);
+	return (PXL);
 }

@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_bonus.h                                      :+:      :+:    :+:   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/20 19:13:02 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/20 19:13:02 by dapaulin         ###   ########.fr       */
+/*   Created: 2023/01/20 19:29:25 by dapaulin          #+#    #+#             */
+/*   Updated: 2023/01/20 19:29:25 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_BONUS_H
-# define UTILS_BONUS_H
+#include "utils_bonus.h"
 
-# include <unistd.h>
+int	is_enemy(char c)
+{
+	if (c == 'V')
+		return (1);
+	return (0);
+}
 
-int		is_path(char c);
-int		is_wall(char c);
-int		is_collec(char c);
-int		is_exit(char c);
-int		is_player(char c);
-int		is_enemy(char c);
-size_t	all_wall(char *wall);
+size_t	all_wall(char *wall)
+{
+	size_t	i;
 
-#endif
+	i = 0;
+	while (is_wall(wall[i]))
+		i++;
+	return (i);
+}

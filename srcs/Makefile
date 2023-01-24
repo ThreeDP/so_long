@@ -9,7 +9,7 @@ L_GREEN			=			\033[0;32m
 L_GREENB		=			\033[1;32m
 ################ CONFIG		##################
 NAME			=			so_long
-
+NAME_B			=			so_long_bonus
 LIBS_PATH		=			./libft/srcs/
 GNL_PATH		=			./get_next_line/
 SRCS_GNL		=			$(addprefix $(GNL_PATH), get_next_line.c get_next_line_utils.c)
@@ -21,7 +21,7 @@ SRCS			=			$(addprefix $(MANP), game_tools.c so_long.c utils.c map_images.c \
 							create_initial.c err.c map_utils.c map_validation.c map_control.c anim_utils.c \
 							memory_free.c game_utils.c)
 SRCS_B			=			$(addprefix $(BONP), game_tools_bonus.c so_long_bonus.c utils_bonus.c map_images_bonus.c \
-							create_initial_bonus.c err_bonus.c map_utils_bonus.c map_validation_bonus.c map_control_bonus.c anim_utils_bonus.c \
+							create_initial_bonus.c err_bonus.c map_utils_bonus.c utils_2_bonus.c map_validation_bonus.c map_control_bonus.c anim_utils_bonus.c \
 							memory_free_bonus.c game_utils_bonus.c)
 LIBS			=			-L $(LIBS_PATH) -lft
 FLAGS 			= 			-Wall -Werror -Wextra
@@ -38,8 +38,10 @@ all: libft $(NAME)
 $(NAME): $(SRCS_GNL:.c=.o) $(SRCS:.c=.o) 
 	$(CC) -g $(SRCS:.c=.o) $(SRCS_GNL:.c=.o) $(MLX) -I $(LIBS_PATH) $(LIBS) -o $(NAME)
 
-bonus: libft $(SRCS_GNL:.c=.o) $(SRCS_B:.c=.o) 
-	$(CC) -g $(SRCS_B:.c=.o) $(SRCS_GNL:.c=.o) $(MLX) -I $(LIBS_PATH) $(LIBS) -o $(NAME)
+bonus: libft $(NAME_B)
+
+$(NAME_B): $(SRCS_GNL:.c=.o) $(SRCS_B:.c=.o) 
+	$(CC) -g $(SRCS_B:.c=.o) $(SRCS_GNL:.c=.o) $(MLX) -I $(LIBS_PATH) $(LIBS) -o $(NAME_B)
 
 libft:
 	$(MAKE) -C $(LIBS_PATH) --no-print-directory
@@ -79,7 +81,7 @@ clean:
 	@rm -f $(GNL_PATH)/*.o 
 
 fclean: clean
-	@rm	-f $(NAME)
+	@rm	-f $(NAME) $(NAME_B)
 	@$(MAKE) $@ -C $(LIBS_PATH) --no-print-directory
 
 re: fclean all
