@@ -46,6 +46,59 @@ $(NAME_B): $(SRCS_GNL:.c=.o) $(SRCS_B:.c=.o)
 libft:
 	$(MAKE) -C $(LIBS_PATH) --no-print-directory
 
+n:
+	norminette $(SRCS) $(HEADERS)
+
+v: 
+	-$(VALGRI) ./so_long_bonus ./maps/.ber
+	@echo "\n"
+	-$(VALGRI) ./so_long_bonus ./maps/big_map.ber
+	@echo "\n"
+	-$(VALGRI) ./so_long_bonus ./maps/close_collecs.ber
+	@echo "\n"
+	-$(VALGRI) ./so_long_bonus ./maps/exit_close.ber
+	@echo "\n"
+	-$(VALGRI) ./so_long_bonus ./maps/more_exit.ber
+	@echo "\n"
+	-$(VALGRI) ./so_long_bonus ./maps/more_players.ber
+	@echo "\n"
+	-$(VALGRI) ./so_long_bonus ./maps/no_collecs.ber
+	@echo "\n"
+	-$(VALGRI) ./so_long_bonus ./maps/no_exit.ber
+	@echo "\n"
+	-$(VALGRI) ./so_long_bonus ./maps/no_map.ber
+	@echo "\n"
+	-$(VALGRI) ./so_long_bonus ./maps/no_player.ber
+	@echo "\n"
+	-$(VALGRI) ./so_long_bonus ./maps/no_square.ber
+	@echo "\n"
+	-$(VALGRI) ./so_long_bonus ./maps/player_close.ber
+	@echo "\n"
+	-$(VALGRI) ./so_long_bonus ./maps/space_map.ber
+	@echo "\n"
+	-$(VALGRI) ./so_long_bonus ./maps/space_middle_map.ber
+	@echo "\n"
+	-$(VALGRI) ./so_long_bonus ./maps/x_in_left_wall.ber
+	@echo "\n"
+	-$(VALGRI) ./so_long_bonus ./maps/x_in_right_wall.ber
+	@echo "\n"
+	-$(VALGRI) ./so_long_bonus ./maps/x_in_top_wall.ber
+	@echo "\n"
+	-$(VALGRI) ./so_long_bonus ./maps/y_in_down_wall.ber
+	@echo "\n"
+	-@cd			./maps/  && $(VALGRI) ../so_long_bonus valid_map.ber
+	@echo "\n"
+	-$(VALGRI) ./so_long_bonus ./maps/y_in_down_wall.ber etstes
+	@echo "\n"
+	-$(VALGRI) ./so_long_bonus 
+	@echo "\n"
+	-$(VALGRI) ./so_long_bonus ./maps/test
+	@echo "\n"
+	-$(VALGRI) ./so_long_bonus ./maps/y_in_down_wall.ber etstes
+	@echo "\n"
+	-$(VALGRI) ./so_long_bonus ./maps/ber.ber
+	@echo "\n"
+
 clean:
 	@rm	-f $(SRCS:.c=.o) $(SRCS_B:.c=.o)
 	@$(MAKE) $@ -C $(LIBS_PATH) --no-print-directory
