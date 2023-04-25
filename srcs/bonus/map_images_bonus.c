@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_images_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dapaulin <dapaulin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dapaulin <dapaulin@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 08:42:35 by dapaulin          #+#    #+#             */
-/*   Updated: 2023/01/24 10:43:30 by dapaulin         ###   ########.fr       */
+/*   Updated: 2023/04/25 12:40:32 by dapaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,24 +70,32 @@ void	put_images(t_info *info, char *cols, int time)
 {
 	int			i;
 	static int	a;
+	char		*walk;
 
 	i = 0;
 	info->x = 0;
+	walk = ft_itoa(info->walk);
 	while (cols[i])
 	{
 		info->x += frame_anim(info, a, cols, i);
+		
+		mlx_put_image_to_window(info->mlx, info->win, info->move->img, 12, 4);
+		mlx_string_put(info->mlx, info->win, 15, 15, 0, walk);
+		if (walk)
+			free(walk);
+		walk = ft_itoa(info->walk);
 		i++;
 	}
+	if (walk)
+		free(walk);
 	a = time_anim(a, time);
 }
 
 int	put_in_window(t_info *info)
 {
 	t_map	*map;
-	char	*walk;
 
 	info->y = 0;
-	walk = NULL;
 	map = info->map;
 	while (map)
 	{
@@ -97,9 +105,5 @@ int	put_in_window(t_info *info)
 			break ;
 		map = map->next;
 	}
-	walk = ft_itoa(info->walk);
-	mlx_put_image_to_window(info->mlx, info->win, info->move->img, 12, 4);
-	mlx_string_put(info->mlx, info->win, 15, 15, 0, walk);
-	free(walk);
 	return (0);
 }
